@@ -15,39 +15,36 @@
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-entity mindar-image-target="targetIndex: 0" visible="true">
-        <a-gltf-model rotation="0 0 0 " position="0 -1 0" scale="0.01 0.01 0.01" src="#SoL" 
-        animation="property: rotation; to: 0 360 0; dur: 4000; easing: easeInOutQuad; loop: true"></a-gltf-model>
-        <!-- <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#bearModel" animation-mixer> -->
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#SoL" 
+        animation__scale="property: scale; to: 0.007 0.007 0.007; dur: 3000; easing: easeInOutQuad"
+        animation__rotate="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true"></a-gltf-model>
+        ></a-gltf-model>
+
+        <a-gltf-model rotation="0 180 0 " position="-4 0.5 0" scale="0.05 0.05 0.05" src="#Luft" 
+        animation="property: position; to: 4 0.5 0; dur: 4000; easing: linear; loop: true; dir: alternatez"></a-gltf-model> 
+        
       </a-entity>
 
-      <a-entity mindar-image-target="targetIndex: 0" visible="false">
-        <a-gltf-model rotation="0 180 0 " position="-3 0.5 0" scale="0.05 0.05 0.05" src="#Luft" 
-        animation="property: position; to: 3 0.5 0; dur: 3000; easing: easeInOutQuad; loop: true; dir: alternatez"></a-gltf-model>
-        <!-- <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#bearModel" animation-mixer> -->
-      </a-entity>
+      <!-- <script>
+        setTimeout(() => {
+          // const target = document.createElement("a-entity");
+          // target.setAttribute("mindar-image-target", "targetIndex: 0");
+          const Luft = document.createElement("a-entity");
+          Luft.setAttribute("gltf-model", "#Luft");
+          Luft.setAttribute("scale", "1 1 1");
+          Luft.setAttribute("rotation", "0 180 0");
+          Luft.setAttribute("position", "-4 0 -10");
+          // Luft.setAttribute("animation", "property: position; to: 4 0 0; dur: 4000; easing: linear; loop: true; dir: alternatez");
+          document.querySelector("a-scene").appendChild(Luft);
+        }, 4000);
+      </script> -->
+
       
+  
     </a-scene>
 
-    <script>
-      function startAnimation() {
-        setTimeout(function(){
-          document.getElementById("SoL").setAttribute("visible","false");
-          document.getElementById("Luft").setAttribute("visible","true");
-        }, 5000); // display model2 after 5 seconds
-
-        setTimeout(function(){
-          document.getElementById("Luft").setAttribute("visible","false");
-          document.getElementById("SoL").setAttribute("visible","true");
-          startAnimation(); // repeat the animation after 3 seconds
-        }, 8000); // display model1 after 3 seconds
-      }
-
-      // Call the startAnimation function after the scene is loaded
-      document.querySelector("a-scene").addEventListener("loaded", function() {
-        startAnimation();
-      });
-    </script>
+    
 
   </body>
 </html>
