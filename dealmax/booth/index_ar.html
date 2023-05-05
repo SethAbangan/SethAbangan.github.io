@@ -9,17 +9,45 @@
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
         <a-asset-item id="SoL" src="assets/statue_of_liberty.glb"></a-asset-item>
+        <a-asset-item id="Luft" src="assets/LufthansaBoeing737.glb"></a-asset-item>
         <!-- <a-asset-item id="bearModel" src="assets/scene.gltf"></a-asset-item> -->
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model rotation="0 0 0 " position="0 -0.5 0" scale="0.01 0.01 0.01" src="#SoL" 
-        animation-mixer animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternatez"></a-gltf-model>
-        
+      <a-entity mindar-image-target="targetIndex: 0" visible="true">
+        <a-gltf-model rotation="0 0 0 " position="0 -1 0" scale="0.01 0.01 0.01" src="#SoL" 
+        animation="property: rotation; to: 0 360 0; dur: 4000; easing: easeInOutQuad; loop: true"></a-gltf-model>
         <!-- <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#bearModel" animation-mixer> -->
       </a-entity>
+
+      <a-entity mindar-image-target="targetIndex: 0" visible="false">
+        <a-gltf-model rotation="0 180 0 " position="-3 0.5 0" scale="0.05 0.05 0.05" src="#Luft" 
+        animation="property: position; to: 3 0.5 0; dur: 3000; easing: easeInOutQuad; loop: true; dir: alternatez"></a-gltf-model>
+        <!-- <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#bearModel" animation-mixer> -->
+      </a-entity>
+      
     </a-scene>
+
+    <script>
+      function startAnimation() {
+        setTimeout(function(){
+          document.getElementById("SoL").setAttribute("visible","false");
+          document.getElementById("Luft").setAttribute("visible","true");
+        }, 5000); // display model2 after 5 seconds
+
+        setTimeout(function(){
+          document.getElementById("Luft").setAttribute("visible","false");
+          document.getElementById("SoL").setAttribute("visible","true");
+          startAnimation(); // repeat the animation after 3 seconds
+        }, 8000); // display model1 after 3 seconds
+      }
+
+      // Call the startAnimation function after the scene is loaded
+      document.querySelector("a-scene").addEventListener("loaded", function() {
+        startAnimation();
+      });
+    </script>
+
   </body>
 </html>
