@@ -22,33 +22,41 @@
 
         <a-asset-item id="paul_frank_animation" src="assets/paul_frank_animation.gif"></a-asset-item>
 
-        <video id="chameleon" autoplay loop="true" src="assets/chameleon.mp4"></video>
-        <video id="ripestyle" autoplay loop="true" src="assets/ripestyle.mp4"></video>
+        <a-scene>
+          <a-assets>
+            <video id="chameleon" autoplay loop="true" src="assets/chameleon.mp4"></video>
+          </a-assets>
+
+          <a-scene>
+            <a-assets>
+              <video id="ripestyle" autoplay loop="true" src="assets/ripestyle.mp4"></video>
+            </a-assets>
+
 
 
         
-        
-
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
 
       <a-entity mindar-image-target="targetIndex: 0">
         <!-- <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#bearModel" animation-mixer> -->
         <!-- <a-plane src="#card" position="0 0 0" height="0" width="0" rotation="0 0 0"></a-plane> -->
-        <a-plane src="#sky_castle" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
-        <a-plane src="#testimonial_03" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
-        <a-plane src="#testimonial_04" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
-        <a-plane src="#testimonial_05" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
-        <a-plane src="#testimonial_06" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
-        <a-plane src="#testimonial_07" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
-        <a-plane src="#testimonial_08" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
-        <a-plane src="#testimonial_09" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
-        <a-plane src="#testimonial_10" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
-        <a-plane src="#testimonial_11" position="0 -0.6 0" height="0" width="0" rotation="0 0 0"></a-plane>
+        <a-plane src="#sky_castle" position="1.2 0.8 0" height="103" width="5.75" rotation="0 0 0"></a-plane>
+        <a-plane src="#testimonial_03" position="1 0.8 0" height="1.8" width="9.2" rotation="0 0 0"></a-plane>
+        <a-plane src="#testimonial_04" position="1 0.8 0" height="1.8" width="9.2" rotation="0 0 0"></a-plane>
+        <a-plane src="#testimonial_05" position="1 0.8 0" height="1.8" width="9.2" rotation="0 0 0"></a-plane>
+        <a-plane src="#testimonial_06" position="1 0.8 0" height="1.8" width="9.2" rotation="0 0 0"></a-plane>
+        <a-plane src="#testimonial_07" position="1 0.8 0" height="1.8" width="9.2" rotation="0 0 0"></a-plane>
+        <a-plane src="#testimonial_08" position="1 0.8 0" height="1.8" width="9.2" rotation="0 0 0"></a-plane>
+        <a-plane src="#testimonial_09" position="1 0.8 0" height="1.8" width="9.2" rotation="0 0 0"></a-plane>
+        <a-plane src="#testimonial_10" position="1 0.8 0" height="1.8" width="9.2" rotation="0 0 0"></a-plane>
+        <a-plane src="#testimonial_11" position="1 0.8 0" height="1.8" width="9.2" rotation="0 0 0"></a-plane>
 
-        <a-gif rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#paul_frank_animation"></a-gif>
+        <a-gif src="#paul_frank_animation" position="0 0 3" height="1.5" width="1.5" rotation="0 0 0"></a-gif>
 
-        <a-video rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#chameleon"></a-video>
-        <a-video rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#ripestyle"></a-video>
+        <a-video src="#chameleon" width="5.0" height="2.5" position="0 0 2"></a-video>
+
+        <a-video src="#ripestyle" width="5.0" height="2.5" position="0 0 1"></a-video>
 
 
 
