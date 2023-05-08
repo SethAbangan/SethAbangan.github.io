@@ -8,14 +8,38 @@
   <body>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
+        <a-asset-item id="SoL" src="assets/statue_of_liberty.glb"></a-asset-item>
+        <a-asset-item id="Luft" src="assets/LufthansaBoeing737.glb"></a-asset-item>
         <!-- <a-asset-item id="bearModel" src="assets/scene.gltf"></a-asset-item> -->
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#bearModel" animation-mixer>
+        <a-gltf-model rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#SoL" 
+        animation__scale="property: scale; to: 0.007 0.007 0.007; dur: 3000; easing: easeInOutQuad"
+        animation__rotate="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true"></a-gltf-model>
+        ></a-gltf-model>
+
+        <a-gltf-model rotation="0 180 0 " position="-4 0.5 0" scale="0.05 0.05 0.05" src="#Luft" 
+        animation="property: position; to: 4 0.5 0; dur: 4000; easing: linear; loop: true; dir: alternatez"></a-gltf-model> 
+        
       </a-entity>
+
+      <!-- <script>
+        setTimeout(() => {
+          // const target = document.createElement("a-entity");
+          // target.setAttribute("mindar-image-target", "targetIndex: 0");
+          const Luft = document.createElement("a-entity");
+          Luft.setAttribute("gltf-model", "#Luft");
+          Luft.setAttribute("scale", "1 1 1");
+          Luft.setAttribute("rotation", "0 180 0");
+          Luft.setAttribute("position", "-4 0 -10");
+          // Luft.setAttribute("animation", "property: position; to: 4 0 0; dur: 4000; easing: linear; loop: true; dir: alternatez");
+          document.querySelector("a-scene").appendChild(Luft);
+        }, 4000);
+      </script> -->
+  
     </a-scene>
   </body>
 </html>

@@ -9,12 +9,49 @@
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
         <!-- <a-asset-item id="bearModel" src="assets/scene.gltf"></a-asset-item> -->
-      </a-assets>
+        <a-asset-item id="sky_castle" src="assets\sky_castle.png"></a-asset-item>
+        <a-asset-item id="testimonial_03" src="assets\testimonial_03.png"></a-asset-item>
+        <a-asset-item id="testimonial_04" src="assets\testimonial_04.png"></a-asset-item>
+        <a-asset-item id="testimonial_05" src="assets\testimonial_05.png"></a-asset-item>
+        <a-asset-item id="testimonial_06" src="assets\testimonial_06.png"></a-asset-item>
+        <a-asset-item id="testimonial_07" src="assets\testimonial_07.png"></a-asset-item>
+        <a-asset-item id="testimonial_08" src="assets\testimonial_08.png"></a-asset-item>
+        <a-asset-item id="testimonial_09" src="assets\testimonial_09.png"></a-asset-item>
+        <a-asset-item id="testimonial_10" src="assets\testimonial_10.png"></a-asset-item>
+        <a-asset-item id="testimonial_11" src="assets\testimonial_11.png"></a-asset-item>
+
+        <a-asset-item id="paul_frank_animation" src="assets\paul_frank_animation.gif"></a-asset-item>
+
+        <video id="chameleon" autoplay loop="true" src="https://www.youtube.com/watch?v=uwtOOb4SHhg"></video>
+        <video id="ripestyle" autoplay loop="true" src="https://www.youtube.com/watch?v=vodlC5_cAlg"></video>
+
+
+        
+        
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#bearModel" animation-mixer>
+        <!-- <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#bearModel" animation-mixer> -->
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#sky_castle"></a-plane>
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#testimonial_03"></a-plane>
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#testimonial_04"></a-plane>
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#testimonial_05"></a-plane>
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#testimonial_06"></a-plane>
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#testimonial_07"></a-plane>
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#testimonial_08"></a-plane>
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#testimonial_09"></a-plane>
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#testimonial_10"></a-plane>
+        <a-plane rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#testimonial_11"></a-plane>
+
+        <a-gif rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#paul_frank_animation"></a-gif>
+
+        <a-video rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#chameleon"></a-video>
+        <a-video rotation="0 0 0 " position="0 0 0" scale="0 0 0" src="#ripestyle"></a-video>
+
+
+
+          
       </a-entity>
     </a-scene>
   </body>
