@@ -50,7 +50,8 @@
       <a-entity mindar-image-target="targetIndex: 0">
         <a-gltf-model id="model1" rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#SoL" 
         animation__scale="property: scale; to: 0.007 0.007 0.007; dur: 3000; easing: easeInOutQuad"
-        animation__rotate="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true"></a-gltf-model>
+        animation__rotate="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true"
+        ></a-gltf-model>
 
         <script>
           setTimeout(() => {
@@ -67,16 +68,16 @@
 
         <script>
           setTimeout(() => {
-            const model1 = document.querySelector("#model1");
             const model3 = document.createElement("a-entity");
+            const model1 = document.querySelector("#model1");
             model1.setAttribute("animation__scale", "property: scale; to: 0 0 0; dur: 3000; easing: easeInOutQuad");
-            model1.setAttribute("animation__opacity", "property: material.opacity; from: 1; to: 0; dur: 1000;");
+            // model1.setAttribute("animation__opacity", "property: material.opacity; from: 1; to: 0; dur: 2000;");
             
             model3.setAttribute("gltf-model", "#Stdo");
             model3.setAttribute("position", "0 -0.5 1");
-            model3.setAttribute("rotation", "0 -90 0");
+            model3.setAttribute("rotation", "0 -90 -45");
             model3.setAttribute("scale", "0 0 0");
-            model3.setAttribute("animation__position", "property: position; to: 0 -0.2 0; dur: 3000; easing: linear");
+            model3.setAttribute("animation__position", "property: position; to: 0 -0.2 0; dur: 2000; easing: linear");
             model3.setAttribute("animation__scale", "property: scale; to: 0.1 0.1 0.1; dur: 3000; easing: easeInOutQuad");
             document.querySelector("a-entity[mindar-image-target]").appendChild(model3);
           }, 6000);
