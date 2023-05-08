@@ -34,6 +34,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
   </head>
   <body>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, 
@@ -48,7 +49,7 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model id="model1" rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#SoL" 
+        <a-gltf-model id="statueModel" rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#SoL" 
         animation__scale="property: scale; to: 0.007 0.007 0.007; dur: 2000; easing: easeInOutQuad"
         animation__rotate="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true"
         ></a-gltf-model>
@@ -56,19 +57,21 @@
 
         <script>
            let timeoutID;
+           const planeModel = document.createElement("a-entity");
+           const planeTimeDelay = 3000;
+           const planeDur = 7000;
 
            function startTimeout() {
             timeoutID = setTimeout(() => {
-              const model2 = document.createElement("a-entity");
-            model2.setAttribute("gltf-model", "#Luft");
-            model2.setAttribute("id", "model2");
-            model2.setAttribute("position", "-5 0.4 -5");
-            model2.setAttribute("rotation", "0 150 -10");
-            model2.setAttribute("scale", "0 0 0");
-            model2.setAttribute("animation__position", "property: position; to: 5 0.7 5; dur: 4000; easing: linear; loop: true");
-            model2.setAttribute("animation__scale", "property: scale; to: 0.05 0.05 0.05; dur: 4000; easing: linear; loop: true");
-            document.querySelector("a-entity[mindar-image-target]").appendChild(model2);
-          }, 5000);
+            planeModel.setAttribute("gltf-model", "#Luft");
+            planeModel.setAttribute("id", "planeModel");
+            planeModel.setAttribute("position", "-5 0.4 -5");
+            planeModel.setAttribute("rotation", "0 150 -10");
+            planeModel.setAttribute("scale", "0 0 0");
+            planeModel.setAttribute("animation__position", "property: position; to: 5 0.7 5; dur: "+planeDur+"; easing: linear; loop: true");
+            planeModel.setAttribute("animation__scale", "property: scale; to: 0.05 0.05 0.05; dur: "+planeDur+"; easing: linear; loop: true");
+            document.querySelector("a-entity[mindar-image-target]").appendChild(planeModel);
+          }, planeTimeDelay);
           }
 
           function stopTimeout() {
@@ -76,33 +79,41 @@
           }
 
           function stopAnimations() {
-            model2.removeAttribute("animation__position" );
-            model2.removeAttribute("animation__scale");
+            planeModel.removeAttribute("animation__position" );
+            planeModel.removeAttribute("animation__scale");
           }
 
           startTimeout();
         </script>
 
         <script>
+          const planeAnimStop = 8000;
+          const studioTimeDelay = 6000;
           setTimeout(() => {
-            setTimeout(stopAnimations, 8000);
-            const model3 = document.createElement("a-entity");
-            const model1 = document.querySelector("#model1");
-            const model2 = document.querySelector("#model2");
-            model1.setAttribute("animation__position", "property: position; to: 0 0 -1; dur: 3000; easing: linear");
-            model1.setAttribute("animation__scale", "property: scale; to: 0 0 0; dur: 3000; easing: easeInOutQuad");
-            model2.setAttribute("animation__scale2", "property: scale; to: 0 0 0; dur: 3000; easing: easeInOutQuad");
+            setTimeout(stopAnimations, planeAnimStop);
+            const studioModel = document.createElement("a-entity");
+            const statueModelEnd = document.querySelector("#statueModel");
+            const planeModelEnd = document.querySelector("#planeModel");
+            statueModelEnd.setAttribute("animation__position", "property: position; to: 0 0 -1; dur: 3000; easing: linear");
+            statueModelEnd.setAttribute("animation__scale", "property: scale; to: 0 0 0; dur: 3000; easing: easeInOutQuad");
+            planeModelEnd.setAttribute("animation__scale2", "property: scale; to: 0 0 0; dur: 3000; easing: easeInOutQuad");
             // model1.setAttribute("animation__opacity", "property: material.opacity; from: 1; to: 0; dur: 2000;");
             
-            model3.setAttribute("gltf-model", "#Stdo");
-            model3.setAttribute("position", "0 0 1");
-            model3.setAttribute("rotation", "0 0 0");
-            model3.setAttribute("scale", "0 0 0");
-            model3.setAttribute("animation__position", "property: position; to: 0 -0.4 0; dur: 2000; easing: linear");
-            model3.setAttribute("animation__scale", "property: scale; to: 0.1 0.1 0.1; dur: 3000; easing: easeInOutQuad");
-            model3.setAttribute("animation__rotate", "property: rotation; to: 0 360 0; dur: 7000; easing: linear; loop: true");
-            document.querySelector("a-entity[mindar-image-target]").appendChild(model3);
-          }, 7000);
+            studioModel.setAttribute("gltf-model", "#Stdo");
+            studioModel.setAttribute("position", "0 0 1");
+            studioModel.setAttribute("rotation", "0 0 0");
+            studioModel.setAttribute("scale", "0 0 0");
+            studioModel.setAttribute("animation__position", "property: position; to: 0 0 0; dur: 2000; easing: linear");
+            studioModel.setAttribute("animation__scale", "property: scale; to: 0.1 0.1 0.1; dur: 3000; easing: easeInOutQuad");
+            studioModel.setAttribute("animation__rotate0", "property: rotation; to: 30 0 0; dur: 3000; easing: linear");
+            studioModel.setAttribute("animation-mixer", {
+              clip: "rotation"
+            });
+
+            // model3.setAttribute("animation__rotate2", "property: rotation; to: 60 0 0; dur: 2000; easing: linear; delay: 2000");
+
+            document.querySelector("a-entity[mindar-image-target]").appendChild(studioModel);
+          }, studioTimeDelay);
         </script>
       </a-entity>
     </a-scene>
