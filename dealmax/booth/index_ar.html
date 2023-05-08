@@ -72,7 +72,7 @@
           }
 
           function stopTimeout() {
-            clearTimeout(timeoutID); // Clear the timeout using its ID
+            clearTimeout(timeoutID);
           }
 
           function stopAnimations() {
@@ -89,22 +89,31 @@
             const model3 = document.createElement("a-entity");
             const model1 = document.querySelector("#model1");
             const model2 = document.querySelector("#model2");
+            model1.setAttribute("animation__position", "property: position; to: 0 0 -1; dur: 3000; easing: linear");
             model1.setAttribute("animation__scale", "property: scale; to: 0 0 0; dur: 3000; easing: easeInOutQuad");
             model2.setAttribute("animation__scale2", "property: scale; to: 0 0 0; dur: 3000; easing: easeInOutQuad");
             // model1.setAttribute("animation__opacity", "property: material.opacity; from: 1; to: 0; dur: 2000;");
             
             model3.setAttribute("gltf-model", "#Stdo");
-            model3.setAttribute("position", "0 -0.5 1");
-            model3.setAttribute("rotation", "0 -90 0");
+            model3.setAttribute("position", "0 0 1");
+            model3.setAttribute("rotation", "0 0 0");
             model3.setAttribute("scale", "0 0 0");
-            model3.setAttribute("animation__position", "property: position; to: 0 -0.2 0; dur: 2000; easing: linear");
+            model3.setAttribute("animation__position", "property: position; to: 0 -0.4 0; dur: 2000; easing: linear");
             model3.setAttribute("animation__scale", "property: scale; to: 0.1 0.1 0.1; dur: 3000; easing: easeInOutQuad");
-            model3.setAttribute("animation__rotate", "property: rotation; to: 0 -90 -60; dur: 4000; easing: easeInOutQuad;");
+            model3.setAttribute("animation__rotate", "property: rotation; to: 0 360 0; dur: 7000; easing: linear; loop: true");
             document.querySelector("a-entity[mindar-image-target]").appendChild(model3);
           }, 7000);
         </script>
-
       </a-entity>
     </a-scene>
+    <script>
+      function loopAnimation() {
+        setTimeout(() => {
+          location.reload();
+        }, 10000);
+      }
+      setInterval(loopAnimation, 10000);
+    </script>
+
   </body>
 </html>
