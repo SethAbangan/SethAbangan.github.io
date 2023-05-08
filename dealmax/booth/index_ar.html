@@ -37,7 +37,8 @@
   </head>
   <body>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, 
-    physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false " arjs-camparams-markerAreaThreshold: 2000;>
+
       <a-assets>
         <a-asset-item id="SoL" src="assets/statue_of_liberty.glb"></a-asset-item>
         <a-asset-item id="Luft" src="assets/LufthansaBoeing737.glb"></a-asset-item>
@@ -47,7 +48,7 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#SoL" 
+        <a-gltf-model id="model1" rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#SoL" 
         animation__scale="property: scale; to: 0.007 0.007 0.007; dur: 3000; easing: easeInOutQuad"
         animation__rotate="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true"></a-gltf-model>
 
@@ -55,24 +56,28 @@
           setTimeout(() => {
             const model2 = document.createElement("a-entity");
             model2.setAttribute("gltf-model", "#Luft");
-            model2.setAttribute("position", "-5 0.5 -5");
+            model2.setAttribute("position", "-5 0.4 -5");
             model2.setAttribute("rotation", "0 150 -10");
             model2.setAttribute("scale", "0 0 0");
-            model2.setAttribute("animation__position", "property: position; to: 5 0.5 5; dur: 5000; easing: linear; loop: true");
-            model2.setAttribute("animation__scale", "property: scale; to: 0.05 0.05 0.05; dur: 3000; easing: easeInOutQuad");
+            model2.setAttribute("animation__position", "property: position; to: 5 0.7 5; dur: 5000; easing: linear; loop: true");
+            model2.setAttribute("animation__scale", "property: scale; to: 0.05 0.05 0.05; dur: 5000; easing: easeInOutQuad; loop: true");
             document.querySelector("a-entity[mindar-image-target]").appendChild(model2);
           }, 4000);
         </script>
 
         <script>
           setTimeout(() => {
+            const model1 = document.querySelector("#model1");
             const model3 = document.createElement("a-entity");
+            model1.setAttribute("animation__scale", "property: scale; to: 0 0 0; dur: 3000; easing: easeInOutQuad");
+            model1.setAttribute("animation__opacity", "property: material.opacity; from: 1; to: 0; dur: 1000;");
+            
             model3.setAttribute("gltf-model", "#Stdo");
-            model3.setAttribute("position", "0 -0.5 0");
-            model3.setAttribute("rotation", "0 0 0");
-            model3.setAttribute("scale", "0.1 0.1 0.1");
-            // model3.setAttribute("animation__position", "property: position; to: 5 0.5 5; dur: 5000; easing: linear; loop: true");
-            // model3.setAttribute("animation__scale", "property: scale; to: 0.05 0.05 0.05; dur: 3000; easing: easeInOutQuad");
+            model3.setAttribute("position", "0 -0.5 1");
+            model3.setAttribute("rotation", "0 -90 0");
+            model3.setAttribute("scale", "0 0 0");
+            model3.setAttribute("animation__position", "property: position; to: 0 -0.2 0; dur: 3000; easing: linear");
+            model3.setAttribute("animation__scale", "property: scale; to: 0.1 0.1 0.1; dur: 3000; easing: easeInOutQuad");
             document.querySelector("a-entity[mindar-image-target]").appendChild(model3);
           }, 6000);
         </script>
