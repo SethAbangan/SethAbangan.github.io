@@ -1,4 +1,4 @@
-<!-- <html>
+<html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
@@ -17,10 +17,14 @@
         <img id="testimonial_10" src="assets/testimonial_10.png" />
         <img id="testimonial_11" src="assets/testimonial_11.png" />
 
-        <img id="paul_frank_animation" src="assets/paul_frank_animation.gif" />
 
-        <video id="chameleon" src="assets/chameleon.mp4"></video></a-asset-item>
-        <video id="ripestyle" src="assets/ripestyle.mp4"></video></a-asset-item>
+        <img src="assets/paul_frank_animation.gif" controls position="0.8 0.2 0" height="0.4" width="0.4" rotation="0 0 0"></gif>
+
+
+        <video src="assets/chameleon.mp4" controls position="-1.5 -0.4 0" height="0.3" width="0.6" rotation="0 0 0"></video>
+        <video src="assets/ripestyle.mp4" controls position="-1.5 -0.8 0" height="0.3" width="0.6" rotation="0 0 0"></video>
+  
+
       </a-assets>
       
 
@@ -39,34 +43,12 @@
       <a-plane src="#testimonial_10" position="0.1 -0.86 0" height="0.08" width=".5" rotation="0 0 0"></a-plane>
       <a-plane src="#testimonial_11" position="0.1 -0.94 0" height="0.08" width=".5" rotation="0 0 0"></a-plane>
     
-      <a-plane src="#paul_frank_animation" position="0.8 0.2 0" height="0.4" width="0.4" rotation="0 0 0"></a-gif>
 
-      <a-video src="#chameleon" position="-1.5 -0.4 0" height="0.3" width="0.6" rotation="0 0 0"></a-video>
-      <a-video src="#ripestyle" position="-1.5 -0.8 0" height="0.3" width="0.6" rotation="0 0 0"></a-video>
+  
 
 
         
       </a-entity>
-    </a-scene>
-  </body>a
-</html> -->
-
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  </head>
-  <body>
-    <a-scene>
-      <a-assets>
-        <img id="testimonial_03" src="assets/testimonial_03.png">
-      </a-assets>
-
-      <a-image src="#testimonial_03"
-               position="0 1 -2"
-               scale="2 2 2"
-               animation="property: position; from: 0 1 -2; to: 0 1 -4; dur: 2000; easing: ease-in-out">
-      </a-image>
     </a-scene>
   </body>
 </html>
