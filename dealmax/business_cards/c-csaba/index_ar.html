@@ -4,11 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
   </head>
   <body>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
-      <img id="card" src="assets/dwynn_business_card.png" />
+      <img id="card" src="assets/csaba_business_card.png" />
       <img id="name" src="assets/csaba_name.png" />
       <img id="job" src="assets/job.png" />
       <img id="3danim" src="assets/3danim.png" />
@@ -47,8 +48,13 @@
        
 
 
-        <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1.5 1.5 1.5" src="#avatarModel"
-        >
+        <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1 1 1" src="#avatarModel" animation-mixer="clip: dance; loop: repeat">
+
+       
+       
+
+
+
       </a-entity>
     </a-scene>
   </body>
