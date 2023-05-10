@@ -7,8 +7,8 @@
   <body>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
-        <img id="testimonial_03" src="assets/testimonial_03.png" />
-        <img id="testimonial_04" src="assets/testimonial_04.png" />
+        <img id="testimonial_03" class="image" src="assets/testimonial_03.png" style="animation-delay: 0s;" />
+        <img id="testimonial_04" class="image" src="assets/testimonial_04.png" style="animation-delay: 5s;" />
         <img id="testimonial_05" src="assets/testimonial_05.png" />
         <img id="testimonial_06" src="assets/testimonial_06.png" />
         <img id="testimonial_07" src="assets/testimonial_07.png" />
@@ -16,51 +16,6 @@
         <img id="testimonial_09" src="assets/testimonial_09.png" />
         <img id="testimonial_10" src="assets/testimonial_10.png" />
         <img id="testimonial_11" src="assets/testimonial_11.png" />
-
-        <style>
-          .image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            animation: easeInOut 10s infinite;
-          }
-    
-          #testimonial_03 {
-            animation-delay: 0s;
-          }
-    
-          #testimonial_04 {
-            animation-delay: 2s;
-          }
-    
-          #testimonial_05 {
-            animation-delay: 4s;
-          }
-    
-          #testimonial_06 {
-            animation-delay: 6s;
-          }
-    
-          #testimonial_07 {
-            animation-delay: 8s;
-          }
-    
-          @keyframes easeInOut {
-            0% {
-              opacity: 0;
-              transform: scale(0.5);
-            }
-            50% {
-              opacity: 1;
-              transform: scale(1);
-            }
-            100% {
-              opacity: 0;
-              transform: scale(0.5);
-            }
-          }
-        </style>
 
         <!-- <img id="sky_castle" src="assets/sky_castle.png" />
 
@@ -73,8 +28,8 @@
 
       </a-assets>
 
-      <a-entity infinite-scroll='items: img; itemHeight: 1; itemWidth: 1; containerHeight: 3; containerWidth: 3;'></a-entity>
-      
+
+
 
 
 
@@ -92,6 +47,7 @@
       <a-plane src="#testimonial_09" position="0.1 -0.78 0" height="0.08" width=".5" rotation="0 0 0"></a-plane>
       <a-plane src="#testimonial_10" position="0.1 -0.86 0" height="0.08" width=".5" rotation="0 0 0"></a-plane>
       <a-plane src="#testimonial_11" position="0.1 -0.94 0" height="0.08" width=".5" rotation="0 0 0"></a-plane>
+
     
       <!-- <a-plane src="#sky_castle" position="0.6 -0.25 0" height="1.5" width=".1" rotation="0 0 0"></a-plane>
 
