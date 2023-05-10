@@ -7,64 +7,70 @@
   <body>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
-        
-        #slideshow {
-          margin: 50px auto;
-          position: relative;
-          width: 220px;
-          height: 50px;
-          padding: 10px;
-          box-shadow: 0 0 20px rgba(0,0,0,0.4);
-        }
-        
-        #slideshow > div {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          right: 10px;
-          bottom: 10px;
-        }
-        
-        #slideshow img {
-          max-width: 100%;
-          max-height: 100%;
-          object-fit: contain;
-        }
-      </style>
-      <script>
-      var images = [
-      "testimonial_03.png",
-      "testimonial_04.png",
-      "testimonial_05.png",
-      "testimonial_06.png",
-      "testimonial_07.png",
-      "testimonial_08.png",
-      "testimonial_09.png",
-      "testimonial_10.png",
-      "testimonial_11.png"
-      ];
-      
-      var currentImageIndex = -1;
-      
-      function showNextImage() {
-      currentImageIndex++;
-      if (currentImageIndex >= images.length) {
-      currentImageIndex = 0;
-      }
-      
-      document.getElementById("slideshow-image").src = images[currentImageIndex];
-      }
-      
-      setInterval(showNextImage, 3000);
-      </script>
-      </head>
-      <body>
-      
-      <div id="slideshow">
-      <div>
-      <img id="slideshow-image" src="https://via.placeholder.com/240x240?text=Loading...">
-      </div>
-      </div>
+
+        <html>
+<head>
+<style>
+  #slideshow {
+    margin: 50px auto;
+    position: relative;
+    width: 220px;
+    height: 50px;
+    padding: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  }
+  
+  #slideshow > div {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+  
+  #slideshow img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+</style>
+<script>
+var images = [
+"testimonial_03.png",
+"testimonial_04.png",
+"testimonial_05.png",
+"testimonial_06.png",
+"testimonial_07.png",
+"testimonial_08.png",
+"testimonial_09.png",
+"testimonial_10.png",
+"testimonial_11.png"
+];
+
+var currentImageIndex = -1;
+
+function showNextImage() {
+currentImageIndex++;
+if (currentImageIndex >= images.length) {
+currentImageIndex = 0;
+}
+
+document.getElementById("slideshow-image").src = images[currentImageIndex];
+}
+
+setInterval(showNextImage, 3000);
+</script>
+</head>
+<body>
+
+<div id="slideshow">
+<div>
+<img id="slideshow-image" src="https://via.placeholder.com/240x240?text=Loading..." position="0.1 -0.3 0" height="0.08" width=".5">
+</div>
+</div>
+
+</body>
+</html>
 
         <!-- <img id="testimonial_03" src="assets/testimonial_03.png" />
         <img id="testimonial_04" src="assets/testimonial_04.png" />
