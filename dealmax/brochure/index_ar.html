@@ -4,10 +4,50 @@
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
 
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/ngokevin/kframe/csstricks/scenes/infinite/imgur-component.js"></script>
-    <script src="https://cdn.rawgit.com/ngokevin/kframe/csstricks/components/infinite-scroll/dist/aframe-infinite-scroll-component.min.js"></script>
-    
+    <style>
+      .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: easeInOut 10s infinite;
+      }
+
+      #testimonial_03 {
+        animation-delay: 0s;
+      }
+
+      #testimonial_04 {
+        animation-delay: 2s;
+      }
+
+      #testimonial_05 {
+        animation-delay: 4s;
+      }
+
+      #testimonial_06 {
+        animation-delay: 6s;
+      }
+
+      #testimonial_07 {
+        animation-delay: 8s;
+      }
+
+      @keyframes easeInOut {
+        0% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+      }
+    </style>
   </head>
   <body>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -41,7 +81,7 @@
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <!-- <a-entity mindar-image-target="targetIndex: 0"> -->
+      <a-entity mindar-image-target="targetIndex: 0">
       
       <a-plane src="#testimonial_03" position="0.1 -0.3 0" height="0.08" width=".5" rotation="0 0 0"></a-plane>
       <a-plane src="#testimonial_04" position="0.1 -0.38 0" height="0.08" width=".5" rotation="0 0 0"></a-plane>
