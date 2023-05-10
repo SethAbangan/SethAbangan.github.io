@@ -3,51 +3,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
-
-    <style>
-      .image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        animation: easeInOut 10s infinite;
-      }
-
-      #testimonial_03 {
-        animation-delay: 0s;
-      }
-
-      #testimonial_04 {
-        animation-delay: 2s;
-      }
-
-      #testimonial_05 {
-        animation-delay: 4s;
-      }
-
-      #testimonial_06 {
-        animation-delay: 6s;
-      }
-
-      #testimonial_07 {
-        animation-delay: 8s;
-      }
-
-      @keyframes easeInOut {
-        0% {
-          opacity: 0;
-          transform: scale(0.5);
-        }
-        50% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        100% {
-          opacity: 0;
-          transform: scale(0.5);
-        }
-      }
-    </style>
   </head>
   <body>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -61,6 +16,51 @@
         <img id="testimonial_09" src="assets/testimonial_09.png" />
         <img id="testimonial_10" src="assets/testimonial_10.png" />
         <img id="testimonial_11" src="assets/testimonial_11.png" />
+
+        <style>
+          .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            animation: easeInOut 10s infinite;
+          }
+    
+          #testimonial_03 {
+            animation-delay: 0s;
+          }
+    
+          #testimonial_04 {
+            animation-delay: 2s;
+          }
+    
+          #testimonial_05 {
+            animation-delay: 4s;
+          }
+    
+          #testimonial_06 {
+            animation-delay: 6s;
+          }
+    
+          #testimonial_07 {
+            animation-delay: 8s;
+          }
+    
+          @keyframes easeInOut {
+            0% {
+              opacity: 0;
+              transform: scale(0.5);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1);
+            }
+            100% {
+              opacity: 0;
+              transform: scale(0.5);
+            }
+          }
+        </style>
 
         <!-- <img id="sky_castle" src="assets/sky_castle.png" />
 
