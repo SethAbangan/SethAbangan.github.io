@@ -8,9 +8,8 @@
 
   <body>
 
-    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" 
-    device-orientation-permission-ui="enabled: false" 
-    cursor="rayOrigin: mouse">
+    <a-scene mindar-image="imageTargetSrc: 'targets/mind.png';" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" 
+    device-orientation-permission-ui="enabled: false" cursor="rayOrigin: mouse">
       
 
       <a-assets>
@@ -18,9 +17,9 @@
 
         <video id="sky_castle" src="assets/sky_castle.mp4" loop="true"></video>
 
-        <video id="testimonials" controls src="assets/testimonials.mp4" autoplay></video>
+        <video id="testimonials" controls src="assets/testimonials.mp4" loop="true"></video>
 
-        <video id="paul_frank" controls src="assets/paul_frank.mp4" autoplay loop></video>
+        <video id="paul_frank" controls src="assets/paul_frank.mp4" loop="true"></video>
     
         <video id="chameleon" controls src="assets/chameleon.mp4" loop="true"></video>
 
@@ -32,32 +31,32 @@
 
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" 
-      raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+      raycaster="far: 100; objects: .clickable"></a-camera>
       
 
 
       <a-entity mindar-image-target="targetIndex: 0">
 
-      <a-video src="#sky_castle" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0"></a-video>
+      <a-video src="assets/sky_castle.mp4" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0"></a-video>
 
-      <a-video src="#testimonials" position="0.2 -0.6 0" height="0.2" width="0.9" rotation="0 0 0"></a-video>
+      <a-video src="assets/testimonials.mp4" position="0.2 -0.6 0" height="0.2" width="0.9" rotation="0 0 0"></a-video>
 
-      <a-video src="#paul_frank" position="0.9 0.2 0" height="0.4" width="0.4" rotation="0 0 0"></a-video>
+      <a-video src="assets/paul_frank.mp4" position="0.9 0.2 0" height="0.4" width="0.4" rotation="0 0 0"></a-video>
 
-      <a-video src="#chameleon" position="0.99 -0.2 0" height="0.3" width="0.6" rotation="0 0 0"></a-video>
+      <a-video src="assets/chameleon.mp4" position="0.99 -0.2 0" height="0.3" width="0.6" rotation="0 0 0"></a-video>
 
-      <a-video src="#ripestyle" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0"></a-video>
+      <a-video src="assets/ripestyle.mp4" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0"></a-video>
 
 
-      <a-video id="mySky_castle" src="#sky_castle" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+      <a-video id="sky_castle" src="assets/sky_castle.mp4" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
       
-      <a-video id="myTestimonials" src="#testimonials" position="0.2 -0.6 0" height="0.2" width="0.9" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+      <a-video id="testimonials" src="assets/testimonials.mp4" position="0.2 -0.6 0" height="0.2" width="0.9" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
 
-      <a-video id="myPaul_frank" src="#paul_frank" position="0.9 0.2 0" height="0.4" width="0.4" rotation="0 0 0" opacity=".99" class="clickable"></a-video> 
+      <a-video id="paul_frank" src="assets/paul_frank.mp4" position="0.9 0.2 0" height="0.4" width="0.4" rotation="0 0 0" opacity=".99" class="clickable"></a-video> 
 
-      <a-video id="myChameleon" src="#chameleon" position="0.99 -0.2 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+      <a-video id="chameleon" src="assets/chameleon.mp4" position="0.99 -0.2 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
 
-      <a-video id="myRipestyle" src="#ripestyle" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+      <a-video id="ripestyle" src="assets/ripestyle.mp4" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
 
 
       
@@ -67,7 +66,7 @@
     </a-scene>
 
     <script>
-      const sky_castleVideo = document.querySelector('#mySky_castle');
+      const sky_castleVideo = document.querySelector('#sky_castle');
       sky_castleVideo.addEventListener('click', () => {
         if (sky_castleVideo.paused) {
             sky_castleVideo.play();
@@ -76,7 +75,7 @@
         }
       });
 
-      const testimonialsVideo = document.querySelector('#myTestimonials');
+      const testimonialsVideo = document.querySelector('#testimonials');
       testimonialsVideo.addEventListener('click', () => {
         if (testimonialsVideo) {
             testimonialsVideo.play();
@@ -85,7 +84,7 @@
         }
       });
 
-      const paul_frankVideo = document.querySelector('#myPaul_frank');
+      const paul_frankVideo = document.querySelector('#paul_frank');
       paul_frankVideo.addEventListener('click', () => {
         if (paul_frankVideo) {
             paul_frankVideo.play();
@@ -94,7 +93,7 @@
         }
       });
 
-      const chameleonVideo = document.querySelector('#myChameleon');
+      const chameleonVideo = document.querySelector('#chameleon');
       chameleonVideo.addEventListener('click', () => {
         if (chameleonVideo.paused) {
           chameleonVideo.play();
@@ -103,7 +102,7 @@
         }
       });
 
-      const ripestyleVideo = document.querySelector('myRipestyle');
+      const ripestyleVideo = document.querySelector('#ripestyle');
       ripestyleVideo.addEventListener('click', () => {
         if (ripestyleVideo.paused) {
             ripestyleVideo.play();
