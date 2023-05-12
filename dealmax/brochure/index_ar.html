@@ -56,33 +56,52 @@
     </a-scene>
 
     <script>
-      // Get the video elements
-      const skyCastle = document.querySelector('#sky_castle');
-      const testimonials = document.querySelector('#testimonials');
-      const paulFrank = document.querySelector('#paul_frank');
-      const chameleon = document.querySelector('#chameleon');
-      const ripeStyle = document.querySelector('#ripestyle');
-      
-      // Add event listeners to the videos
-      skyCastle.addEventListener('click', () => {
-        skyCastle.paused ? skyCastle.play() : skyCastle.pause();
+      const sky_castleVideo = document.querySelector('#sky_castle');
+      sky_castleVideo.addEventListener('click', function() => {
+        if (sky_castleVideo.paused) {
+            sky_castleVideo.play();
+        } else {
+            sky_castleVideo.pause();
+        }
       });
-      
-      testimonials.addEventListener('click', () => {
-        testimonials.paused ? testimonials.play() : testimonials.pause();
+
+      const testimonialsVideo = document.querySelector('#testimonials');
+      testimonialsVideo.addEventListener('click', function() => {
+        if (testimonialsVideo.paused) {
+            testimonialsVideo.play();
+        } else {
+            testimonialsVideo.pause();
+        }
       });
-      
-      paulFrank.addEventListener('click', () => {
-        paulFrank.paused ? paulFrank.play() : paulFrank.pause();
+
+      const paul_frankVideo = document.querySelector('#paul_frank');
+      paul_frankVideo.addEventListener('click', function() => {
+        if (paul_frankVideo.paused) {
+            paul_frankVideo.play();
+        } else {
+            paul_frankVideo.pause();
+        }
       });
-      
-      chameleon.addEventListener('click', () => {
-        chameleon.paused ? chameleon.play() : chameleon.pause();
+
+      const chameleonVideo = document.querySelector('#chameleon');
+      chameleonVideo.addEventListener('click', function() => {
+        if (chameleonVideo.paused) {
+          chameleonVideo.play();
+        } else {
+          chameleonVideo.pause();
+        }
       });
-      
-      ripeStyle.addEventListener('click', () => {
-        ripeStyle.paused ? ripeStyle.play() : ripeStyle.pause();
+
+      const ripestyleVideo = document.querySelector('#ripestyle');
+      ripestyleVideo.addEventListener('click', function() => {
+        if (ripestyleVideo.paused) {
+            ripestyleVideo.play();
+        } else {
+            ripestyleVideo.pause();
+        }
       });
+
+
     </script>
     
 
