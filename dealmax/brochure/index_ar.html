@@ -63,33 +63,48 @@
     <script> // detect click event 
 
     const sky_castleVideo = document.querySelector('#mySky_castle'); 
-    phonePlane.addEventListener("click", event => { 
+    sky_castlePlane.addEventListener("click", event => { 
       event.preventDefault(); 
-      window.location.href = 'tel:+639171092215'; 
+      playButton.addEventListener('click', function () {
+            video.play();
+      pauseButton.addEventListener('click', function () {
+            video.pause();    
     }); 
 
     const testimonialsVideo = document.querySelector('#myTestimonials'); 
     emailPlane.addEventListener("click", event => { 
       event.preventDefault(); 
-      window.location.href = 'mailto:dwynn.trazo@nagarro.com'; 
+      playButton.addEventListener('click', function () {
+            video.play();
+      pauseButton.addEventListener('click', function () {
+            video.pause();
     }); 
       
     const paul_frankVideo = document.querySelector('#myPaul_frank'); 
     linkedinPlane.addEventListener("click", event => { 
       event.preventDefault(); 
-      window.open('https://ph.linkedin.com/in/dwynn-trazo-0b121196', '_blank'); 
+      playButton.addEventListener('click', function () {
+            video.play();
+      pauseButton.addEventListener('click', function () {
+            video.pause(); 
     }); 
       
     const chameleonVideo = document.querySelector('myChameleon'); 
     contactPlane.addEventListener("click", event => { 
       event.preventDefault(); 
-      window.location.href = 'assets/dwynn.vcf'; 
+      playButton.addEventListener('click', function () {
+            video.play();
+      pauseButton.addEventListener('click', function () {
+            video.pause(); 
       }); 
 
       const ripestyleVideo = document.querySelector('#myRipestyle'); 
     contactPlane.addEventListener("click", event => { 
       event.preventDefault(); 
-      window.location.href = 'assets/dwynn.vcf'; 
+      playButton.addEventListener('click', function () {
+            video.play();
+      pauseButton.addEventListener('click', function () {
+            video.pause(); 
       }); 
 
 
