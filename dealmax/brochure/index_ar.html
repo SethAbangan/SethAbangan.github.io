@@ -8,22 +8,22 @@
 
   <body>
 
-    <a-scene mindar-image="imageTargetSrc: 'targets/mind.png';" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" 
+    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" 
     device-orientation-permission-ui="enabled: false" cursor="rayOrigin: mouse">
       
 
       <a-assets>
 
 
-        <video id="sky_castle" src="assets/sky_castle.mp4" loop="true"></video>
+        <video id="sky_castle" src="assets/sky_castle.mp4"></video>
 
-        <video id="testimonials" controls src="assets/testimonials.mp4" loop="true"></video>
+        <video id="testimonials" src="assets/testimonials.mp4"></video>
 
-        <video id="paul_frank" controls src="assets/paul_frank.mp4" loop="true"></video>
+        <video id="paul_frank" src="assets/paul_frank.mp4"></video>
     
-        <video id="chameleon" controls src="assets/chameleon.mp4" loop="true"></video>
+        <video id="chameleon" src="assets/chameleon.mp4"></video>
 
-        <video id="ripestyle" controls src="assets/ripestyle.mp4" loop="true"></video>
+        <video id="ripestyle" src="assets/ripestyle.mp4"></video>
 
       </a-assets>
 
@@ -36,16 +36,6 @@
 
 
       <a-entity mindar-image-target="targetIndex: 0">
-
-      <a-video src="assets/sky_castle.mp4" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0"></a-video>
-
-      <a-video src="assets/testimonials.mp4" position="0.2 -0.6 0" height="0.2" width="0.9" rotation="0 0 0"></a-video>
-
-      <a-video src="assets/paul_frank.mp4" position="0.9 0.2 0" height="0.4" width="0.4" rotation="0 0 0"></a-video>
-
-      <a-video src="assets/chameleon.mp4" position="0.99 -0.2 0" height="0.3" width="0.6" rotation="0 0 0"></a-video>
-
-      <a-video src="assets/ripestyle.mp4" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0"></a-video>
 
 
       <a-video id="sky_castle" src="assets/sky_castle.mp4" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
