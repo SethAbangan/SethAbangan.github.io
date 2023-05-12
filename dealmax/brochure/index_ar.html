@@ -77,7 +77,7 @@
 
       const testimonialsVideo = document.querySelector('#testimonials');
       testimonialsVideo.addEventListener('click', () => {
-        if (testimonialsVideo) {
+        if (testimonialsVideo.paused) {
             testimonialsVideo.play();
         } else {
             testimonialsVideo.pause();
@@ -86,7 +86,7 @@
 
       const paul_frankVideo = document.querySelector('#paul_frank');
       paul_frankVideo.addEventListener('click', () => {
-        if (paul_frankVideo) {
+        if (paul_frankVideo.paused) {
             paul_frankVideo.play();
         } else {
             paul_frankVideo.pause();
