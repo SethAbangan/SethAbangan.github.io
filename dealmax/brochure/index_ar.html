@@ -1,73 +1,9 @@
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
-  </head>
-  <body>
-    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" 
-    device-orientation-permission-ui="enabled: false" 
-    cursor="rayOrigin: mouse">
-      
-      
-      <a-assets>
-
-        <img id="play" src="assets/play.png">
-        <img id="pause" src="assets/pause.png">
-
-        <video id="sky_castle" controls src="assets/sky_castle.mp4" loop="true"></video></a-asset-item>
-
-        <!-- <video id="testimonials" controls src="assets/testimonials.mp4" autoplay loop></video></a-asset-item>
-
-        <video id="paul_frank" controls src="assets/paul_frank.mp4" autoplay loop></video></a-asset-item>
-    
-        <video id="chameleon" controls src="assets/chameleon.mp4" autoplay loop></video></a-asset-item>
-
-        <video id="ripestyle" controls src="assets/ripestyle.mp4" autoplay loop></video></a-asset-item> -->
-
-      </a-assets>
-
-
-
-
-
-
-
-
-      <a-camera position="0 0 0" look-controls="enabled: false" 
-      cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
-
-      <a-entity mindar-image-target="targetIndex: 0">
-      
-
-
-
-      <a-video src="#sky_castle" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0"></a-video>
-            <a-image id="videoControls" src="#play" position="-0.55 -0.25 0" play-pause>
-            </a-image>
-
-      <!-- <a-video src="#testimonials" position="0.2 -0.6 0" height="0.2" width="0.9" rotation="0 0 0"></a-video>
-
-      <a-video src="#paul_frank" position="0.9 0.2 0" height="0.4" width="0.4" rotation="0 0 0"></a-video>
-
-      <a-video src="#chameleon" position="0.99 -0.2 0" height="0.3" width="0.6" rotation="0 0 0"></a-video>
-
-      <a-video src="#ripestyle" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0"></a-video> -->
-
-
-      <!-- <a-video id="mySky_castle" src="#sky_castle" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>  -->
-      <!-- <a-video id="myTestimonials" src="#testimonials" position="0.2 -0.6 0" height="0.2" width="0.9" rotation="0 0 0" opacity=".99" class="clickable"></a-plane> 
-      <a-video id="myPaul_frank" src="#paul_frank" position="0.9 0.2 0" height="0.4" width="0.4" rotation="0 0 0" opacity=".99" class="clickable"></a-plane> 
-      <a-video id="myChameleon" src="#chameleon" position="0.99 -0.2 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
-      <a-video id="myRipestyle" src="#ripestyle" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-plane> -->
-
-        
-      </a-entity>
-    </a-scene>
-
-    <script> // detect click event 
-
-      AFRAME.registerComponent('play-pause'), {
+<head>
+	<title>L26 - Video</title>
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script>
+     	AFRAME.registerComponent('play-pause'), {
             init: function () {
                   var myVideo = document.querySelector('#sky-castle');
                   var videoControls = document.querySelector('#videoControls');
@@ -83,54 +19,28 @@
             }
       };
 
-//     const sky_castleVideo = document.querySelector('#mySky_castle'); 
-//     sky_castleVideo.pause();
-//     sky_castleVideo.addEventListener("click", event => { 
-//       // event.preventDefault(); 
-//       playButton.addEventListener('click', function () {
-//             video.play();
-//       pauseButton.addEventListener('click', function () {
-//             video.pause();    
-//     }); 
-
-//     const testimonialsVideo = document.querySelector('#myTestimonials'); 
-//     emailPlane.addEventListener("click", event => { 
-//       event.preventDefault(); 
-//       playButton.addEventListener('click', function () {
-//             video.play();
-//       pauseButton.addEventListener('click', function () {
-//             video.pause();
-//     }); 
-      
-//     const paul_frankVideo = document.querySelector('#myPaul_frank'); 
-//     linkedinPlane.addEventListener("click", event => { 
-//       event.preventDefault(); 
-//       playButton.addEventListener('click', function () {
-//             video.play();
-//       pauseButton.addEventListener('click', function () {
-//             video.pause(); 
-//     }); 
-      
-//     const chameleonVideo = document.querySelector('myChameleon'); 
-//     contactPlane.addEventListener("click", event => { 
-//       event.preventDefault(); 
-//       playButton.addEventListener('click', function () {
-//             video.play();
-//       pauseButton.addEventListener('click', function () {
-//             video.pause(); 
-//       }); 
-
-//       const ripestyleVideo = document.querySelector('#myRipestyle'); 
-//     contactPlane.addEventListener("click", event => { 
-//       event.preventDefault(); 
-//       playButton.addEventListener('click', function () {
-//             video.play();
-//       pauseButton.addEventListener('click', function () {
-//             video.pause(); 
-//       }); 
-
-
       </script>
+</head>
 
-  </body>
+<body>
+	<a-scene>
+	<a-assets>
+        <img id="play" src="assets/play.png">
+        <img id="pause" src="assets/pause.png">
+        <video id="sky_castle" src="assets/sky_castle.mp4" loop="true"></video>
+      </a-assets>
+
+<a-camera>
+    <a-cursor></a-cursor>
+</a-camera>
+
+<a-entity mindar-image-target="targetIndex: 0">
+
+      <a-video src="#sky_castle" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0"></a-video>
+            <a-image id="videoControls" src="#play" position="-0.55 -0.78 0" height="0.08" width="0.08" play-pause>
+            </a-image>
+
+      </a-entity>
+    </a-scene>
+</body>
 </html>
