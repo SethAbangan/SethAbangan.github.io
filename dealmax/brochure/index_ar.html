@@ -11,8 +11,11 @@
       
       
       <a-assets>
-        
-        <video id="sky_castle" controls src="assets/sky_castle.mp4" autoplay loop></video></a-asset-item>
+            
+        <img id="play" src="play.png">
+        <img id="pause" src="pause.png">
+
+        <video id="sky_castle" controls src="assets/sky_castle.mp4" loop></video></a-asset-item>
 
         <!-- <video id="testimonials" controls src="assets/testimonials.mp4" autoplay loop></video></a-asset-item>
 
@@ -29,7 +32,7 @@
 
 
 
-    
+
 
       <a-camera position="0 0 0" look-controls="enabled: false" 
       cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
@@ -63,8 +66,9 @@
     <script> // detect click event 
 
     const sky_castleVideo = document.querySelector('#mySky_castle'); 
+    sky_castleVideo.pause();
     sky_castleVideo.addEventListener("click", event => { 
-      event.preventDefault(); 
+      // event.preventDefault(); 
       playButton.addEventListener('click', function () {
             video.play();
       pauseButton.addEventListener('click', function () {
