@@ -1,10 +1,53 @@
 import * as THREE from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+
+
 
 const scene = new THREE.Scene()
+// Instantiate a loader
+const loader = new GLTFLoader();
+
+// Optional: Provide a DRACOLoader instance to decode compressed mesh data
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath( '/examples/jsm/libs/draco/' );
+loader.setDRACOLoader( dracoLoader );
+
+// Load a glTF resource
+loader.load(
+	// resource URL
+	'assets/csaba_one_animation.glb',
+	// called when the resource is loaded
+	function ( gltf ) {
+
+		scene.add( gltf.scene );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
+
 
 const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
 scene.add(gridHelper)
+
 
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -12,6 +55,9 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 )
+
+const light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+scene.add( light );
 
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -26,6 +72,9 @@ const material = new THREE.MeshBasicMaterial({
 const cube = new THREE.Mesh(geometry, material)
 cube.position.set(0, 0.5, -10)
 scene.add(cube)
+
+
+
 
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
