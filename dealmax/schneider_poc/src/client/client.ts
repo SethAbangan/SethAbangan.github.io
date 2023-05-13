@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; 
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 const scene = new THREE.Scene()
 
@@ -7,8 +9,7 @@ const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
 scene.add(gridHelper)
 
 
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; 
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+
 
 // Instantiate a loader
 const loader = new GLTFLoader();
@@ -23,17 +24,23 @@ loader.setDRACOLoader( dracoLoader );
 // Load a glTF resource
 loader.load(
 	// resource URL
-	'channel/glb.glb',
+	'channel/powerPlantHouses.glb',
 	// called when the resource is loaded
 	function ( gltf ) {
         
-		scene.add( gltf.scene );
+        const model = gltf.scene;
+		scene.add( model );
+        
 
 		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Group
+		model; // THREE.Group
 		gltf.scenes; // Array<THREE.Group>
 		gltf.cameras; // Array<THREE.Camera>
 		gltf.asset; // Object
+        model.scale.set(.04, .04, .04);
+        model.position.set(0, 0, -1);
+        model.rotation.set(.5, -.5, 0);
+
 
 	},
 	// called while loading is progressing
@@ -57,7 +64,7 @@ const camera = new THREE.PerspectiveCamera(
     1000
 )
 
-const light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+const light = new THREE.HemisphereLight( 0xffffbb, 0x080820,  );
 scene.add( light );
 
 const renderer = new THREE.WebGLRenderer()
