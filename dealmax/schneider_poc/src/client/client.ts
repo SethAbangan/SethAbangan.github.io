@@ -45,8 +45,8 @@ loader.load(
 );
 
 
-const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
-scene.add(gridHelper)
+//const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
+//scene.add(gridHelper)
 
 
 const camera = new THREE.PerspectiveCamera(
