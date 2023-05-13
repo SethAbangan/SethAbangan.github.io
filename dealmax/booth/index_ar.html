@@ -1,112 +1,50 @@
+
 <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <a-asset-item id="SoL" src="assets/statue_of_liberty.glb"></a-asset-item>
+        <a-asset-item id="Luft" src="assets/LufthansaBoeing737.glb"></a-asset-item>
+        <!-- <a-asset-item id="bearModel" src="assets/scene.gltf"></a-asset-item> -->
+      </a-assets>
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
-</head>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-<body>
-  <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
-    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false " arjs-camparams-markerAreaThreshold: 2000;>
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model rotation="0 0 0 " position="0 -0.6 0" scale="0 0 0" src="#SoL" 
+        animation__scale="property: scale; to: 0.007 0.007 0.007; dur: 3000; easing: easeInOutQuad"
+        animation__rotate="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true"></a-gltf-model>
+        ></a-gltf-model>
 
-    <a-assets>
-      <a-asset-item id="SoL" src="assets/statue_of_liberty.glb"></a-asset-item>
-      <a-asset-item id="Luft" src="assets/LufthansaBoeing737.glb"></a-asset-item>
-      <a-asset-item id="Stdo" src="assets/Studio_Interior.glb"></a-asset-item>
-    </a-assets>
+        <a-gltf-model rotation="0 180 0 " position="-4 0.5 0" scale="0.05 0.05 0.05" src="#Luft" 
+        animation="property: position; to: 4 0.5 0; dur: 4000; easing: l inear; loop: true; dir: alternatez"></a-gltf-model> 
+        
+      </a-entity>
 
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <!-- <script>
+        setTimeout(() => {
+          // const target = document.createElement("a-entity");
+          // target.setAttribute("mindar-image-target", "targetIndex: 0");
+          const Luft = document.createElement("a-entity");
+          Luft.setAttribute("gltf-model", "#Luft");
+          Luft.setAttribute("scale", "1 1 1");   a
+          Luft.setAttribute("rotation", "0 180 0");
+          Luft.setAttribute("position", "-4 0 -10");
+          // Luft.setAttribute("animation", "property: position; to: 4 0 0; dur: 4000; easing: linear; loop: true; dir: alternatez");
+          document.querySelector("a-scene").appendChild(Luft);
+        }, 4000);
+      </script> -->
 
-    <a-entity mindar-image-target="targetIndex: 0">
+      
+  
+    </a-scene>
 
-      <script>
-        const statueLib = document.createElement("a-entity");
-        const luftPlane = document.createElement("a-entity");
-        const stdoIntr = document.createElement("a-entity");
-        const statLibRotateDur = 8000;
-        const statLibScaleDur = 3000;
+    
 
-        const planeTimeDelay = 3000;
-        const planeAnimStop = 10000;
-        const planeDur = 10000;
-
-        const studioTimeDelay = 10000;
-        const stdoPosDur = 2000;
-        const stdoRotateDur = 3000;
-        const stdoScaleDur = 3000;
-
-        const totalTime = 21000;
-
-        statueLib.setAttribute("gltf-model", "#SoL");
-        statueLib.setAttribute("id", "statueLib");
-        luftPlane.setAttribute("gltf-model", "#Luft");
-        luftPlane.setAttribute("id", "planeModel");
-        stdoIntr.setAttribute("gltf-model", "#Stdo");
-        stdoIntr.setAttribute("id", "StdoIntr");
-
-        function showStatue(bool) {
-          statueLib.setAttribute("position", "0 -0.5 -2");
-          statueLib.setAttribute("animation__scale", "property: scale; from: 0 0 0; to: 0.01 0.01 0.01; dur: " + statLibScaleDur + "; easing: easeInOutQuad");
-          statueLib.setAttribute("animation__rotation", "property: rotation; from: 0 0 0; to: 0 360 0; dur: " + statLibRotateDur + "; easing: linear; loop: true");
-          if (!bool) {
-            document.querySelector("a-entity[mindar-image-target]").appendChild(statueLib);
-          }
-        }
-
-        function showPlane(bool) {
-          setTimeout(() => {
-            luftPlane.setAttribute("rotation", "0 140 -15");
-            luftPlane.setAttribute("animation__position", "property: position; from: -7 -3 -7; to: 7 3 7; dur: " + planeDur + "; easing: linear");
-            luftPlane.setAttribute("animation__scale", "property: scale; from: 0 0 0; to: 0.07 0.07 0.07; dur: " + planeDur + "; easing: linear");
-            if (!bool) {
-              document.querySelector("a-entity[mindar-image-target]").appendChild(luftPlane);
-            }
-          }, planeTimeDelay);
-        }
-
-        function stopAnimPlane() {
-          luftPlane.removeAttribute("animation__position");
-          luftPlane.removeAttribute("animation__scale");
-        }
-        function showStudio(bool) {
-          setTimeout(() => {
-            setTimeout(stopAnimPlane, planeAnimStop);
-            statueLib.setAttribute("animation__scale", "property: scale; from: 0.01 0.01 0.01; to: 0 0 0; dur: 3000; easing: easeInOutQuad");
-
-            stdoIntr.setAttribute("animation__position", "property: position; from: 0 0 1; to: 0 -0.05 0; dur: " + stdoPosDur + "; easing: linear");
-            stdoIntr.setAttribute("animation__scale", "property: scale; from: 0 0 0; to: 0.09 0.09 0.09; dur: " + stdoScaleDur + "; easing: easeInOutQuad");
-            stdoIntr.setAttribute("animation__rotate", "property: rotation; from: 0 0 0; to: 60 0 0; dur: " + stdoRotateDur + "; easing: easeInOutQuad");
-            stdoIntr.setAttribute("animation-mixer", { clip: "rotation", timeScale: 0.5 });
-            stdoIntr.setAttribute("animation__scale2", "property: scale; from: 0.09 0.09 0.09; to: 0 0 0; dur: 3000; easing: easeInOutQuad; delay: 7000");
-          if (!bool) {
-            document.querySelector("a-entity[mindar-image-target]").appendChild(stdoIntr);
-          }
-          }, studioTimeDelay);
-        }
-
-        function stopAnimStudio() {
-          stdoIntr.removeAttribute("animation__position");
-          stdoIntr.removeAttribute("animation__scale");
-          stdoIntr.removeAttribute("animation__rotation");
-          stdoIntr.removeAttribute("animation__scale2");
-        }
-
-      </script>
-  </a-scene>
-  <script>
-    function loopAnimation(bool) {
-      console.log("string");
-      showStatue(bool);
-      showPlane(bool);
-      // hideModels();
-      showStudio(bool);
-      setTimeout(stopAnimStudio, 20000)
-    }
-    loopAnimation(false);
-    setInterval(function() {loopAnimation(true)}, totalTime);
-  </script>
-</body>
+  </body>
 </html>
