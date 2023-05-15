@@ -5,7 +5,6 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 const scene = new THREE.Scene();
 // scene.background = new THREE.Color(0xB3B6B7)
-
 // Instantiate a loader
 const loader = new GLTFLoader();
 
@@ -15,7 +14,8 @@ dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
 loader.setDRACOLoader(dracoLoader);
 
 // Load a glTF resource
-let globeModel: any;
+let globeModel: THREE.Group;
+
 loader.load("Earth.glb", function (gltf) {
   const model = gltf.scene;
   model.scale.set(0.3, 0.3, 0.3);
@@ -33,7 +33,7 @@ loader.load("Earth.glb", function (gltf) {
     // Rotate the model around its y-axis
     if (globeModel) globeModel.rotation.y += 0.002;
 
-    renderer.render(scene, camera);
+    // renderer.render(scene, camera);
   }
   animateGlobe();
 });
@@ -45,19 +45,25 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 
-const light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
-scene.add(light);
+const mainLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 2);
+mainLight.castShadow = true;
+mainLight.position.set(3, 5, -3);
+scene.add(mainLight);
 
-const renderer = new THREE.WebGLRenderer({alpha: true});
+const fillLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+fillLight.castShadow = true;
+fillLight.position.set(-4, 3, -4);
+scene.add(fillLight);
+
+const renderer = new THREE.WebGLRenderer({ alpha: true});
 renderer.setClearColor(0x000000, 0);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
 // Get the canvas element created by the renderer
 const canvas = renderer.domElement;
-canvas.style.position = 'absolute';
-canvas.style.top = '0';
-canvas.style.left = '0';
+canvas.style.position = 'fixed';
+canvas.style.top = '0px';
+canvas.style.left = '240px';
 
 // Set the left position of the canvas
 // canvas.style.left = '300px';
@@ -102,7 +108,7 @@ animationScripts.push({
   start: 0,
   end: 100,
   func: () => {
-    camera.position.set(0, 1, 2);
+    camera.position.set(0, 1.5, 2);
   },
 });
 
@@ -111,29 +117,46 @@ animationScripts.push({
   start: 0,
   end: 30,
   func: () => {
-    globeModel.position.x = lerp(0, -5, scalePercent(0, 100));
-    // globeModel.position.y = lerp(0, 10, scalePercent(0, 100));
-    globeModel.position.z = lerp(0, 10, scalePercent(0, 100));
-    // canvas.style.left = lerp(100, 1, scalePercent(0, 100)) +'';
-    // canvas.style.left = '300px';
-    camera.lookAt(globeModel.position);
+    // globeModel.position.x = lerp(0, 5, scalePercent(0, 100));
+    // globeModel.position.y = lerp(0, 7, scalePercent(0, 200));
+    // globeModel.position.z = lerp(0, 10, scalePercent(0, 100));
+    globeModel.scale.x = lerp(0.3, 1, scalePercent(0, 70));
+    globeModel.scale.y = lerp(0.3, 1, scalePercent(0, 70));
+    globeModel.scale.z = lerp(0.3, 1, scalePercent(0, 70));
+    camera.lookAt(new THREE.Vector3(globeModel.position.x, scalePercent(0, 4), globeModel.position.z));
     // camera.position.set(0, 1, 2);
   },
 });
-
 animationScripts.push({
-  start: 30,
+  start: 31,
   end: 40,
   func: () => {
-    globeModel.position.x = lerp(0, -20, scalePercent(0, 100));
-    // globeModel.position.y = lerp(0, 10, scalePercent(0, 100));
-    globeModel.position.z = lerp(0, 10, scalePercent(0, 100));
-    // canvas.style.left = lerp(100, 1, scalePercent(0, 100)) +'';
-    // canvas.style.left = '300px';
-    camera.lookAt(globeModel.position);
-    // camera.position.set(0, 1, 2);
+    camera.lookAt(new THREE.Vector3(10, 15, 50));
   },
 });
+// animationScripts.push({
+//   start: 60,
+//   end: 80,
+//   func: () => {
+//     globeModel.scale.x = lerp(0, 0, scalePercent(0, 0));
+//     globeModel.scale.y = lerp(0, 0, scalePercent(0, 0));
+//     globeModel.scale.z = lerp(0, 0, scalePercent(0, 0));
+//   },
+// });
+
+// animationScripts.push({
+//   start: 30,
+//   end: 40,
+//   func: () => {
+//     globeModel.position.x = lerp(0, -20, scalePercent(0, 100));
+//     // globeModel.position.y = lerp(0, 10, scalePercent(0, 100));
+//     globeModel.position.z = lerp(0, 10, scalePercent(0, 100));
+//     // canvas.style.left = lerp(100, 1, scalePercent(0, 100)) +'';
+//     // canvas.style.left = '300px';
+//     camera.lookAt(globeModel.position);
+//     // camera.position.set(0, 1, 2);
+//   },
+// });
 
 function playScrollAnimations() {
   animationScripts.forEach((a) => {
@@ -146,14 +169,14 @@ function playScrollAnimations() {
 let scrollPercent = 0;
 
 document.body.onscroll = () => {
-  //calculate the current scroll progress as a percentage
-  // scrollPercent =
-  //   ((document.documentElement.scrollTop || document.body.scrollTop) /
-  //     ((document.documentElement.scrollHeight || document.body.scrollHeight) -
-  //       document.documentElement.clientHeight)) *
-  //   100;
-  // (document.getElementById("scrollProgress") as HTMLDivElement).innerText =
-  //   "Scroll Progress : " + scrollPercent.toFixed(2);
+  // calculate the current scroll progress as a percentage
+  scrollPercent =
+    ((document.documentElement.scrollTop || document.body.scrollTop) /
+      ((document.documentElement.scrollHeight || document.body.scrollHeight) -
+        document.documentElement.clientHeight)) *
+    100;
+  (document.getElementById("scrollProgress") as HTMLDivElement).innerText =
+    "Scroll Progress : " + scrollPercent.toFixed(2);
 };
 
 const stats = new Stats();
