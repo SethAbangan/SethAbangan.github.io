@@ -200,8 +200,8 @@ animationScripts.push({
   start: 0,
   end: 80,
   func: () => {
-    camera.position.x = lerp(0, 2, scalePercent(0, 80));
-    camera.position.y = lerp(1, 2, scalePercent(0, 80));
+    camera.position.x = lerp(0, 1, scalePercent(0, 80));
+    //camera.position.y = lerp(1, 1, scalePercent(0, 80));
      //camera.lookAt(cube.position);
     camera.lookAt(model.position);
     camera.position.set(0, 0.5, 1);
