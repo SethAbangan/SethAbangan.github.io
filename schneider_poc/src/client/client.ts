@@ -13,31 +13,6 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
 loader.setDRACOLoader(dracoLoader);
 
-// Load a glTF resource
-let globeModel: THREE.Group;
-
-loader.load("Earth.glb", function (gltf) {
-  const model = gltf.scene;
-  model.scale.set(0.3, 0.3, 0.3);
-  model.position.set(0, 0, 0);
-
-  globeModel = gltf.scene;
-  globeModel.position.set(0, 0, 0);
-
-  scene.add(model);
-
-  // Animation loop
-  function animateGlobe() {
-    requestAnimationFrame(animateGlobe);
-
-    // Rotate the model around its y-axis
-    if (globeModel) globeModel.rotation.y += 0.002;
-
-    // renderer.render(scene, camera);
-  }
-  animateGlobe();
-});
-
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -65,16 +40,99 @@ canvas.style.position = 'fixed';
 canvas.style.top = '0px';
 canvas.style.left = '240px';
 
-// Set the left position of the canvas
-// canvas.style.left = '300px';
+// Load a glTF resource
+let globeModel: THREE.Group;
 
+let houseAnimMixer: THREE.AnimationMixer;
+let houseAnims: THREE.AnimationClip[];
+let housesModel: THREE.Object3D<THREE.Event>;
+let houseAnimControl: boolean;
 
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({
-  color: 0x00ff00,
-  wireframe: true,
+loader.load("Earth.glb", function (gltf) {
+  const model = gltf.scene;
+  model.scale.set(0.3, 0.3, 0.3);
+  model.position.set(0, 0, 0);
+
+  globeModel = gltf.scene;
+  globeModel.position.set(0, 0, 0);
+
+  scene.add(model);
+
+  // Animation loop
+  function animateGlobe() {
+    requestAnimationFrame(animateGlobe);
+
+    // Rotate the model around its y-axis
+    if (globeModel) globeModel.rotation.y += 0.002;
+
+    // renderer.render(scene, camera);
+  }
+  animateGlobe();
 });
 
+// Load a glTF resource
+loader.load(
+  // resource URL
+  "OrangeHouses.glb",
+
+  // called when the resource is loaded
+  function (gltf: {
+    scene: any;
+    animations: any;
+    scenes: any;
+    cameras: any;
+    asset: any;
+  }) {
+    housesModel = gltf.scene;
+
+    houseAnims = gltf.animations;
+    gltf.animations; // Array<THREE.AnimationClip>
+    housesModel; // THREE.Group
+    gltf.scenes; // Array<THREE.Group>
+    gltf.cameras; // Array<THREE.Camera>s
+    gltf.asset; // Object
+    housesModel.scale.set(0.06, 0.06, 0.06);
+    housesModel.position.set(0, -.3, 0);
+    housesModel.rotation.set(0.03, -0.05, 0);
+
+    housesModel.receiveShadow = true;
+    houseAnimMixer = new THREE.AnimationMixer(housesModel);
+
+    for (let i = 0; i < 3; i++) {
+      const animation = houseAnims[i];
+      console.log(animation);
+
+      // choose the animation by its index
+      const action = houseAnimMixer.clipAction(animation);
+      //action.play();
+      action.setDuration(5);
+      action.setLoop(THREE.LoopRepeat, Infinity).play();
+    }
+
+    scene.add(housesModel);
+  },
+  // called while loading is progressing
+  function (xhr: { loaded: number; total: number }) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  // called when loading has errors
+  function () {
+    console.log("An error happened");
+  }
+);
+
+function animateHouse() {
+  if (houseAnimControl) return;
+
+  houseAnimControl = true;
+
+  const animate = function () {
+    requestAnimationFrame(animate);
+    houseAnimMixer.update(0.01); // Update the animation mixer
+    renderer.render(scene, camera);
+  };
+  animate();
+}
 
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
@@ -109,6 +167,17 @@ animationScripts.push({
   end: 100,
   func: () => {
     camera.position.set(0, 1.5, 2);
+  },
+});
+
+animationScripts.push({
+  start: 80,
+  end: 100,
+  func: () => {
+    // find another solution, call func only once
+    camera.lookAt(housesModel.position);
+    camera.position.set(0, 0.5, 1);
+    animateHouse();
   },
 });
 
