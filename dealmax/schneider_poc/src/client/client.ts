@@ -43,8 +43,8 @@ loader.load(
 let mixer: THREE.AnimationMixer;
 loader.load("monkey.glb", function (gltf) {
   const model = gltf.scene;
-  model.scale.set(0.1, 0.1, 0.1);
-  model.position.set(0, 0, -1);
+  model.scale.set(0.2, 0.2, 0.2);
+  model.position.set(0, 0.5, -10);
   model.rotation.set(0.3, -0.5, 0);
   console.log(gltf.animations);
 
@@ -64,8 +64,8 @@ loader.load("monkey.glb", function (gltf) {
 }; 
 animate();
 });
-//const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
-//scene.add(gridHelper)
+const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
+scene.add(gridHelper)
 
 const camera = new THREE.PerspectiveCamera(
   75,
