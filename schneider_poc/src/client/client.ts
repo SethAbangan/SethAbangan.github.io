@@ -125,9 +125,9 @@ animationScripts.push({
   start: 30,
   end: 40,
   func: () => {
-    globeModel.position.x = lerp(0, 1000, scalePercent(0, 100));
+    globeModel.position.x = lerp(0, -20, scalePercent(0, 100));
     // globeModel.position.y = lerp(0, 10, scalePercent(0, 100));
-    // globeModel.position.z = lerp(0, -10, scalePercent(0, 100));
+    globeModel.position.z = lerp(0, 10, scalePercent(0, 100));
     // canvas.style.left = lerp(100, 1, scalePercent(0, 100)) +'';
     // canvas.style.left = '300px';
     camera.lookAt(globeModel.position);
