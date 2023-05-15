@@ -91,9 +91,9 @@ loader.load(
     gltf.scenes; // Array<THREE.Group>
     gltf.cameras; // Array<THREE.Camera>s
     gltf.asset; // Object
-    housesModel.scale.set(0.06, 0.06, 0.06);
-    housesModel.position.set(0, -.3, 0);
-    housesModel.rotation.set(0.03, -0.05, 0);
+    housesModel.scale.set(0.7, 0.7, 0.7);
+    housesModel.position.set(10, 0, 10);
+    housesModel.rotation.set(0, -2, 0);
 
     housesModel.receiveShadow = true;
     houseAnimMixer = new THREE.AnimationMixer(housesModel);
@@ -142,6 +142,7 @@ function onWindowResize() {
   render();
 }
 
+
 /* Liner Interpolation
  * lerp(min, max, ratio)
  * eg,
@@ -166,18 +167,6 @@ animationScripts.push({
   start: 0,
   end: 100,
   func: () => {
-    camera.position.set(0, 1.5, 2);
-  },
-});
-
-animationScripts.push({
-  start: 80,
-  end: 100,
-  func: () => {
-    // find another solution, call func only once
-    camera.lookAt(housesModel.position);
-    camera.position.set(0, 0.5, 1);
-    animateHouse();
   },
 });
 
@@ -193,39 +182,59 @@ animationScripts.push({
     globeModel.scale.y = lerp(0.3, 1, scalePercent(0, 70));
     globeModel.scale.z = lerp(0.3, 1, scalePercent(0, 70));
     camera.lookAt(new THREE.Vector3(globeModel.position.x, scalePercent(0, 4), globeModel.position.z));
-    // camera.position.set(0, 1, 2);
+    camera.position.set(0, 1, 2);
+    // camera.position.set(0, 1.5, 2);
   },
 });
 animationScripts.push({
   start: 31,
-  end: 40,
+  end: 50,
   func: () => {
-    camera.lookAt(new THREE.Vector3(10, 15, 50));
+    globeModel.scale.set(0, 0, 0);
   },
 });
-// animationScripts.push({
-//   start: 60,
-//   end: 80,
-//   func: () => {
-//     globeModel.scale.x = lerp(0, 0, scalePercent(0, 0));
-//     globeModel.scale.y = lerp(0, 0, scalePercent(0, 0));
-//     globeModel.scale.z = lerp(0, 0, scalePercent(0, 0));
-//   },
-// });
+animationScripts.push({
+  start: 51,
+  end: 60,
+  func: () => {
+    camera.position.x = lerp(3, 0, scalePercent(51, 40))
+    camera.position.y = lerp(5, 7, scalePercent(51, 60))
+    // camera.lookAt(new THREE.Vector3(housesModel.position.x + 3, housesModel.position.y + 2, housesModel.position.z + 1));
+    camera.lookAt(housesModel.position);
+    // camera.position.set(5, 10, 22);
+    animateHouse();
+  },
+});
 
-// animationScripts.push({
-//   start: 30,
-//   end: 40,
-//   func: () => {
-//     globeModel.position.x = lerp(0, -20, scalePercent(0, 100));
-//     // globeModel.position.y = lerp(0, 10, scalePercent(0, 100));
-//     globeModel.position.z = lerp(0, 10, scalePercent(0, 100));
-//     // canvas.style.left = lerp(100, 1, scalePercent(0, 100)) +'';
-//     // canvas.style.left = '300px';
-//     camera.lookAt(globeModel.position);
-//     // camera.position.set(0, 1, 2);
-//   },
-// });
+animationScripts.push({
+  start: 61,
+  end: 75,
+  func: () => {
+    camera.position.x = lerp(3, 0, scalePercent(61, 75))
+    camera.position.y = lerp(5, 7, scalePercent(61, 75))
+    camera.lookAt(housesModel.position);
+  },
+});
+
+animationScripts.push({
+  start: 76,
+  end: 80,
+  func: () => {
+    camera.position.x = lerp(3, 0, scalePercent(61, 75))
+    camera.position.y = lerp(5, 7, scalePercent(61, 75))
+    camera.lookAt(housesModel.position);
+  },
+});
+
+animationScripts.push({
+  start: 60,
+  end: 100,
+  func: () => {
+    // find another solution, call func only once
+    // camera.lookAt(housesModel.position);
+    // camera.position.set(150, 50, -150);
+  },
+});
 
 function playScrollAnimations() {
   animationScripts.forEach((a) => {
@@ -244,12 +253,13 @@ document.body.onscroll = () => {
       ((document.documentElement.scrollHeight || document.body.scrollHeight) -
         document.documentElement.clientHeight)) *
     100;
-  (document.getElementById("scrollProgress") as HTMLDivElement).innerText =
-    "Scroll Progress : " + scrollPercent.toFixed(2);
+  // (document.getElementById("scrollProgress") as HTMLDivElement).innerText =
+  //   "Scroll Progress : " + scrollPercent.toFixed(2);
 };
 
 const stats = new Stats();
 document.body.appendChild(stats.dom);
+document.body.removeChild(stats.dom);
 
 function animate() {
   requestAnimationFrame(animate);
