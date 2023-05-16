@@ -50,7 +50,7 @@ loader.load("Earth.glb", function (gltf) {
     n.receiveShadow = true;
 
     globeModel.receiveShadow = true;
-    globeModel.visible = false;
+    globeModel.visible = true;
     scene.add(globeModel);
 
   }
@@ -395,8 +395,8 @@ animationScripts.push({
 
 
 animationScripts.push({
-  start: 41,
-  end: 90,
+  start: 35,
+  end: 78,
   func: () => {
     const t = scalePercent(0, 100); // Calculate the interpolation value
 
@@ -406,7 +406,7 @@ animationScripts.push({
     globeModel.visible = false;
 
     if (model_1 && model_2 && model_3 && model_4 && model_5) {
-      if (t <= .5) {
+      if (t <= .48) {
         // Transition from model_1 to model_2
         model_1.visible = true;
         model_2.visible = false;
@@ -414,7 +414,7 @@ animationScripts.push({
         model_4.visible = false;
         model_5.visible = false;
         camera.lookAt(model_1.position);
-      } else if (t <= .6) {
+      } else if (t <= .5) {
         // Transition from model_2 to model_3
         model_1.visible = false;
         model_2.visible = true;
@@ -422,7 +422,7 @@ animationScripts.push({
         model_4.visible = false;
         model_5.visible = false;
         camera.lookAt(model_2.position);
-      } else if (t <= .7) {
+      } else if (t <= .6) {
         // Transition from model_3 to model_4
         model_1.visible = false;
         model_2.visible = false;
@@ -430,7 +430,7 @@ animationScripts.push({
         model_4.visible = false;
         model_5.visible = false;
         camera.lookAt(model_3.position);
-      } else if (t <= .8) {
+      } else if (t <= 20) {
         // Transition from model_4 to model_5
         model_1.visible = false;
         model_2.visible = false;
@@ -452,7 +452,7 @@ animationScripts.push({
 });
 
 animationScripts.push({
-  start: 91,
+  start: 78,
   end: 100,
   func: () => {
     globeModel.visible = false;
@@ -462,80 +462,6 @@ animationScripts.push({
     model_4.visible = false;
     model_5.visible = false;
 
-  },
-});
-
-
-
-
-
-// animationScripts.push({
-//   start: 40,
-//   end: 60,
-//   func: () => {
-//     camera.position.x = lerp(.25, 2, scalePercent(0, 80));
-//     camera.position.y = lerp(.5, 2, scalePercent(0, 80));
-
-//     if (model_3) {
-//       model_1.visible = false;
-//       model_2.visible = false;
-//       model_3.visible = true;
-//       // model_4.visible = false;
-
-//       camera.lookAt(model_3.position);
-//     }
-//   },
-// });
-
-
-
-//add an animation that moves the cube through first 40 percent of scroll
-// animationScripts.push({
-//   start: 0,
-//   end: 40,
-//   func: () => {
-//     // camera.lookAt(cube.position);
-//     camera.lookAt(model.position);
-//     camera.position.set(0, 1, 2);
-//     // cube.position.z = lerp(-10, 0, scalePercent(0, 40));
-//     //console.log(cube.position.z)
-//   },
-// });
-
-//add an animation that rotates the cube between 40-60 percent of scroll
-// animationScripts.push({
-//   start: 40,
-//   end: 60,
-//   func: () => {
-//     // camera.lookAt(cube.position);
-//     camera.lookAt(model.position);
-//     camera.position.set(0, 1, 2);
-//     // cube.rotation.z = lerp(0, Math.PI, scalePercent(40, 60));
-//     //console.log(cube.rotation.z)
-//   },
-// });
-
-//add an animation that moves the camera between 60-80 percent of scroll
-// animationScripts.push({
-//   start: 60,
-//   end: 80,
-//   func: () => {
-//     camera.position.x = lerp(0, 5, scalePercent(60, 80));
-//     camera.position.y = lerp(1, 5, scalePercent(60, 80));
-//     // camera.lookAt(cube.position);
-//     camera.lookAt(model.position);
-//     //console.log(camera.position.x + " " + camera.position.y)
-//   },
-// });
-
-//add an animation that auto rotates the cube from 80 percent of scroll
-animationScripts.push({
-  start: 80,
-  end: 101,
-  func: () => {
-    //auto rotate
-    // cube.rotation.x += 0.01;
-    // cube.rotation.y += 0.01;
   },
 });
 
@@ -556,13 +482,13 @@ document.body.onscroll = () => {
       ((document.documentElement.scrollHeight || document.body.scrollHeight) -
         document.documentElement.clientHeight)) *
     100;
-  (document.getElementById("scrollProgress") as HTMLDivElement).innerText =
-    "Scroll Progress : " + scrollPercent.toFixed(2);
+  // (document.getElementById("scrollProgress") as HTMLDivElement).innerText =
+  //   "Scroll Progress : " + scrollPercent.toFixed(2);
 };
 
 const stats = new Stats();
 document.body.appendChild(stats.dom);
-// document.body.removeChild(stats.dom);
+document.body.removeChild(stats.dom);
 
 function animate() {
   requestAnimationFrame(animate);
