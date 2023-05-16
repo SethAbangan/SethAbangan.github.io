@@ -376,8 +376,8 @@ const animationScripts: { start: number; end: number; func: () => void }[] = [];
 // });
 
 animationScripts.push({
-  start: 1,
-  end: 40,
+  start: 0.1,
+  end: 30,
   func: () => {
     globeModel.visible = true;
     model_1.visible = false;

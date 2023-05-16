@@ -3610,6 +3610,11 @@ figcaption {
   height: 558px;
 }
 
+.chartgreen {
+  min-height: 500px;
+  background-color: #3dcd58;
+}
+
 @media screen and (max-width: 991px) {
   .section.cc-cta {
     padding-left: 0;
