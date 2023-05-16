@@ -14,38 +14,103 @@
 
       <a-assets>
 
-        <video id="ripestyle-video" src="assets/ripestyle.mp4" autoplay="false"></video>
+
+        <video id="sky_castle" src="assets/sky_castle.mp4" autoplay="false"></video> 
+
+        <video id="testimonials" src="assets/testimonials.mp4" autoplay="false"></video>
+
+        <video id="paul_frank" src="assets/paul_frank.mp4" autoplay="false"></video>
+    
+        <video id="chameleon" src="assets/chameleon.mp4" autoplay="false"></video>
+
+        <video id="ripestyle" src="assets/ripestyle.mp4" autoplay="false"></video>
+
 
       </a-assets>
+
+
+
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" 
       raycaster="far: 100; objects: .clickable"></a-camera>
       
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-video id="ripestyle" src="#ripestyle-video" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
-      </a-entity>
 
+
+      <a-entity mindar-image-target="targetIndex: 0">
+
+
+      <a-video id="sky_castle" src="assets/sky_castle.mp4" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+      
+      <a-video id="testimonials" src="assets/testimonials.mp4" position="0.2 -0.6 0" height="0.2" width="0.9" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+
+      <a-video id="paul_frank" src="assets/paul_frank.mp4" position="0.9 0.2 0" height="0.4" width="0.4" rotation="0 0 0" opacity=".99" class="clickable"></a-video> 
+
+      <a-video id="chameleon" src="assets/chameleon.mp4" position="0.99 -0.2 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+
+      <a-video id="ripestyle" src="assets/ripestyle.mp4" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+
+
+      
+
+        
+      </a-entity>
     </a-scene>
 
-    <script>
-      const ripestyleVideo = document.querySelector('#ripestyle-video');
-      ripestyleVideo.addEventListener('click', function() {
-        pauseAllVideos();
-        if (ripestyleVideo.paused) {
-          ripestyleVideo.play();
+    <script> // detect click event 
+    const sky_castleVideo = document.querySelector('#sky_castle');
+      sky_castleVideo.addEventListener('click', function() {
+        if (sky_castleVideo.paused) {
+            sky_castleVideo.play();
         } else {
-          ripestyleVideo.pause();
+            sky_castleVideo.pause();
         }
       });
 
-      function pauseAllVideos() {
-        const videos = document.getElementsByTagName('video');
-        for (let i = 0; i < videos.length; i++) {
-          if (!videos[i].paused && videos[i].id !== 'ripestyle-video') {
-            videos[i].pause();
-          }
+
+      const testimonialsVideo = document.querySelector('#testimonials');
+      testimonialsVideo.addEventListener('click', function() {
+        if (testimonialsVideo.paused) {
+            testimonialsVideo.currentTime = 30; // Seek to 30 seconds
+            testimonialsVideo.play();
+        } else {
+            testimonialsVideo.pause();
         }
-      }
+      });
+
+      const paul_frankVideo = document.querySelector('#paul_frank');
+      paul_frankVideo.addEventListener('click', function() {
+        if (paul_frankVideo.paused) {
+            paul_frankVideo.currentTime = 60; // Seek to 30 seconds
+            paul_frankVideo.play();
+        } else {
+            paul_frankVideo.pause();
+        }
+      });
+
+      const chameleonVideo = document.querySelector('#chameleon');
+      chameleonVideo.addEventListener('click', function() {
+        if (chameleonVideo.paused) {
+            chameleonVideo.currentTime = 90; // Seek to 30 seconds
+          chameleonVideo.play();
+        } else {
+          chameleonVideo.pause();
+        }
+      });
+
+      const ripestyleVideo = document.querySelector('#ripestyle');
+      ripestyleVideo.addEventListener('click', function() {
+        if (ripestyleVideo.paused) {
+            ripestyleVideo.currentTime = 120; // Seek to 30 seconds
+            ripestyleVideo.play();
+        } else {
+            ripestyleVideo.pause();
+        }
+      });
+
+
+
     </script>
+    
+
   </body>
 </html>
