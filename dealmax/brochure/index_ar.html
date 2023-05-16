@@ -15,15 +15,15 @@
       <a-assets>
 
 
-        <video id="sky_castle" src="assets/sky_castle.mp4" autoplay="false"></video> 
+        <video id="sky_castle" src="assets/sky_castle.mp4" ></video> 
 
-        <video id="testimonials" src="assets/testimonials.mp4" autoplay="false"></video>
+        <video id="testimonials" src="assets/testimonials.mp4" ></video>
 
-        <video id="paul_frank" src="assets/paul_frank.mp4" autoplay="false"></video>
+        <video id="paul_frank" src="assets/paul_frank.mp4" ></video>
     
-        <video id="chameleon" src="assets/chameleon.mp4" autoplay="false"></video>
+        <video id="chameleon" src="assets/chameleon.mp4" ></video>
 
-        <video id="ripestyle" src="assets/ripestyle.mp4" autoplay="false"></video>
+        <video id="ripestyle" src="assets/ripestyle.mp4" ></video>
 
 
       </a-assets>
@@ -56,59 +56,36 @@
       </a-entity>
     </a-scene>
 
-    <script> // detect click event 
-    const sky_castleVideo = document.querySelector('#sky_castle');
-      sky_castleVideo.addEventListener('click', function() {
-        if (sky_castleVideo.paused) {
-            sky_castleVideo.play();
-        } else {
-            sky_castleVideo.pause();
-        }
-      });
-
-
+    <script>
+      const sky_castleVideo = document.querySelector('#sky_castle');
       const testimonialsVideo = document.querySelector('#testimonials');
-      testimonialsVideo.addEventListener('click', function() {
-        if (testimonialsVideo.paused) {
-            testimonialsVideo.currentTime = 30; // Seek to 30 seconds
-            testimonialsVideo.play();
-        } else {
-            testimonialsVideo.pause();
-        }
-      });
-
       const paul_frankVideo = document.querySelector('#paul_frank');
-      paul_frankVideo.addEventListener('click', function() {
-        if (paul_frankVideo.paused) {
-            paul_frankVideo.currentTime = 60; // Seek to 30 seconds
-            paul_frankVideo.play();
-        } else {
-            paul_frankVideo.pause();
-        }
-      });
-
       const chameleonVideo = document.querySelector('#chameleon');
-      chameleonVideo.addEventListener('click', function() {
-        if (chameleonVideo.paused) {
-            chameleonVideo.currentTime = 90; // Seek to 30 seconds
-          chameleonVideo.play();
-        } else {
-          chameleonVideo.pause();
-        }
-      });
-
       const ripestyleVideo = document.querySelector('#ripestyle');
-      ripestyleVideo.addEventListener('click', function() {
-        if (ripestyleVideo.paused) {
-            ripestyleVideo.currentTime = 120; // Seek to 30 seconds
-            ripestyleVideo.play();
-        } else {
-            ripestyleVideo.pause();
-        }
+    
+      sky_castleVideo.addEventListener('touchstart', function() {
+        sky_castleVideo.play();
       });
-
-
-
+    
+      testimonialsVideo.addEventListener('touchstart', function() {
+        testimonialsVideo.currentTime = 30; // Seek to 30 seconds
+        testimonialsVideo.play();
+      });
+    
+      paul_frankVideo.addEventListener('touchstart', function() {
+        paul_frankVideo.currentTime = 60; // Seek to 60 seconds
+        paul_frankVideo.play();
+      });
+    
+      chameleonVideo.addEventListener('touchstart', function() {
+        chameleonVideo.currentTime = 90; // Seek to 90 seconds
+        chameleonVideo.play();
+      });
+    
+      ripestyleVideo.addEventListener('touchstart', function() {
+        ripestyleVideo.currentTime = 120; // Seek to 120 seconds
+        ripestyleVideo.play();
+      });
     </script>
     
 
