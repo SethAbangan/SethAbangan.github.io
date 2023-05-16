@@ -18,6 +18,7 @@ let model_2: THREE.Object3D<THREE.Event>;
 let model_3: THREE.Object3D<THREE.Event>;
 let model_4: THREE.Object3D<THREE.Event>;
 let model_5: THREE.Object3D<THREE.Event>;
+let globeModel: THREE.Object3D<THREE.Event>;;
 
 let mixer_1: THREE.AnimationMixer;
 let mixer_2: THREE.AnimationMixer;
@@ -25,7 +26,7 @@ let mixer_3: THREE.AnimationMixer;
 let mixer_4: THREE.AnimationMixer;
 let mixer_5: THREE.AnimationMixer;
 
-const renderer = new THREE.WebGLRenderer({ alpha: true});
+const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setClearColor(0x000000, 0);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -37,18 +38,23 @@ canvas.style.top = '0px';
 canvas.style.left = '240px';
 
 // Load a glTF resource
-let globeModel: THREE.Group;
+
 
 loader.load("Earth.glb", function (gltf) {
-  const model = gltf.scene;
-  model.scale.set(0.3, 0.3, 0.3);
-  model.position.set(0, 0, 0);
-
   globeModel = gltf.scene;
-  globeModel.position.set(0, 0, 0);
+  globeModel.scale.set(0.3, 0.3, 0.3);
+  globeModel.position.set(0, .5, -2);
+  globeModel.visible = false;
+  globeModel.traverse(n => {
+    n.castShadow = true;
+    n.receiveShadow = true;
 
-  scene.add(model);
+    globeModel.receiveShadow = true;
+    globeModel.visible = false;
+    scene.add(globeModel);
 
+  }
+  )
   // Animation loop
   function animateGlobe() {
     requestAnimationFrame(animateGlobe);
@@ -66,13 +72,14 @@ loader.load("01_orange_houses.glb", function (gltf) {
   model_1 = gltf.scene;
 
   model_1.scale.set(0.065, 0.065, 0.065);
-  model_1.position.set(0, 0, -1);
+  model_1.position.set(0, 0, 0);
   model_1.rotation.set(0.05, -0.5, 0);
   model_1.traverse(n => {
     n.castShadow = true;
     n.receiveShadow = true;
 
     model_1.receiveShadow = true;
+    model_1.visible = false;
     scene.add(model_1);
 
   }
@@ -111,13 +118,15 @@ loader.load("02_supply_houses.glb", function (gltf) {
   model_2 = gltf.scene;
 
   model_2.scale.set(0.065, 0.065, 0.065);
-  model_2.position.set(0, 0, -1);
+  model_2.position.set(0, 0, 0);
   model_2.rotation.set(0.05, -0.5, 0);
   model_2.traverse(n => {
     n.castShadow = true;
     n.receiveShadow = true;
 
     model_2.receiveShadow = true;
+    model_2.visible = false;
+
     scene.add(model_2);
 
   }
@@ -157,13 +166,15 @@ loader.load("03_bi_directional_house.glb", function (gltf) {
   model_3 = gltf.scene;
 
   model_3.scale.set(0.065, 0.065, 0.065);
-  model_3.position.set(0, 0, -1);
+  model_3.position.set(0, 0, 0);
   model_3.rotation.set(0.05, -0.5, 0);
   model_3.traverse(n => {
     n.castShadow = true;
     n.receiveShadow = true;
 
     model_3.receiveShadow = true;
+    model_3.visible = false;
+
     scene.add(model_3);
 
   }
@@ -202,13 +213,15 @@ loader.load("04_electification_houses.glb", function (gltf) {
   model_4 = gltf.scene;
 
   model_4.scale.set(0.065, 0.065, 0.065);
-  model_4.position.set(0, 0, -1);
+  model_4.position.set(0, 0, 0);
   model_4.rotation.set(0.05, -0.5, 0);
   model_4.traverse(n => {
     n.castShadow = true;
     n.receiveShadow = true;
 
     model_4.receiveShadow = true;
+    model_4.visible = false;
+
     scene.add(model_4);
 
   }
@@ -247,13 +260,15 @@ loader.load("05_digital_tech_houses.glb", function (gltf) {
   model_5 = gltf.scene;
 
   model_5.scale.set(0.065, 0.065, 0.065);
-  model_5.position.set(0, 0, -1);
+  model_5.position.set(0, 0, 0);
   model_5.rotation.set(0.05, -0.5, 0);
   model_5.traverse(n => {
     n.castShadow = true;
     n.receiveShadow = true;
 
     model_5.receiveShadow = true;
+    model_5.visible = false;
+
     scene.add(model_5);
 
   }
@@ -287,8 +302,8 @@ loader.load("05_digital_tech_houses.glb", function (gltf) {
   }
 );
 
-const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
-scene.add(gridHelper)
+// const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
+// scene.add(gridHelper)
 
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -340,10 +355,36 @@ function scalePercent(start: number, end: number) {
 const animationScripts: { start: number; end: number; func: () => void }[] = [];
 
 //add an animation that moves the cube through first 40 percent of scroll
+// animationScripts.push({
+//   start: 0,
+//   end: 30,
+//   func: () => {
+//     globeModel.scale.x = lerp(0.3, 1, scalePercent(0, 70));
+//     globeModel.scale.y = lerp(0.3, 1, scalePercent(0, 70));
+//     globeModel.scale.z = lerp(0.3, 1, scalePercent(0, 70));
+//     camera.lookAt(new THREE.Vector3(globeModel.position.x, scalePercent(0, 4), globeModel.position.z));
+//     camera.position.set(0, 1, 2);
+//   },
+// });
+
+// animationScripts.push({
+//   start: 31,
+//   end: 50,
+//   func: () => {
+//     globeModel.scale.set(0, 0, 0);
+//   },
+// });
+
 animationScripts.push({
-  start: 0,
-  end: 30,
+  start: 1,
+  end: 40,
   func: () => {
+    globeModel.visible = true;
+    model_1.visible = false;
+    model_2.visible = false;
+    model_3.visible = false;
+    model_4.visible = false;
+    model_5.visible = false;
     globeModel.scale.x = lerp(0.3, 1, scalePercent(0, 70));
     globeModel.scale.y = lerp(0.3, 1, scalePercent(0, 70));
     globeModel.scale.z = lerp(0.3, 1, scalePercent(0, 70));
@@ -352,26 +393,20 @@ animationScripts.push({
   },
 });
 
-animationScripts.push({
-  start: 31,
-  end: 50,
-  func: () => {
-    globeModel.scale.set(0, 0, 0);
-  },
-});
 
 animationScripts.push({
-  start: 0,
-  end: 100,
+  start: 41,
+  end: 90,
   func: () => {
-    const t = scalePercent(0, 80); // Calculate the interpolation value
+    const t = scalePercent(0, 100); // Calculate the interpolation value
 
     // Interpolate the camera position
     camera.position.x = lerp(.25, 2, t);
     camera.position.y = lerp(.5, 2, t);
+    globeModel.visible = false;
 
     if (model_1 && model_2 && model_3 && model_4 && model_5) {
-      if (t <= 0.2) {
+      if (t <= .5) {
         // Transition from model_1 to model_2
         model_1.visible = true;
         model_2.visible = false;
@@ -379,7 +414,7 @@ animationScripts.push({
         model_4.visible = false;
         model_5.visible = false;
         camera.lookAt(model_1.position);
-      } else if (t <= 0.4) {
+      } else if (t <= .6) {
         // Transition from model_2 to model_3
         model_1.visible = false;
         model_2.visible = true;
@@ -387,7 +422,7 @@ animationScripts.push({
         model_4.visible = false;
         model_5.visible = false;
         camera.lookAt(model_2.position);
-      } else if (t <= 0.6) {
+      } else if (t <= .7) {
         // Transition from model_3 to model_4
         model_1.visible = false;
         model_2.visible = false;
@@ -395,7 +430,7 @@ animationScripts.push({
         model_4.visible = false;
         model_5.visible = false;
         camera.lookAt(model_3.position);
-      } else if (t <= 0.8) {
+      } else if (t <= .8) {
         // Transition from model_4 to model_5
         model_1.visible = false;
         model_2.visible = false;
@@ -413,6 +448,20 @@ animationScripts.push({
         camera.lookAt(model_5.position);
       }
     }
+  },
+});
+
+animationScripts.push({
+  start: 91,
+  end: 100,
+  func: () => {
+    globeModel.visible = false;
+    model_1.visible = false;
+    model_2.visible = false;
+    model_3.visible = false;
+    model_4.visible = false;
+    model_5.visible = false;
+
   },
 });
 
@@ -507,8 +556,8 @@ document.body.onscroll = () => {
       ((document.documentElement.scrollHeight || document.body.scrollHeight) -
         document.documentElement.clientHeight)) *
     100;
-  // (document.getElementById("scrollProgress") as HTMLDivElement).innerText =
-  //   "Scroll Progress : " + scrollPercent.toFixed(2);
+  (document.getElementById("scrollProgress") as HTMLDivElement).innerText =
+    "Scroll Progress : " + scrollPercent.toFixed(2);
 };
 
 const stats = new Stats();
