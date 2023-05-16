@@ -55,25 +55,23 @@
 
 
   // Add event listeners to control the videos on click or touch
-  sky_castleVideo.addEventListener('click', playVideo);
-  testimonialsVideo.addEventListener('click', playVideo);
-  paul_frankVideo.addEventListener('click', playVideo);
-  chameleonVideo.addEventListener('click', playVideo);
-  ripestyleVideo.addEventListener('click', playVideo);
+  skyCastleVideo.addEventListener('touchstart', handleTouchStart);
+  testimonialsVideo.addEventListener('touchstart', handleTouchStart);
+  paulFrankVideo.addEventListener('touchstart', handleTouchStart);
+  chameleonVideo.addEventListener('touchstart', handleTouchStart);
+  ripestyleVideo.addEventListener('touchstart', handleTouchStart);
 
-  function playVideo(event) {
+  function handleTouchStart(event) {
     const videoElement = event.target;
     videoElement.play();
-  }
 
-    if (videoElement.getAttribute('autoplay') === 'true') {
-      videoElement.removeAttribute('autoplay');
-      videoElement.pause();
-    } else {
-      videoElement.setAttribute('autoplay', 'true');
-      videoElement.play();
-    }
+  videoElement.addEventListener('touchend', handleTouchEnd);
+
+  function handleTouchEnd() {
+    videoElement.pause();
+    videoElement.removeEventListener('touchend', handleTouchEnd);
   }
+}
 </script>
     
 
