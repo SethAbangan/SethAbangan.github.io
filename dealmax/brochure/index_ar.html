@@ -14,7 +14,6 @@
 
       <a-assets>
 
-
         <video id="sky_castle" src="assets/sky_castle.mp4" ></video> 
 
         <video id="testimonials" src="assets/testimonials.mp4" ></video>
@@ -25,16 +24,13 @@
 
         <video id="ripestyle" src="assets/ripestyle.mp4" ></video>
 
-
       </a-assets>
-
 
 
 
       <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" 
       raycaster="far: 100; objects: .clickable"></a-camera>
       
-
 
       <a-entity mindar-image-target="targetIndex: 0">
             <a-video id="sky_castle" src="#sky_castle" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
@@ -45,14 +41,12 @@
           </a-entity>
         </a-scene>
 
-
     <script>
       const sky_castleVideo = document.querySelector('#sky_castle');
       const testimonialsVideo = document.querySelector('#testimonials');
       const paul_frankVideo = document.querySelector('#paul_frank');
       const chameleonVideo = document.querySelector('#chameleon');
       const ripestyleVideo = document.querySelector('#ripestyle');
-
 
   // Add event listeners to control the videos on click or touch
   skyCastleVideo.addEventListener('touchstart', handleTouchStart);
@@ -61,19 +55,13 @@
   chameleonVideo.addEventListener('touchstart', handleTouchStart);
   ripestyleVideo.addEventListener('touchstart', handleTouchStart);
 
-  function handleTouchStart(event) {
+  function playVideo(event) {
     const videoElement = event.target;
     videoElement.play();
-
-  videoElement.addEventListener('touchend', handleTouchEnd);
-
-  function handleTouchEnd() {
-    videoElement.pause();
-    videoElement.removeEventListener('touchend', handleTouchEnd);
   }
-}
 </script>
     
 
   </body>
 </html>
+
