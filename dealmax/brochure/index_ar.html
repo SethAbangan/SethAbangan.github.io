@@ -57,8 +57,17 @@
     </a-scene>
 
     <script>
+      function pauseAllVideos() {
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+      if (!video.paused) {
+        video.pause();
+      }
+    });
+  }
       const sky_castleVideo = document.querySelector('#sky_castle');
-      sky_castleVideo.addEventListener('click', function() => {
+      sky_castleVideo.addEventListener('click', function() {
+            pauseAllVideos();
         if (sky_castleVideo.paused) {
             sky_castleVideo.play();
         } else {
@@ -67,7 +76,8 @@
       });
 
       const testimonialsVideo = document.querySelector('#testimonials');
-      testimonialsVideo.addEventListener('click', function() => {
+      testimonialsVideo.addEventListener('click', function() {
+            pauseAllVideos();
         if (testimonialsVideo.paused) {
             testimonialsVideo.play();
         } else {
@@ -76,16 +86,30 @@
       });
 
       const paul_frankVideo = document.querySelector('#paul_frank');
-      paul_frankVideo.addEventListener('click', function() => {
-        if (paul_frankVideo.paused) {
-            paul_frankVideo.play();
-        } else {
-            paul_frankVideo.pause();
+paul_frankVideo.setAttribute('autoplay', 'false');
+paul_frankVideo.addEventListener('click', function() {
+    pauseAllVideos();
+    if (paul_frankVideo.paused) {
+        paul_frankVideo.play();
+    } else {
+        paul_frankVideo.pause();
+    }
+});
+
+function pauseAllVideos() {
+    // Get all video elements on the page
+    const videos = document.getElementsByTagName('video');
+    // Pause each video
+    for (let i = 0; i < videos.length; i++) {
+        if (!videos[i].paused) {
+            videos[i].pause();
         }
-      });
+    }
+}
 
       const chameleonVideo = document.querySelector('#chameleon');
-      chameleonVideo.addEventListener('click', function() => {
+      chameleonVideo.addEventListener('click', function() {
+            pauseAllVideos();
         if (chameleonVideo.paused) {
           chameleonVideo.play();
         } else {
@@ -94,7 +118,8 @@
       });
 
       const ripestyleVideo = document.querySelector('#ripestyle');
-      ripestyleVideo.addEventListener('click', function() => {
+      ripestyleVideo.addEventListener('click', function() {
+            pauseAllVideos();
         if (ripestyleVideo.paused) {
             ripestyleVideo.play();
         } else {
