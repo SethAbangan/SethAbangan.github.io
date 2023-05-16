@@ -19,10 +19,18 @@ loader.setDRACOLoader(dracoLoader);
 
 let model_1: THREE.Object3D<THREE.Event>;
 let model_2: THREE.Object3D<THREE.Event>;
-let mixer: THREE.AnimationMixer;
+let model_3: THREE.Object3D<THREE.Event>;
+let model_4: THREE.Object3D<THREE.Event>;
+let model_5: THREE.Object3D<THREE.Event>;
+
+let mixer_1: THREE.AnimationMixer;
+let mixer_2: THREE.AnimationMixer;
+let mixer_3: THREE.AnimationMixer;
+let mixer_4: THREE.AnimationMixer;
+let mixer_5: THREE.AnimationMixer;
 
 // Load a glTF resource model_1
-loader.load("OrangeHouseFinal.glb", function (gltf) {
+loader.load("fossil_fuel_supply.glb", function (gltf) {
   model_1 = gltf.scene;
 
   model_1.scale.set(0.065, 0.065, 0.065);
@@ -42,20 +50,68 @@ loader.load("OrangeHouseFinal.glb", function (gltf) {
 
 console.log(gltf.animations);
 
-mixer = new THREE.AnimationMixer(model_1);
+mixer_1 = new THREE.AnimationMixer(model_1);
+const animation = gltf.animations[0];
+console.log(animation);
+
+// choose the animation by its index
+const action = mixer_1.clipAction(animation);
+//action.play();
+action.setDuration(1.5);
+action.setLoop(THREE.LoopRepeat,Infinity).play();
+
+scene.add(model_1);
+const animate = function () { requestAnimationFrame(animate); mixer_1.update(0.01); // Update the animation mixer 
+renderer.render(scene, camera); 
+}; 
+animate(); 
+ },
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  // called when loading has errors
+  function (error) {
+    console.log("An error happened");
+  }
+); 
+
+// Load a glTF resource model_2
+loader.load("supply_houses.glb", function (gltf) {
+  model_2 = gltf.scene;
+
+  model_2.scale.set(0.065, 0.065, 0.065);
+  model_2.position.set(0, 0, -1);
+  model_2.rotation.set(0.05, -0.5, 0);
+  model_2.traverse (n => {
+    n.castShadow = true;
+    n.receiveShadow = true;
+
+
+    
+    model_2.receiveShadow = true;
+     scene.add(model_2);
+    
+  }
+)
+
+
+
+console.log(gltf.animations);
+
+mixer_2 = new THREE.AnimationMixer(model_2);
 const animation = gltf.animations[0];
 console.log(animation);
 
 
 
 // choose the animation by its index
-const action = mixer.clipAction(animation);
+const action = mixer_2.clipAction(animation);
 //action.play();
-action.setDuration(1.5);
+action.setDuration(2);
 action.setLoop(THREE.LoopRepeat,Infinity).play();
 
-scene.add(model_1);
-const animate = function () { requestAnimationFrame(animate); mixer.update(0.01); // Update the animation mixer 
+scene.add(model_2);
+const animate = function () { requestAnimationFrame(animate); mixer_2.update(0.01); // Update the animation mixer 
 renderer.render(scene, camera); 
 }; 
 animate(); 
@@ -70,63 +126,100 @@ animate();
   }
 ); 
 
-// // Load a glTF resource model_2
-// loader.load("green_houses.glb", function (gltf) {
-//   model_2 = gltf.scene;
-
-//   model_2.scale.set(0.065, 0.065, 0.065);
-//   model_2.position.set(0, 0, -1);
-//   model_2.rotation.set(0.05, -0.5, 0);
-//   model_2.traverse (n => {
-//     n.castShadow = true;
-//     n.receiveShadow = true;
 
 
-//     model_2.transparent =true;
-//     model_2.receiveShadow = true;
-//      scene.add(model_2);
+// Load a glTF resource model_3
+loader.load("bi_directional_house.glb", function (gltf) {
+  model_3 = gltf.scene;
+
+  model_3.scale.set(0.065, 0.065, 0.065);
+  model_3.position.set(0, 0, -1);
+  model_3.rotation.set(0.05, -0.5, 0);
+  model_3.traverse (n => {
+    n.castShadow = true;
+    n.receiveShadow = true;
+
+    model_3.receiveShadow = true;
+     scene.add(model_3);
     
-//   }
-// )
+  }
+)
 
 
 
-// console.log(gltf.animations);
+console.log(gltf.animations);
 
-// mixer = new THREE.AnimationMixer(model_1);
-// const animation = gltf.animations[0];
-// console.log(animation);
+mixer_3 = new THREE.AnimationMixer(model_3);
+const animation = gltf.animations[0];
+console.log(animation);
 
+// choose the animation by its index
+const action = mixer_3.clipAction(animation);
+//action.play();
+action.setDuration(1.5);
+action.setLoop(THREE.LoopRepeat,Infinity).play();
 
-
-// // choose the animation by its index
-// const action = mixer.clipAction(animation);
-// //action.play();
-// action.setDuration(2);
-// action.setLoop(THREE.LoopRepeat,Infinity).play();
-
-// scene.add(model_1);
-// const animate = function () { requestAnimationFrame(animate); mixer.update(0.01); // Update the animation mixer 
-// renderer.render(scene, camera); 
-// }; 
-// animate(); 
-
-//  },
-//   function (xhr) {
-//     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-//   },
-//   // called when loading has errors
-//   function (error) {
-//     console.log("An error happened");
-//   }
-// ); 
+scene.add(model_3);
+const animate = function () { requestAnimationFrame(animate); mixer_3.update(0.01); // Update the animation mixer 
+renderer.render(scene, camera); 
+}; 
+animate(); 
+ },
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  // called when loading has errors
+  function (error) {
+    console.log("An error happened");
+  }
+); 
 
 
+// Load a glTF resource model_4
+loader.load("fossil_fuel_supply.glb", function (gltf) {
+  model_4 = gltf.scene;
+
+  model_4.scale.set(0.065, 0.065, 0.065);
+  model_4.position.set(0, 0, -1);
+  model_4.rotation.set(0.05, -0.5, 0);
+  model_4.traverse (n => {
+    n.castShadow = true;
+    n.receiveShadow = true;
+
+    model_4.receiveShadow = true;
+     scene.add(model_4);
+    
+  }
+)
 
 
 
+console.log(gltf.animations);
 
+mixer_4 = new THREE.AnimationMixer(model_4);
+const animation = gltf.animations[0];
+console.log(animation);
 
+// choose the animation by its index
+const action = mixer_4.clipAction(animation);
+//action.play();
+action.setDuration(1.5);
+action.setLoop(THREE.LoopRepeat,Infinity).play();
+
+scene.add(model_4);
+const animate = function () { requestAnimationFrame(animate); mixer_4.update(0.01); // Update the animation mixer 
+renderer.render(scene, camera); 
+}; 
+animate(); 
+ },
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  // called when loading has errors
+  function (error) {
+    console.log("An error happened");
+  }
+); 
 
 
 
@@ -254,7 +347,58 @@ animationScripts.push({
     
     
     // camera.lookAt(cube.position);
-    camera.lookAt(model_1.position);
+    if (model_1) {
+      model_1.visible = true;
+      model_2.visible = false;
+      model_3.visible = false;
+       camera.lookAt(model_1.position);
+      }
+    // camera.position.set(0, 1, 2);
+    // cube.position.z = lerp(-10, 0, scalePercent(0, 40));
+    //console.log(cube.position.z)
+ 
+ 
+  },
+});
+//add an animation that moves the cube through 40 percent of scroll
+animationScripts.push({
+  start: 20,
+  end: 40,
+  func: () => {
+    camera.position.x = lerp(.25, 2, scalePercent(0, 80));
+    camera.position.y = lerp(.5, 2, scalePercent(0, 80));
+    
+    
+    // camera.lookAt(cube.position);
+    if (model_2) {
+    model_1.visible = false;
+    model_2.visible = true;
+    model_3.visible = false;
+      camera.lookAt(model_2.position);
+      }
+    // camera.position.set(0, 1, 2);
+    // cube.position.z = lerp(-10, 0, scalePercent(0, 40));
+    //console.log(cube.position.z)
+ 
+ 
+  },
+});
+
+//add an animation that moves the cube through 60 percent of scroll
+animationScripts.push({
+  start: 40,
+  end: 60,
+  func: () => {
+    camera.position.x = lerp(.25, 2, scalePercent(0, 80));
+    camera.position.y = lerp(.5, 2, scalePercent(0, 80));
+    
+    
+    // camera.lookAt(cube.position);
+    if (model_3) {
+    model_2.visible = false;
+    model_3.visible = true;
+      camera.lookAt(model_3.position);
+      }
     // camera.position.set(0, 1, 2);
     // cube.position.z = lerp(-10, 0, scalePercent(0, 40));
     //console.log(cube.position.z)
