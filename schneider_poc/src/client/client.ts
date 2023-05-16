@@ -1,10 +1,10 @@
 import * as THREE from "three";
 import Stats from "three/examples/jsm/libs/stats.module";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 const scene = new THREE.Scene();
-// scene.background = new THREE.Color(0xB3B6B7)
+// scene.background = new THREE.Color(0xECF0F1);
 // Instantiate a loader
 const loader = new GLTFLoader();
 
@@ -13,27 +13,23 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
 loader.setDRACOLoader(dracoLoader);
 
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
+let model_1: THREE.Object3D<THREE.Event>;
+let model_2: THREE.Object3D<THREE.Event>;
+let model_3: THREE.Object3D<THREE.Event>;
+let model_4: THREE.Object3D<THREE.Event>;
+let model_5: THREE.Object3D<THREE.Event>;
 
-const mainLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 2);
-mainLight.castShadow = true;
-mainLight.position.set(3, 5, -3);
-scene.add(mainLight);
-
-const fillLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
-fillLight.castShadow = true;
-fillLight.position.set(-4, 3, -4);
-scene.add(fillLight);
+let mixer_1: THREE.AnimationMixer;
+let mixer_2: THREE.AnimationMixer;
+let mixer_3: THREE.AnimationMixer;
+let mixer_4: THREE.AnimationMixer;
+let mixer_5: THREE.AnimationMixer;
 
 const renderer = new THREE.WebGLRenderer({ alpha: true});
 renderer.setClearColor(0x000000, 0);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
 // Get the canvas element created by the renderer
 const canvas = renderer.domElement;
 canvas.style.position = 'fixed';
@@ -42,11 +38,6 @@ canvas.style.left = '240px';
 
 // Load a glTF resource
 let globeModel: THREE.Group;
-
-let houseAnimMixer: THREE.AnimationMixer;
-let houseAnims: THREE.AnimationClip[];
-let housesModel: THREE.Object3D<THREE.Event>;
-let houseAnimControl: boolean;
 
 loader.load("Earth.glb", function (gltf) {
   const model = gltf.scene;
@@ -70,69 +61,256 @@ loader.load("Earth.glb", function (gltf) {
   animateGlobe();
 });
 
-// Load a glTF resource
-loader.load(
-  // resource URL
-  "OrangeHouses.glb",
+// Load a glTF resource model_1
+loader.load("01_orange_houses.glb", function (gltf) {
+  model_1 = gltf.scene;
 
-  // called when the resource is loaded
-  function (gltf: {
-    scene: any;
-    animations: any;
-    scenes: any;
-    cameras: any;
-    asset: any;
-  }) {
-    housesModel = gltf.scene;
+  model_1.scale.set(0.065, 0.065, 0.065);
+  model_1.position.set(0, 0, -1);
+  model_1.rotation.set(0.05, -0.5, 0);
+  model_1.traverse(n => {
+    n.castShadow = true;
+    n.receiveShadow = true;
 
-    houseAnims = gltf.animations;
-    gltf.animations; // Array<THREE.AnimationClip>
-    housesModel; // THREE.Group
-    gltf.scenes; // Array<THREE.Group>
-    gltf.cameras; // Array<THREE.Camera>s
-    gltf.asset; // Object
-    housesModel.scale.set(0.7, 0.7, 0.7);
-    housesModel.position.set(10, 0, 10);
-    housesModel.rotation.set(0, -2, 0);
+    model_1.receiveShadow = true;
+    scene.add(model_1);
 
-    housesModel.receiveShadow = true;
-    houseAnimMixer = new THREE.AnimationMixer(housesModel);
+  }
+  )
 
-    for (let i = 0; i < 3; i++) {
-      const animation = houseAnims[i];
-      console.log(animation);
+  console.log(gltf.animations);
 
-      // choose the animation by its index
-      const action = houseAnimMixer.clipAction(animation);
-      //action.play();
-      action.setDuration(5);
-      action.setLoop(THREE.LoopRepeat, Infinity).play();
-    }
+  mixer_1 = new THREE.AnimationMixer(model_1);
+  const animation = gltf.animations[0];
+  console.log(animation);
 
-    scene.add(housesModel);
-  },
-  // called while loading is progressing
-  function (xhr: { loaded: number; total: number }) {
+  // choose the animation by its index
+  const action = mixer_1.clipAction(animation);
+  //action.play();
+  action.setDuration(1.5);
+  action.setLoop(THREE.LoopRepeat, Infinity).play();
+
+  scene.add(model_1);
+  const animate = function () {
+    requestAnimationFrame(animate); mixer_1.update(0.01); // Update the animation mixer 
+    renderer.render(scene, camera);
+  };
+  animate();
+},
+  function (xhr) {
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   // called when loading has errors
-  function () {
+  function (error) {
     console.log("An error happened");
   }
 );
 
-function animateHouse() {
-  if (houseAnimControl) return;
+// Load a glTF resource model_2
+loader.load("02_supply_houses.glb", function (gltf) {
+  model_2 = gltf.scene;
 
-  houseAnimControl = true;
+  model_2.scale.set(0.065, 0.065, 0.065);
+  model_2.position.set(0, 0, -1);
+  model_2.rotation.set(0.05, -0.5, 0);
+  model_2.traverse(n => {
+    n.castShadow = true;
+    n.receiveShadow = true;
 
+    model_2.receiveShadow = true;
+    scene.add(model_2);
+
+  }
+  )
+
+  console.log(gltf.animations);
+
+  mixer_2 = new THREE.AnimationMixer(model_2);
+  const animation = gltf.animations[0];
+  console.log(animation);
+
+  // choose the animation by its index
+  const action = mixer_2.clipAction(animation);
+  //action.play();
+  action.setDuration(2);
+  action.setLoop(THREE.LoopRepeat, Infinity).play();
+
+  scene.add(model_2);
   const animate = function () {
-    requestAnimationFrame(animate);
-    houseAnimMixer.update(0.01); // Update the animation mixer
+    requestAnimationFrame(animate); mixer_2.update(0.01); // Update the animation mixer 
     renderer.render(scene, camera);
   };
   animate();
-}
+
+},
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  // called when loading has errors
+  function (error) {
+    console.log("An error happened");
+  }
+);
+
+// Load a glTF resource model_3
+loader.load("03_bi_directional_house.glb", function (gltf) {
+  model_3 = gltf.scene;
+
+  model_3.scale.set(0.065, 0.065, 0.065);
+  model_3.position.set(0, 0, -1);
+  model_3.rotation.set(0.05, -0.5, 0);
+  model_3.traverse(n => {
+    n.castShadow = true;
+    n.receiveShadow = true;
+
+    model_3.receiveShadow = true;
+    scene.add(model_3);
+
+  }
+  )
+
+  console.log(gltf.animations);
+
+  mixer_3 = new THREE.AnimationMixer(model_3);
+  const animation = gltf.animations[0];
+  console.log(animation);
+
+  // choose the animation by its index
+  const action = mixer_3.clipAction(animation);
+  //action.play();
+  action.setDuration(1.5);
+  action.setLoop(THREE.LoopRepeat, Infinity).play();
+
+  scene.add(model_3);
+  const animate = function () {
+    requestAnimationFrame(animate); mixer_3.update(0.01); // Update the animation mixer 
+    renderer.render(scene, camera);
+  };
+  animate();
+},
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  // called when loading has errors
+  function (error) {
+    console.log("An error happened");
+  }
+);
+
+// Load a glTF resource model_4
+loader.load("04_electification_houses.glb", function (gltf) {
+  model_4 = gltf.scene;
+
+  model_4.scale.set(0.065, 0.065, 0.065);
+  model_4.position.set(0, 0, -1);
+  model_4.rotation.set(0.05, -0.5, 0);
+  model_4.traverse(n => {
+    n.castShadow = true;
+    n.receiveShadow = true;
+
+    model_4.receiveShadow = true;
+    scene.add(model_4);
+
+  }
+  )
+
+  console.log(gltf.animations);
+
+  mixer_4 = new THREE.AnimationMixer(model_4);
+  const animation = gltf.animations[0];
+  console.log(animation);
+
+  // choose the animation by its index
+  const action = mixer_4.clipAction(animation);
+  //action.play();
+  action.setDuration(1.5);
+  action.setLoop(THREE.LoopRepeat, Infinity).play();
+
+  scene.add(model_4);
+  const animate = function () {
+    requestAnimationFrame(animate); mixer_4.update(0.01); // Update the animation mixer 
+    renderer.render(scene, camera);
+  };
+  animate();
+},
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  // called when loading has errors
+  function (error) {
+    console.log("An error happened");
+  }
+);
+
+// Load a glTF resource model_5
+loader.load("05_digital_tech_houses.glb", function (gltf) {
+  model_5 = gltf.scene;
+
+  model_5.scale.set(0.065, 0.065, 0.065);
+  model_5.position.set(0, 0, -1);
+  model_5.rotation.set(0.05, -0.5, 0);
+  model_5.traverse(n => {
+    n.castShadow = true;
+    n.receiveShadow = true;
+
+    model_5.receiveShadow = true;
+    scene.add(model_5);
+
+  }
+  )
+
+  console.log(gltf.animations);
+
+  mixer_5 = new THREE.AnimationMixer(model_5);
+  const animation = gltf.animations[0];
+  console.log(animation);
+
+  // choose the animation by its index
+  const action = mixer_5.clipAction(animation);
+  //action.play();
+  action.setDuration(1.5);
+  action.setLoop(THREE.LoopRepeat, Infinity).play();
+
+  scene.add(model_5);
+  const animate = function () {
+    requestAnimationFrame(animate); mixer_5.update(0.01); // Update the animation mixer 
+    renderer.render(scene, camera);
+  };
+  animate();
+},
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  // called when loading has errors
+  function (error) {
+    console.log("An error happened");
+  }
+);
+
+const gridHelper = new THREE.GridHelper(10, 10, 0xaec6cf, 0xaec6cf)
+scene.add(gridHelper)
+
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+const hem_light = new THREE.HemisphereLight(0xffffff, 0x080820, .5);
+scene.add(hem_light);
+
+const ambientlight = new THREE.AmbientLight(0xFFFFFF, .15); // soft white light
+scene.add(ambientlight);
+
+const spotLight = new THREE.SpotLight(0xffffff, 1);
+spotLight.position.set(100, 1000, 100);
+spotLight.castShadow = true;
+spotLight.shadow.bias = 0.0001;
+spotLight.shadow.mapSize.width = 1024 * 4;
+spotLight.shadow.mapSize.height = 1024 * 4;
+scene.add(spotLight);
+
 
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
@@ -141,7 +319,6 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   render();
 }
-
 
 /* Liner Interpolation
  * lerp(min, max, ratio)
@@ -162,30 +339,19 @@ function scalePercent(start: number, end: number) {
 
 const animationScripts: { start: number; end: number; func: () => void }[] = [];
 
-//add an animation that moves 0 through 100 percent of scroll
-animationScripts.push({
-  start: 0,
-  end: 100,
-  func: () => {
-  },
-});
-
 //add an animation that moves the cube through first 40 percent of scroll
 animationScripts.push({
   start: 0,
   end: 30,
   func: () => {
-    // globeModel.position.x = lerp(0, 5, scalePercent(0, 100));
-    // globeModel.position.y = lerp(0, 7, scalePercent(0, 200));
-    // globeModel.position.z = lerp(0, 10, scalePercent(0, 100));
     globeModel.scale.x = lerp(0.3, 1, scalePercent(0, 70));
     globeModel.scale.y = lerp(0.3, 1, scalePercent(0, 70));
     globeModel.scale.z = lerp(0.3, 1, scalePercent(0, 70));
     camera.lookAt(new THREE.Vector3(globeModel.position.x, scalePercent(0, 4), globeModel.position.z));
     camera.position.set(0, 1, 2);
-    // camera.position.set(0, 1.5, 2);
   },
 });
+
 animationScripts.push({
   start: 31,
   end: 50,
@@ -193,46 +359,134 @@ animationScripts.push({
     globeModel.scale.set(0, 0, 0);
   },
 });
-animationScripts.push({
-  start: 51,
-  end: 60,
-  func: () => {
-    camera.position.x = lerp(3, 0, scalePercent(51, 40))
-    camera.position.y = lerp(5, 7, scalePercent(51, 60))
-    // camera.lookAt(new THREE.Vector3(housesModel.position.x + 3, housesModel.position.y + 2, housesModel.position.z + 1));
-    camera.lookAt(housesModel.position);
-    // camera.position.set(5, 10, 22);
-    animateHouse();
-  },
-});
 
 animationScripts.push({
-  start: 61,
-  end: 75,
-  func: () => {
-    camera.position.x = lerp(3, 0, scalePercent(61, 75))
-    camera.position.y = lerp(5, 7, scalePercent(61, 75))
-    camera.lookAt(housesModel.position);
-  },
-});
-
-animationScripts.push({
-  start: 76,
-  end: 80,
-  func: () => {
-    camera.position.x = lerp(3, 0, scalePercent(61, 75))
-    camera.position.y = lerp(5, 7, scalePercent(61, 75))
-    camera.lookAt(housesModel.position);
-  },
-});
-
-animationScripts.push({
-  start: 60,
+  start: 0,
   end: 100,
   func: () => {
-    // find another solution, call func only once
-    // camera.lookAt(housesModel.position);
-    // camera.position.set(150, 50, -150);
+    const t = scalePercent(0, 80); // Calculate the interpolation value
+
+    // Interpolate the camera position
+    camera.position.x = lerp(.25, 2, t);
+    camera.position.y = lerp(.5, 2, t);
+
+    if (model_1 && model_2 && model_3 && model_4 && model_5) {
+      if (t <= 0.2) {
+        // Transition from model_1 to model_2
+        model_1.visible = true;
+        model_2.visible = false;
+        model_3.visible = false;
+        model_4.visible = false;
+        model_5.visible = false;
+        camera.lookAt(model_1.position);
+      } else if (t <= 0.4) {
+        // Transition from model_2 to model_3
+        model_1.visible = false;
+        model_2.visible = true;
+        model_3.visible = false;
+        model_4.visible = false;
+        model_5.visible = false;
+        camera.lookAt(model_2.position);
+      } else if (t <= 0.6) {
+        // Transition from model_3 to model_4
+        model_1.visible = false;
+        model_2.visible = false;
+        model_3.visible = true;
+        model_4.visible = false;
+        model_5.visible = false;
+        camera.lookAt(model_3.position);
+      } else if (t <= 0.8) {
+        // Transition from model_4 to model_5
+        model_1.visible = false;
+        model_2.visible = false;
+        model_3.visible = false;
+        model_4.visible = true;
+        model_5.visible = false;
+        camera.lookAt(model_4.position);
+      } else {
+        // Transition from model_5 to model_1
+        model_1.visible = false;
+        model_2.visible = false;
+        model_3.visible = false;
+        model_4.visible = false;
+        model_5.visible = true;
+        camera.lookAt(model_5.position);
+      }
+    }
+  },
+});
+
+
+
+
+
+// animationScripts.push({
+//   start: 40,
+//   end: 60,
+//   func: () => {
+//     camera.position.x = lerp(.25, 2, scalePercent(0, 80));
+//     camera.position.y = lerp(.5, 2, scalePercent(0, 80));
+
+//     if (model_3) {
+//       model_1.visible = false;
+//       model_2.visible = false;
+//       model_3.visible = true;
+//       // model_4.visible = false;
+
+//       camera.lookAt(model_3.position);
+//     }
+//   },
+// });
+
+
+
+//add an animation that moves the cube through first 40 percent of scroll
+// animationScripts.push({
+//   start: 0,
+//   end: 40,
+//   func: () => {
+//     // camera.lookAt(cube.position);
+//     camera.lookAt(model.position);
+//     camera.position.set(0, 1, 2);
+//     // cube.position.z = lerp(-10, 0, scalePercent(0, 40));
+//     //console.log(cube.position.z)
+//   },
+// });
+
+//add an animation that rotates the cube between 40-60 percent of scroll
+// animationScripts.push({
+//   start: 40,
+//   end: 60,
+//   func: () => {
+//     // camera.lookAt(cube.position);
+//     camera.lookAt(model.position);
+//     camera.position.set(0, 1, 2);
+//     // cube.rotation.z = lerp(0, Math.PI, scalePercent(40, 60));
+//     //console.log(cube.rotation.z)
+//   },
+// });
+
+//add an animation that moves the camera between 60-80 percent of scroll
+// animationScripts.push({
+//   start: 60,
+//   end: 80,
+//   func: () => {
+//     camera.position.x = lerp(0, 5, scalePercent(60, 80));
+//     camera.position.y = lerp(1, 5, scalePercent(60, 80));
+//     // camera.lookAt(cube.position);
+//     camera.lookAt(model.position);
+//     //console.log(camera.position.x + " " + camera.position.y)
+//   },
+// });
+
+//add an animation that auto rotates the cube from 80 percent of scroll
+animationScripts.push({
+  start: 80,
+  end: 101,
+  func: () => {
+    //auto rotate
+    // cube.rotation.x += 0.01;
+    // cube.rotation.y += 0.01;
   },
 });
 
@@ -247,7 +501,7 @@ function playScrollAnimations() {
 let scrollPercent = 0;
 
 document.body.onscroll = () => {
-  // calculate the current scroll progress as a percentage
+  //calculate the current scroll progress as a percentage
   scrollPercent =
     ((document.documentElement.scrollTop || document.body.scrollTop) /
       ((document.documentElement.scrollHeight || document.body.scrollHeight) -
@@ -259,7 +513,7 @@ document.body.onscroll = () => {
 
 const stats = new Stats();
 document.body.appendChild(stats.dom);
-document.body.removeChild(stats.dom);
+// document.body.removeChild(stats.dom);
 
 function animate() {
   requestAnimationFrame(animate);
