@@ -55,14 +55,16 @@
 
 
   // Add event listeners to control the videos on click or touch
-  sky_castleVideo.addEventListener('click', toggleVideoPlayback);
-  testimonialsVideo.addEventListener('click', toggleVideoPlayback);
-  paul_frankVideo.addEventListener('click', toggleVideoPlayback);
-  chameleonVideo.addEventListener('click', toggleVideoPlayback);
-  ripestyleVideo.addEventListener('click', toggleVideoPlayback);
+  sky_castleVideo.addEventListener('click', playVideo);
+  testimonialsVideo.addEventListener('click', playVideo);
+  paul_frankVideo.addEventListener('click', playVideo);
+  chameleonVideo.addEventListener('click', playVideo);
+  ripestyleVideo.addEventListener('click', playVideo);
 
-  function toggleVideoPlayback(event) {
+  function playVideo(event) {
     const videoElement = event.target;
+    videoElement.play();
+  }
 
     if (videoElement.getAttribute('autoplay') === 'true') {
       videoElement.removeAttribute('autoplay');
