@@ -1,103 +1,99 @@
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script language="JavaScript">
 
-      
-   </script>
-      </script>
-  </head>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
 
-  <body>
+<body>
 
-    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" 
+  <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false" cursor="rayOrigin: mouse">
-      
-
-      <a-assets>
-        <video id="sky_castle" src="assets/sky_castle.mp4" autoplay loop></video>
-        <video id="testimonials" src="assets/testimonials.mp4" autoplay loop></video>
-        <video id="paul_frank" src="assets/paul_frank.mp4" autoplay loop></video>
-        <video id="ripestyle" src="assets/ripestyle.mp4" autoplay loop></video>
-      </a-assets>
 
 
+    <a-assets>
+      <video id="sky_castle" src="assets/sky_castle.mp4" autoplay loop></video>
+      <video id="testimonials" src="assets/testimonials.mp4" autoplay loop></video>
+      <video id="paul_frank" src="assets/paul_frank.mp4" autoplay loop></video>
+      <video id="ripestyle" src="assets/ripestyle.mp4" autoplay loop></video>
+    </a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" 
+
+
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
       raycaster="far: 100; objects: .clickable"></a-camera>
-      
-
-      <a-entity mindar-image-target="targetIndex: 0">
-            <a-video id="sky_castle_video" src="#sky_castle" position="0.32 -0.25 0" height="0.5" width="0.3" rotation="0 0 0" opacity=".99" class="clickable" autoplay loop></a-video>
-            <a-video id="paul_frank_video" src="#paul_frank" position="0.3 0.2 0" height="0.35" width="0.35" rotation="0 0 0" opacity=".99" class="clickable" autoplay loop></a-video> 
-          </a-entity>
-
-          <a-entity mindar-image-target="targetIndex: 1">
-            <a-video id="testimonials_video" src="#testimonials" position="0.1 -0.38 0" height="0.15" width="0.8" rotation="0 0 0" opacity=".99" class="clickable" autoplay loop></a-video>
-            <a-video id="ripestyle_video" src="#ripestyle" position="0.1 0.15 0" height="0.5" width="0.8" rotation="0 0 0" opacity=".99" class="clickable" autoplay loop></a-video>
-          </a-entity>
-        </a-scene>
-
-        <script>
-          const sky_castleVideo = document.querySelector('#sky_castle');
-          const testimonialsVideo = document.querySelector('#testimonials');
-          const paul_frankVideo = document.querySelector('#paul_frank');
-          const ripestyleVideo = document.querySelector('#ripestyle');
-        
-          function playVideo(event) {
-            const videoElement = event.target;
-            videoElement.play();
-          }
-        
-          function pauseVideo(event) {
-            const videoElement = event.target;
-            if (!videoElement.paused) {
-              videoElement.pause();
-            }
-          }
-        
-          // Add event listeners to control the videos on click or touch
-          sky_castleVideo.addEventListener('touchstart', playVideo);
-          testimonialsVideo.addEventListener('touchstart', playVideo);
-          paul_frankVideo.addEventListener('touchstart', playVideo);
-          ripestyleVideo.addEventListener('touchstart', playVideo);
-          sky_castleVideo.addEventListener('touchend', pauseVideo);
-          testimonialsVideo.addEventListener('touchend', pauseVideo);
-          paul_frankVideo.addEventListener('touchend', pauseVideo);
-          ripestyleVideo.addEventListener('touchend', pauseVideo);
-        
-          // Event handler for the mindar-image-leave event
-          function handleImageLeave(event) {
-            sky_castleVideo.pause();
-            testimonialsVideo.pause();
-            paul_frankVideo.pause();
-           
-        
-            // Reset the currentTime property to start the videos from the beginning
-            sky_castleVideo.currentTime = 0;
-            testimonialsVideo.currentTime = 0;
-            paul_frankVideo.currentTime = 0;
-            
-            $( document ).ready(function() {
-              // ripestyleVideo.muted = true;
-              ripestyleVideo.pause();
-              ripestyleVideo.currentTime = 0;
-          // var vid = document.getElementById("ripestyle");
-          // $( "#ripestyle" ).click(function(e) {
-          //     vid.pause();
-          // });
-      });
 
 
-          }
-        
-          // Add event listener for the mindar-image-leave event on the a-scene element
-          const sceneElement = document.querySelector('a-scene');
-          sceneElement.addEventListener('mindar-image-leave', handleImageLeave);
-        </script>
-  </body>
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-video id="sky_castle_video" src="#sky_castle" position="0.32 -0.25 0" height="0.5" width="0.3" rotation="0 0 0"
+        opacity=".99" class="clickable" autoplay loop></a-video>
+      <a-video id="paul_frank_video" src="#paul_frank" position="0.3 0.2 0" height="0.35" width="0.35" rotation="0 0 0"
+        opacity=".99" class="clickable" autoplay loop></a-video>
+    </a-entity>
+
+    <a-entity mindar-image-target="targetIndex: 1">
+      <a-video id="testimonials_video" src="#testimonials" position="0.1 -0.38 0" height="0.15" width="0.8"
+        rotation="0 0 0" opacity=".99" class="clickable" autoplay loop></a-video>
+      <a-video id="ripestyle_video" src="#ripestyle" position="0.1 0.15 0" height="0.5" width="0.8" rotation="0 0 0"
+        opacity=".99" class="clickable" autoplay loop></a-video>
+    </a-entity>
+  </a-scene>
+
+  <script>
+    const sky_castleVideo = document.querySelector('#sky_castle');
+    const testimonialsVideo = document.querySelector('#testimonials');
+    const paul_frankVideo = document.querySelector('#paul_frank');
+    const ripestyleVideo = document.querySelector('#ripestyle');
+
+    function playVideo(event) {
+      const videoElement = event.target;
+      videoElement.play();
+    }
+
+    function pauseVideo(event) {
+      const videoElement = event.target;
+      if (!videoElement.paused) {
+        videoElement.pause();
+      }
+    }
+
+    // Add event listeners to control the videos on click or touch
+    // sky_castleVideo.addEventListener('touchstart', playVideo);
+    // testimonialsVideo.addEventListener('touchstart', playVideo);
+    // paul_frankVideo.addEventListener('touchstart', playVideo);
+    // ripestyleVideo.addEventListener('touchstart', playVideo);
+    // sky_castleVideo.addEventListener('touchend', pauseVideo);
+    // testimonialsVideo.addEventListener('touchend', pauseVideo);
+    // paul_frankVideo.addEventListener('touchend', pauseVideo);
+    // ripestyleVideo.addEventListener('touchend', pauseVideo);
+
+    // Event handler for the mindar-image-leave event
+    function handleImageLeave(event) {
+      sky_castleVideo.pause();
+      testimonialsVideo.pause();
+      paul_frankVideo.pause();
+
+      // Reset the currentTime property to start the videos from the beginning
+      sky_castleVideo.currentTime = 0;
+      testimonialsVideo.currentTime = 0;
+      paul_frankVideo.currentTime = 0;
+    }
+
+    function handleImageEnter(event) {
+      sky_castleVideo.play();
+      testimonialsVideo.play();
+      paul_frankVideo.play();
+    }
+
+    // Add event listener for the mindar-image-leave event on the a-scene element
+    const sceneElement = document.querySelector('a-scene');
+    // sceneElement.addEventListener('mindar-image-leave', handleImageLeave);
+    // sceneElement.addEventListener('mindar-image-enter', handleImageLeave);
+  </script>
+</body>
+
 </html>
