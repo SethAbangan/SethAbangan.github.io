@@ -53,14 +53,34 @@
           paul_frankVideo.addEventListener('touchstart', playVideo);
           ripestyleVideo.addEventListener('touchstart', playVideo);
         
-          // Event handler for the trigger element mouseleave event
-          function handleMouseLeave(event) {
-            const videoElement = event.target;
-            videoElement.pause();
-          }
+         // Event handler for the trigger element touchend event
+         function handleTouchEnd(event) {
+         const videoElement = event.target;
+         videoElement.pause();
+         }
         
-          // Add event listener for mouseleave event on the trigger element
-          ripestyleVideo.addEventListener('mouseleave', handleMouseLeave);
+          // Add event listener for touchend event on the trigger element
+          ripestyleVideo.addEventListener('touchend', handleTouchEnd);
+
+          // Event handler for the mindar-image-status event
+          function handleImageStatus(event) {
+          if (event.detail.status === 'lost') {
+          sky_castleVideo.pause();
+          testimonialsVideo.pause();
+          paul_frankVideo.pause();
+          ripestyleVideo.pause();
+      
+          // Reset the currentTime property to start the videos from the beginning
+          sky_castleVideo.currentTime = 0;
+          testimonialsVideo.currentTime = 0;
+          paul_frankVideo.currentTime = 0;
+          ripestyleVideo.currentTime = 0;
+           }
+          }
+  
+          // Add event listener for the mindar-image-status event on the a-scene element
+          const sceneElement = document.querySelector('a-scene');
+          sceneElement.addEventListener('mindar-image-status', handleImageStatus);
         </script>
   </body>
 </html>
