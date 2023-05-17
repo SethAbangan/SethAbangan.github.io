@@ -8,104 +8,19 @@
 
   <body>
 
-    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" 
-    device-orientation-permission-ui="enabled: false" cursor="rayOrigin: mouse">
-      
-
-      <a-assets>
-
-        <video id="sky_castle" src="assets/sky_castle.mp4"></video> 
-
-        <video id="testimonials" src="assets/testimonials.mp4"></video>
-
-        <video id="paul_frank" src="assets/paul_frank.mp4"></video>
-    
-        <video id="chameleon" src="assets/chameleon.mp4"></video>
-
-        <video id="ripestyle" src="assets/ripestyle.mp4"></video>
-
-      </a-assets>
-
-
-
-      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" 
-      raycaster="far: 100; objects: .clickable"></a-camera>
-      
-
-      <a-entity mindar-image-target="targetIndex: 0">
-            <a-video
-              id="sky_castle_video"
-              src="#sky_castle"
-              position="-0.55 -0.25 0"
-              height="0.9"
-              width="0.5"
-              rotation="0 0 0"
-              opacity=".99"
-              class="clickable"
-            ></a-video>
-            <a-video
-              id="testimonials_video"
-              src="#testimonials"
-              position="0.2 -0.6 0"
-              height="0.2"
-              width="0.9"
-              rotation="0 0 0"
-              opacity=".99"
-              class="clickable"
-            ></a-video>
-            <a-video
-              id="paul_frank_video"
-              src="#paul_frank"
-              position="0.9 0.2 0"
-              height="0.4"
-              width="0.4"
-              rotation="0 0 0"
-              opacity=".99"
-              class="clickable"
-            ></a-video>
-            <a-video
-              id="chameleon_video"
-              src="#chameleon"
-              position="0.99 -0.2 0"
-              height="0.3"
-              width="0.6"
-              rotation="0 0 0"
-              opacity=".99"
-              class="clickable"
-            ></a-video>
-            <a-video
-              id="ripestyle_video"
-              src="#ripestyle"
-              position="0.99 -0.55 0"
-              height="0.3"
-              width="0.6"
-              rotation="0 0 0"
-              opacity=".99"
-              class="clickable"
-            ></a-video>
-            </a-entity>
-      </a-scene>
-
-      <script>
-            const skyCastleVideo = document.querySelector('#sky_castle_video');
-            const testimonialsVideo = document.querySelector('#testimonials_video');
-            const paulFrankVideo = document.querySelector('#paul_frank_video');
-            const chameleonVideo = document.querySelector('#chameleon_video');
-            const ripestyleVideo = document.querySelector('#ripestyle_video');
-          
-            // Add event listeners to control the videos on touchstart
-            skyCastleVideo.addEventListener('touchstart', playVideo);
-            testimonialsVideo.addEventListener('touchstart', playVideo);
-            paulFrankVideo.addEventListener('touchstart', playVideo);
-            chameleonVideo.addEventListener('touchstart', playVideo);
-            ripestyleVideo.addEventListener('touchstart', playVideo);
-          
-            function playVideo(event) {
-              const videoElement = event.target;
-              videoElement.play();
-            }
-          </script>
-    
+      <a-scene embedded arjs>
+            <a-marker url="assets/brochure_01.png">
+              <a-video
+                src="assets/chameleon.mp4"
+                position="0.99 -0.2 0"
+                rotation="0 0 0"
+                width="2"
+                height="1.5"
+                play-on-click
+              ></a-video>
+            </a-marker>
+            <a-entity camera></a-entity>
+          </a-scene>
 
   </body>
 </html>
