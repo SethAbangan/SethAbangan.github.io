@@ -8,13 +8,11 @@
 </head>
 
 <body>
-  <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
+  <!-- <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false " arjs-camparams-markerAreaThreshold: 2000;>
 
     <a-assets>
-      <a-asset-item id="SoL" src="assets/statue_of_liberty.glb"></a-asset-item>
-      <a-asset-item id="Luft" src="assets/LufthansaBoeing737.glb"></a-asset-item>
       <a-asset-item id="Stdo" src="assets/Studio_Interior.glb"></a-asset-item>
     </a-assets>
 
@@ -23,56 +21,94 @@
     <a-entity mindar-image-target="targetIndex: 0">
 
       <script>
-        const statueLib = document.createElement("a-entity");
-        const luftPlane = document.createElement("a-entity");
         const stdoIntr = document.createElement("a-entity");
-        const statLibRotateDur = 8000;
-        const statLibScaleDur = 3000;
-
-        // const planeTimeDelay = 3000;
-        // const planeAnimStop = 10000;
-        // const planeDur = 10000;
 
         const studioTimeDelay = 10000;
         const stdoPosDur = 2000;
         const stdoRotateDur = 3000;
-        const stdoScaleDur = 3000;
+        const stdoScaleDur = 5000;
 
-        // const totalTime = 21000;
-
-        statueLib.setAttribute("gltf-model", "#SoL");
-        statueLib.setAttribute("id", "statueLib");
-        luftPlane.setAttribute("gltf-model", "#Luft");
-        luftPlane.setAttribute("id", "planeModel");
         stdoIntr.setAttribute("gltf-model", "#Stdo");
         stdoIntr.setAttribute("id", "StdoIntr");
 
-        function showStatue(bool) {
+        function showStudio(bool) {
           stdoIntr.setAttribute("animation__position", "property: position; from: 0 0 1; to: 0 -0.05 0; dur: " + stdoPosDur + "; easing: linear");
-            stdoIntr.setAttribute("animation__scale", "property: scale; from: 0 0 0; to: 0.09 0.09 0.09; dur: " + stdoScaleDur + "; easing: easeInOutQuad");
-            stdoIntr.setAttribute("animation__rotate", "property: rotation; from: 0 0 0; to: 60 0 0; dur: " + stdoRotateDur + "; easing: easeInOutQuad");
-            stdoIntr.setAttribute("animation-mixer", { clip: "rotation", timeScale: 0.5 });
-            // stdoIntr.setAttribute("animation__scale2", "property: scale; from: 0.09 0.09 0.09; to: 0 0 0; dur: 3000; easing: easeInOutQuad; delay: 7000");
+          stdoIntr.setAttribute("animation__scale", "property: scale; from: 0 0 0; to: 0.09 0.09 0.09; dur: " + stdoScaleDur + "; easing: easeInOutQuad");
+          stdoIntr.setAttribute("animation__rotate", "property: rotation; from: 0 0 0; to: 60 0 0; dur: " + stdoRotateDur + "; easing: easeInOutQuad");
+          stdoIntr.setAttribute("animation-mixer", { clip: "rotation", timeScale: 0.5 });
           if (!bool) {
             document.querySelector("a-entity[mindar-image-target]").appendChild(stdoIntr);
           }
         }
 
-        
-
       </script>
+  </a-scene> -->
+
+  <a-scene mindar-image="imageTargetSrc: targets.mind;">
+    <a-assets>
+      <a-asset-item id="Stdo" src="assets/Studio_Interior.glb"></a-asset-item>
+    </a-assets>
+  
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+  
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-entity id="StdoIntr" gltf-model="#Stdo"
+        pinch-to-scale
+        two-finger-spin>
+
+        <script>
+          const stdoIntr = document.getElementById("StdoIntr");
+          let animInterval;
+        
+          const stdoPosDur = 2000;
+          const stdoRotateDur = 3000;
+          const stdoScaleDur = 5000;
+          const totalTime = stdoPosDur + stdoRotateDur + stdoScaleDur;
+        
+          stdoIntr.setAttribute("animation__position", "property: position; from: 0 0 1; to: 0 -0.05 0; dur: " + stdoPosDur + "; easing: linear");
+          stdoIntr.setAttribute("animation__scale", "property: scale; from: 0 0 0; to: 0.09 0.09 0.09; dur: " + stdoScaleDur + "; easing: easeInOutQuad");
+          stdoIntr.setAttribute("animation__rotate", "property: rotation; from: 0 0 0; to: 60 0 0; dur: " + stdoRotateDur + "; easing: easeInOutQuad");
+          stdoIntr.setAttribute("animation-mixer", "clip: rotation; timeScale: 0.5");
+        
+          function enableInteraction() {
+            stdoIntr.setAttribute("scale", "0.09 0.09 0.09");
+            stdoIntr.setAttribute("rotation", "0 0 0");
+          }
+        
+          function showStudio(bool) {
+            if (!bool) {
+              document.querySelector("a-entity[mindar-image-target]").appendChild(stdoIntr);
+              enableInteraction();
+            }
+          }
+        
+          function stopAnimStudio() {
+            clearInterval(animInterval);
+          }
+        
+          function loopAnimation() {
+            animInterval = setInterval(() => {
+              stdoIntr.setAttribute("animation__rotate", "property: rotation; to: 60 0 0; dur: " + stdoRotateDur + "; easing: easeInOutQuad");
+              stdoIntr.setAttribute("animation-mixer", "clip: rotation; timeScale: 0.5");
+            }, totalTime);
+          }
+        
+          loopAnimation();
+        </script>
+      
+      </a-entity>
+    </a-entity>
   </a-scene>
-  <script>
+
+  <!-- <script>
     function loopAnimation(bool) {
       console.log("string");
-      showStatue(bool);
-      // showPlane(bool);
-      // hideModels();
-      // showStudio(bool);
-      setTimeout(stopAnimStudio, 20000)
+      showStudio(bool);
+      setTimeout(stopAnimStudio, 10000)
     }
     loopAnimation(false);
-    setInterval(function() {loopAnimation(true)}, totalTime);
-  </script>
+    setInterval(function () { loopAnimation(true) }, totalTime);
+  </script> -->
 </body>
+
 </html>
