@@ -41,25 +41,35 @@
           </a-entity>
         </a-scene>
 
-    <script>
-      const sky_castleVideo = document.querySelector('#sky_castle');
-      const testimonialsVideo = document.querySelector('#testimonials');
-      const paul_frankVideo = document.querySelector('#paul_frank');
-      const chameleonVideo = document.querySelector('#chameleon');
-      const ripestyleVideo = document.querySelector('#ripestyle');
-
-  // Add event listeners to control the videos on click or touch
-  skyCastleVideo.addEventListener('touchstart', handleTouchStart);
-  testimonialsVideo.addEventListener('touchstart', handleTouchStart);
-  paulFrankVideo.addEventListener('touchstart', handleTouchStart);
-  chameleonVideo.addEventListener('touchstart', handleTouchStart);
-  ripestyleVideo.addEventListener('touchstart', handleTouchStart);
-
-  function playVideo(event) {
-    const videoElement = event.target;
-    videoElement.play();
-  }
-</script>
+      <script>
+            // const skyCastleVideo = document.querySelector('#sky_castle_video');
+            // const testimonialsVideo = document.querySelector('#testimonials_video');
+            // const paulFrankVideo = document.querySelector('#paul_frank_video');
+            // const chameleonVideo = document.querySelector('#chameleon_video');
+            // const ripestyleVideo = document.querySelector('#ripestyle_video');
+          
+            // Add event listeners to control the videos on touchstart
+            // skyCastleVideo.addEventListener('touchstart', playVideo);
+            // testimonialsVideo.addEventListener('touchstart', playVideo);
+            // paulFrankVideo.addEventListener('touchstart', playVideo);
+            // chameleonVideo.addEventListener('click', playVideo);
+            // ripestyleVideo.addEventListener('click', playVideo);
+          
+              // detect click event
+            const ripestyleVideo = document.querySelector('#ripestyle_video');
+            ripestyleVideo.addEventListener("click", event => {
+            
+                if (ripestyleVideo.paused == true) {
+                  ripestyleVideo.play();          
+                } 
+                else {
+                  ripestyleVideo.pause();
+                }
+                
+              // event.preventDefault();
+            // window.location.href = 'tel:+18012018030';
+            });
+          </script>
     
 
   </body>
