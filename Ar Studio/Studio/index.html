@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -8,42 +9,6 @@
 </head>
 
 <body>
-  <!-- <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
-    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false " arjs-camparams-markerAreaThreshold: 2000;>
-
-    <a-assets>
-      <a-asset-item id="Stdo" src="assets/Studio_Interior.glb"></a-asset-item>
-    </a-assets>
-
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-    <a-entity mindar-image-target="targetIndex: 0">
-
-      <script>
-        const stdoIntr = document.createElement("a-entity");
-
-        const studioTimeDelay = 10000;
-        const stdoPosDur = 2000;
-        const stdoRotateDur = 3000;
-        const stdoScaleDur = 5000;
-
-        stdoIntr.setAttribute("gltf-model", "#Stdo");
-        stdoIntr.setAttribute("id", "StdoIntr");
-
-        function showStudio(bool) {
-          stdoIntr.setAttribute("animation__position", "property: position; from: 0 0 1; to: 0 -0.05 0; dur: " + stdoPosDur + "; easing: linear");
-          stdoIntr.setAttribute("animation__scale", "property: scale; from: 0 0 0; to: 0.09 0.09 0.09; dur: " + stdoScaleDur + "; easing: easeInOutQuad");
-          stdoIntr.setAttribute("animation__rotate", "property: rotation; from: 0 0 0; to: 60 0 0; dur: " + stdoRotateDur + "; easing: easeInOutQuad");
-          stdoIntr.setAttribute("animation-mixer", { clip: "rotation", timeScale: 0.5 });
-          if (!bool) {
-            document.querySelector("a-entity[mindar-image-target]").appendChild(stdoIntr);
-          }
-        }
-
-      </script>
-  </a-scene> -->
-
   <a-scene mindar-image="imageTargetSrc: targets.mind;">
     <a-assets>
       <a-asset-item id="Stdo" src="assets/Studio_Interior.glb"></a-asset-item>
@@ -57,6 +22,7 @@
         two-finger-spin>
       </a-entity>
     </a-entity>
+
     <script>
       const stdoIntr = document.getElementById("StdoIntr");
       let animInterval;
@@ -96,16 +62,6 @@
       loopAnimation();
     </script>
   </a-scene>
-
-  <!-- <script>
-    function loopAnimation(bool) {
-      console.log("string");
-      showStudio(bool);
-      setTimeout(stopAnimStudio, 10000)
-    }
-    loopAnimation(false);
-    setInterval(function () { loopAnimation(true) }, totalTime);
-  </script> -->
 </body>
 
 </html>
