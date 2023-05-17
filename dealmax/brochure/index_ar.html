@@ -33,44 +33,36 @@
       
 
       <a-entity mindar-image-target="targetIndex: 0">
-            <a-video id="sky_castle" src="#sky_castle" position="-0.55 -0.25 0" height="0.9" width="0.5" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
-            <a-video id="testimonials" src="#testimonials" position="0.2 -0.6 0" height="0.2" width="0.9" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
-            <a-video id="paul_frank" src="#paul_frank" position="0.9 0.2 0" height="0.4" width="0.4" rotation="0 0 0" opacity=".99" class="clickable"></a-video> 
-            <a-video id="chameleon" src="#chameleon" position="0.99 -0.2 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
-            <a-video id="ripestyle" src="#ripestyle" position="0.99 -0.55 0" height="0.3" width="0.6" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+            <a-video id="sky_castle" src="#sky_castle" position="0.39 -0.25 0" height="0.35" width="0.18" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+            <a-video id="paul_frank" src="#paul_frank" position="0.38 0.27 0" height="0.2" width="0.2" rotation="0 0 0" opacity=".99" class="clickable"></a-video> 
+          </a-entity>
+
+          <a-entity mindar-image-target="targetIndex: 1">
+            <a-video id="testimonials" src="#testimonials" position="0.25 -0.4 0" height="0.2" width="0.9" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
+            <a-video id="ripestyle" src="#ripestyle" position="0.3 0.2 0" height="0.25" width="0.4" rotation="0 0 0" opacity=".99" class="clickable"></a-video>
           </a-entity>
         </a-scene>
 
-      <script>
-            // const skyCastleVideo = document.querySelector('#sky_castle_video');
-            // const testimonialsVideo = document.querySelector('#testimonials_video');
-            // const paulFrankVideo = document.querySelector('#paul_frank_video');
-            // const chameleonVideo = document.querySelector('#chameleon_video');
-            // const ripestyleVideo = document.querySelector('#ripestyle_video');
-          
-            // Add event listeners to control the videos on touchstart
-            // skyCastleVideo.addEventListener('touchstart', playVideo);
-            // testimonialsVideo.addEventListener('touchstart', playVideo);
-            // paulFrankVideo.addEventListener('touchstart', playVideo);
-            // chameleonVideo.addEventListener('click', playVideo);
-            // ripestyleVideo.addEventListener('click', playVideo);
-          
-              // detect click event
-            const ripestyleVideo = document.querySelector('#ripestyle');
-            ripestyleVideo.addEventListener("click", event => {
-            
-                if (ripestyleVideo.paused == true) {
-                  ripestyleVideo.play();          
-                } 
-                else {
-                  ripestyleVideo.pause();
-                }
-
-              // event.preventDefault();
-            // window.location.href = 'tel:+18012018030';
-            });
-          </script>
+        <script>
+          const sky_castleVideo = document.querySelector('#sky_castle');
+          const testimonialsVideo = document.querySelector('#testimonials');
+          const paul_frankVideo = document.querySelector('#paul_frank');
+          const chameleonVideo = document.querySelector('#chameleon');
+          const ripestyleVideo = document.querySelector('#ripestyle');
     
-
-  </body>
-</html>
+      // Add event listeners to control the videos on click or touch
+      skyCastleVideo.addEventListener('touchstart', handleTouchStart);
+      testimonialsVideo.addEventListener('touchstart', handleTouchStart);
+      paulFrankVideo.addEventListener('touchstart', handleTouchStart);
+      chameleonVideo.addEventListener('touchstart', handleTouchStart);
+      ripestyleVideo.addEventListener('touchstart', handleTouchStart);
+    
+      function playVideo(event) {
+        const videoElement = event.target;
+        videoElement.play();
+      }
+    </script>
+        
+    
+      </body>
+    </html>
