@@ -1,31 +1,44 @@
-
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
-  </head>
-  <body>
-    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-      <a-assets>
-      
 
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+</head>
 
-      <a-asset-item id="avatarModel" src="assets/Convertable_teal.glb"></a-asset-item>
-      </a-assets>
+<body>
+  <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+    <a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-asset-item id="carModel" src="assets/Convertable_teal.glb"></a-asset-item>
+    </a-assets>
 
-      <a-entity mindar-image-target="targetIndex: 0">
-        <!-- <a-plane src="#card" position="0 0 0" height="0" width="0" rotation="0 0 0"></a-plane> -->
-        
-   
-        <a-gltf-model rotation="0 90 90" position="0.15 0 0" scale=".225 .225 .225" src="#avatarModel" animation-mixer="clip: look; loop: repeat"
-        
-        
-        >
-      </a-entity>
-    </a-scene>
-  </body>
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <a-entity id="target0" mindar-image-target="targetIndex: 0">
+
+      <a-gltf-model rotation="0 90 90" position="0.15 0 0" scale=".38 .38 .38" src="#carModel"
+        animation-mixer="clip: look; loop: repeat">
+    </a-entity>
+  </a-scene>
+
+  <script>
+    const carModel = document.querySelector('#carModel');
+    const target0 = document.querySelector('#target0');
+    target0.addEventListener('targetFound', handleTargetFound);
+    target0.addEventListener('targetLost', handleTargetLost);
+
+    function handleTargetFound(event) {
+      carModel.visible = true;
+    }
+
+    function handleTargetLost(event) {
+      carModel.visible = false;
+    }
+  </script>
+</body>
+
 </html>
