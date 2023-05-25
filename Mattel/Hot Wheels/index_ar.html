@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <!-- target 0 -->
+  
   <a-scene mindar-image="imageTargetSrc:targets.mind;" color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
@@ -16,19 +16,25 @@
 
       <a-asset-item id="carModel0" src="assets/Convertable_blue.glb"></a-asset-item>
       <a-asset-item id="carModel1" src="assets/Convertable_red.glb"></a-asset-item>
+      <a-asset-item id="carModel2" src="assets/PickUpTruck_Red.glb"></a-asset-item>
     </a-assets>
     
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
     <a-entity id="target0" mindar-image-target="targetIndex: 0">
-
-      <a-gltf-model rotation="0 90 90" position="0.15 0 0" scale=".38 .38 .38" src="#carModel0">
+       <a-gltf-model rotation="0 90 90" position="0.15 0 0" scale=".38 .38 .38" src="#carModel0">
         </a-entity>
 
         <a-entity id="target1" mindar-image-target="targetIndex: 1">
-
           <a-gltf-model rotation="0 90 90" position="0.15 0 0" scale=".38 .38 .38" src="#carModel1">
-          </a-entity>
+            </a-entity>
+
+            
+            <a-entity id="target2" mindar-image-target="targetIndex: 2">
+              <a-gltf-model rotation="0 90 90" position="0.15 0 0" scale=".36 .36 .36" src="#carModel2">
+                </a-entity>
+
+
 </a-scene>
 
 
@@ -38,26 +44,31 @@
 
 
   <script>
-    const carModel0 = document.querySelector('#carModel0');
-    const target0 = document.querySelector('#target0');
-    const carModel1 = document.querySelector('#carModel1');
-    const target1 = document.querySelector('#target1');
+    // const carModel0 = document.querySelector('#carModel0');
+    // const target0 = document.querySelector('#target0');
+    // const carModel1 = document.querySelector('#carModel1');
+    // const target1 = document.querySelector('#target1');
+    // const carModel2 = document.querySelector('#carModel2');
+    // const target2 = document.querySelector('#target2');
 
 
-    target0.addEventListener('targetFound', handleTargetFound);
-    target0.addEventListener('targetLost', handleTargetLost);
-    target1.addEventListener('targetFound', handleTargetFound);
-    target1.addEventListener('targetLost', handleTargetLost);
+    // target0.addEventListener('targetFound', handleTargetFound);
+    // target0.addEventListener('targetLost', handleTargetLost);
+    // target1.addEventListener('targetFound', handleTargetFound);
+    // target1.addEventListener('targetLost', handleTargetLost);
 
-    function handleTargetFound(event) {
-      carModel0.visible = true;
-      carModel1.visible = true;
-    }
+    // function handleTargetFound(event) {
+    //   carModel0.visible = true;
+    //   carModel1.visible = true;
+    //   carModel2.visible = true;
+      
+    // }
 
-    function handleTargetLost(event) {
-      carModel0.visible = false;
-      carModel1.visible = false;
-    }
+    // function handleTargetLost(event) {
+    //   carModel0.visible = false;
+    //   carModel1.visible = false;
+    //   carModel2.visible = false;
+    // }
   </script>
 </body>
 
