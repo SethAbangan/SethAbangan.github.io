@@ -53,8 +53,7 @@
         <a-plane src="#borders" position="0.0 -1.1 0" height="0.25" width="1.25" rotation="0 0 0" ></a-plane>
 
 
-        <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1 1 1" src="#avatarModel" animation-mixer="clip: look; loop: repeat"
-        >
+        <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1 1 1" src="#avatarModel" animation-mixer="clip: OPEN; loop: once" >
       </a-entity>
     </a-scene>
     <script>
@@ -68,7 +67,7 @@
       const emailPlane = document.querySelector('#myEmail');
       emailPlane.addEventListener("click", event => {
         event.preventDefault();
-        window.location.href = 'mailto:paul.lyon@nagarro.com';
+       window.location.href = 'mailto:paul.lyon@nagarro.com';
       });
   
       const linkedinPlane = document.querySelector('#myLinkedin');
