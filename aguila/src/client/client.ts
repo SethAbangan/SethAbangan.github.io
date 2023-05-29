@@ -13,10 +13,11 @@ dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
 loader.setDRACOLoader(dracoLoader);
 
 let model: THREE.Object3D<THREE.Event>;
+let glass: any
 // Load a glTF resource
 loader.load(
   // resource URL
-  "assets/bmw_convertable.glb",
+  "assets/AGUILA.glb",
 
   // called when the resource is loaded
   function (gltf) {
@@ -28,10 +29,11 @@ loader.load(
     gltf.cameras; // Array<THREE.Camera>
     gltf.asset; // Object
     model.receiveShadow = true;
-    model.scale.set(0.1, 0.1, 0.1);
+    model.scale.set(0.3, 0.3, 0.3);
     model.position.set(0, 0, -1);
     model.rotation.set(0.3, -0.5, 0);
 
+    glass = model.getObjectByName('glass');
     scene.add(model);
   },
 
@@ -48,13 +50,49 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 
-const light = new THREE.DirectionalLight(0xffffff, 0.3);
+const light = new THREE.DirectionalLight(0xffffff, 1);
 light.castShadow = true; // enable shadow casting
 scene.add(light);
+light.position
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+const redbtn = document.querySelector('#redColorBtn');
+const bluebtn = document.querySelector('#blueColorBtn');
+
+redbtn?.addEventListener('click', () => {
+
+  const newMaterial = new THREE.MeshPhysicalMaterial({})
+newMaterial.reflectivity = .5
+newMaterial.transmission = 1.0
+newMaterial.roughness = 0.2
+newMaterial.metalness = 0
+newMaterial.clearcoat = 0.3
+newMaterial.clearcoatRoughness = 0.25
+newMaterial.color = new THREE.Color(0xff0000)
+newMaterial.ior = 1.2
+newMaterial.thickness = 10.0
+;
+  glass.material = newMaterial;
+});
+
+bluebtn?.addEventListener('click', () => {
+
+  const newMaterial = new THREE.MeshPhysicalMaterial({})
+  newMaterial.reflectivity = .5
+  newMaterial.transmission = 1.0
+  newMaterial.roughness = 0.2
+  newMaterial.metalness = 0
+  newMaterial.clearcoat = 0.3
+  newMaterial.clearcoatRoughness = 0.25
+  newMaterial.color = new THREE.Color(0x0000ff)
+  newMaterial.ior = 1.2
+  newMaterial.thickness = 10.0
+  ;;
+  glass.material = newMaterial;
+});
 
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
