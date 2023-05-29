@@ -34,13 +34,13 @@
     <a-entity id="area_light" light="type: directional; color:sRGB ; intensity: 4.3" position="30 70 70"></a-entity>
 
     <a-entity id="target0" mindar-image-target="targetIndex: 0">
-      <a-gltf-model rotation="0 90 90" position="0.15 -0.2 0" scale=".35 .35 .35" src="#carModel0" 
+      <a-gltf-model rotation="0 90 90" position="0 0 0" scale=".38 .38 .38" src="#carModel0" 
       />
-      <!-- <a-gltf-model rotation="0 90 90" position="0.15 2 0" scale=".05 .05 .05" src="#rollerCoaster"/> -->
+      <a-gltf-model rotation="0 90 0" position="4 0 0" scale=".2 .2 .2" src="#rollerCoaster" animation-mixer="clip: Roll; loop: repeat"/>
     </a-entity>
     
     <a-entity id="target1" mindar-image-target="targetIndex: 1">
-      <a-gltf-model rotation="0 90 90" position="0.15 -0.2 0" scale=".35 .35 .35" src="#carModel1" 
+      <a-gltf-model rotation="0 90 90" position="0.15 -0.2 0" scale=".38 .38 .38" src="#carModel1" 
      />
     </a-entity>
 
@@ -97,7 +97,10 @@
     doorBtnPlane.addEventListener("click", event => {
       // console.log('check lang sa func click', event);
    
-        carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': true, 'repetitions': 1 });
+    
+    carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': true, 'repetitions': 1 });
+   
+        // carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': true, 'repetitions': 1 });
         // carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': false, 'repetitions': 1 , 'timeScale':-1 }); 
      
       
