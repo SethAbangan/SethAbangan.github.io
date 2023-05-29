@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
@@ -27,9 +27,7 @@
       <img id="linkedin" src="assets/linkedin.png" />
       <img id="add_to_contact" src="assets/add_to_contact.png" />
 
-      <video id="todd_skinner" src="assets/todd_skinner.mp4" autoplay loop></video>
-
-      <!-- <a-asset-item id="todd_avatar" src="assets/todd_avatar.glb"></a-asset-item> -->
+      <a-asset-item id="avatarModel" src="assets/todd_avatar.glb"></a-asset-item>
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
@@ -51,9 +49,9 @@
       <a-plane id="myLinkedin" src="#linkedin" position="0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
       <a-plane id="myAdd_to_contact" src="#add_to_contact" position="0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
 
-      <a-video id="todd_skinner" src="#todd_skinner" position="0 -0.5 0" scale="1.1 1.1 1.1" rotation="0 0 0"
-        opacity=".99" class="clickable" autoplay loop></a-video>
-      <!-- <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1.1 1.1 1.1" src="#todd_avatar" animation-mixer="clip: looking; loop: repeat"> -->
+      <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1.1 1.1 1.1" src="#avatarModel"
+        animation-mixer="clip: looking; loop: repeat">
+
     </a-entity>
   </a-scene>
 
@@ -82,4 +80,30 @@
   </script>
 
 </body>
+</html> -->
+
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.1/examples/image-tracking/assets/card-example/card.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      
+      <a-assets>
+        <a-asset-item id="avatarModel" src="assets/todd_avatar.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+
+        
+        <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel" animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate">
+      
+        </a-entity>
+    </a-scene>
+  </body>
 </html>
