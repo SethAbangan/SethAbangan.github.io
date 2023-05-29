@@ -22,6 +22,7 @@
       <a-asset-item id="carModel0" src="assets/Convertable_blue.glb"></a-asset-item>
       <a-asset-item id="carModel1" src="assets/Convertable_red.glb"></a-asset-item>
       <a-asset-item id="carModel2" src="assets/PickUpTruck_Red.glb"></a-asset-item>
+      <a-asset-item id="rollerCoaster" src="assets/Rollercoaster.glb"></a-asset-item>
 
       <audio id="car_horn" src="assets/car_horn.wav"></audio>
 
@@ -33,17 +34,20 @@
     <a-entity id="area_light" light="type: directional; color:sRGB ; intensity: 4.3" position="30 70 70"></a-entity>
 
     <a-entity id="target0" mindar-image-target="targetIndex: 0">
-      <a-gltf-model rotation="0 90 90" position="0.15 0 0" scale=".38 .38 .38" src="#carModel0" />
+      <a-gltf-model rotation="0 90 90" position="0.15 -0.2 0" scale=".35 .35 .35" src="#carModel0" 
+      animation="property: rotation; to: 360 90 90; loop: true; dur: 30000;easing: linear; loop: true"/>
+      <!-- <a-gltf-model rotation="0 90 90" position="0.15 2 0" scale=".05 .05 .05" src="#rollerCoaster"/> -->
     </a-entity>
-
+    
     <a-entity id="target1" mindar-image-target="targetIndex: 1">
-      <a-gltf-model rotation="0 90 90" position="0.15 0 0" scale=".38 .38 .38" src="#carModel1" />
+      <a-gltf-model rotation="0 90 90" position="0.15 -0.2 0" scale=".35 .35 .35" src="#carModel1" 
+      animation="property: rotation; to: 360 90 90; loop: true; dur: 30000;easing: linear; loop: true"/>
     </a-entity>
 
     <!-- car light -->
 
     <a-entity id="target2" mindar-image-target="targetIndex: 2" light="type: spot; color:#ff2483; intensity:1" position=".7 1.2 2.3">
-      <a-gltf-model id="carModel2Mdl" rotation="0 90 90" position="0.15 0 0" scale=".36 .36 .36"
+      <a-gltf-model id="carModel2Mdl" rotation="0 90 90" position="0.15 0 0" scale=".36 .36 .36"   
         src="#carModel2" />
       <!-- <a-plane src="#card" position=".7 1.2 2.3" height=".2" width=".2" rotation="-90 0 0"></a-plane> -->
 
@@ -91,17 +95,15 @@
     const doorBtnPlane = document.querySelector('#doorBtn');
     const carModel2Mdl = document.querySelector('#carModel2Mdl')
     doorBtnPlane.addEventListener("click", event => {
-      console.log('check lang sa func click', event);
-      carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': true, 'repetitions': 1 });
-      // carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'CLOSE_DOORS', 'loop': 'once' });
-
-      // doors.play();
-      //animation-mixer="clip: OPEN; loop: repeat"
-      // doors.play();
-      // doors.enabled();
-
+      // console.log('check lang sa func click', event);
+   
+        carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': true, 'repetitions': 1 });
+        // carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': false, 'repetitions': 1 , 'timeScale':-1 }); 
+     
+      
       event.preventDefault();
     });
+
     function handleTargetFound(event, num) {
       console.log('num target', num);
       if (num === 2) {
@@ -127,6 +129,12 @@
         carModel0.visible = false;
       }
     }
+
+    // function rotation() {
+    //       // statueLib.setAttribute("position", "0 -0.5 -2");
+    //       carModel2Mdl.setAttribute("animation__rotation", "property: rotation; from: 0 0 0; to: 0 360 0; dur: " + 3000 + "; easing: linear; loop: true")
+        
+    //     }
 
   </script>
 </body>
