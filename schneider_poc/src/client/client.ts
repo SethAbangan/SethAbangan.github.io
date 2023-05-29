@@ -17,7 +17,7 @@ let model: THREE.Object3D<THREE.Event>;
 // Load a glTF resource
 loader.load(
   // resource URL
-  "houses.glb",
+  "bus.glb",
 
   // called when the resource is loaded
   function (gltf) {
