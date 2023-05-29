@@ -47,10 +47,12 @@
 
             
             <a-entity id="target2" mindar-image-target="targetIndex: 2" light="type: spot; color:#ff2483; intensity:1" position=".7 1.2 2.3">
-              <a-gltf-model id ="truck" rotation="0 90 90" position="0.15 0 0" scale=".36 .36 .36" src="#carModel2" animation-mixer="clip: OPEN; loop: once; clampWhenFinished:true" >
+              <a-gltf-model id ="truck" rotation="0 90 90" position="0.15 0 0" scale=".36 .36 .36" src="#carModel2" >
                 <a-plane src="#card" position=".7 1.2 2.3" height=".2" width=".2" rotation="-90 0 0"></a-plane>
 
                
+
+                
                 
                 <a-plane id="myhorn" src="#horn" position="-2 2 -2" height=".7" width=".7" rotation="-90 180 90" opacity=".99" class="clickable"></a-plane>
                 <a-plane id="mylight" src="#light" position="-2 2 -1" height=".7" width=".7" rotation="-90 180 90" opacity=".99" class="clickable"></a-plane>
@@ -101,11 +103,6 @@
          sound.play();
          event.preventDefault();
          
-
-        // entity.components.sound.playSound = 'assets/car_horn.wav';
-        //  window.open('assets/car_horn.wav', '_blank');
-        // sound.play();
-        
          
       });
 
@@ -122,10 +119,15 @@
 
       
       const doorPlane = document.querySelector('#mydoor');
-      const doors = document.querySelector('#truck');
+      const doors = document.querySelector('#truck')
       doorPlane.addEventListener("click", event => {
-      
-        doors.clampWhenFinished=true;
+    
+
+    // doors.play();
+        //animation-mixer="clip: OPEN; loop: repeat"
+        // doors.play();
+        // doors.enabled();
+    
         event.preventDefault();
         
       });
