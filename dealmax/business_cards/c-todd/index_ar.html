@@ -27,7 +27,9 @@
       <img id="linkedin" src="assets/linkedin.png" />
       <img id="add_to_contact" src="assets/add_to_contact.png" />
 
-      <a-asset-item id="todd_avatar" src="assets/todd_avatar.glb"></a-asset-item>
+      <video id="todd_skinner" src="assets/todd_skinner.mp4" autoplay loop></video>
+
+      <!-- <a-asset-item id="todd_avatar" src="assets/todd_avatar.glb"></a-asset-item> -->
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
@@ -49,7 +51,9 @@
       <a-plane id="myLinkedin" src="#linkedin" position="0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
       <a-plane id="myAdd_to_contact" src="#add_to_contact" position="0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
 
-      <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1.1 1.1 1.1" src="#todd_avatar" animation-mixer="clip: looking; loop: repeat">
+      <a-video id="todd_skinner" src="#todd_skinner" position="0 -0.5 0" scale="1.1 1.1 1.1" rotation="0 0 0"
+        opacity=".99" class="clickable" autoplay loop></a-video>
+      <!-- <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1.1 1.1 1.1" src="#todd_avatar" animation-mixer="clip: looking; loop: repeat"> -->
     </a-entity>
   </a-scene>
 
