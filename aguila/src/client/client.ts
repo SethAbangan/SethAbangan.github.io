@@ -1,6 +1,14 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
+const rgbeLoader = new RGBELoader();
+const textureLoader = new THREE.TextureLoader();
+
+rgbeLoader.load('./evangelion-1-HDR.hdr', texture => {
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    scene.environment = texture;
+});
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xe3e3e3);
@@ -30,8 +38,8 @@ loader.load(
     gltf.asset; // Object
     model.receiveShadow = true;
     model.scale.set(0.3, 0.3, 0.3);
-    model.position.set(0, 0, -1);
-    model.rotation.set(0.3, -0.5, 0);
+    model.position.set(-.1, .1, -1);
+    model.rotation.set(0.3, .5, 0);
 
     glass = model.getObjectByName('glass');
     scene.add(model);
@@ -44,16 +52,25 @@ loader.load(
 );
 
 const camera = new THREE.PerspectiveCamera(
-  75,
+  60,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
 );
+camera.position.set(0, 0, 0);
+camera.rotation.set(.3, 0, 0)
 
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.castShadow = true; // enable shadow casting
 scene.add(light);
-light.position
+light.position.set(1, 5, 8);
+
+const pointlight = new THREE.PointLight( 0xffffff, 1, 500);
+pointlight.position.set( 10, 10, 50 );
+scene.add( pointlight ); 
+
+// const ambientlight = new THREE.AmbientLight( 0x404040, 0 ); // soft white light
+// scene.add( ambientlight );
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -65,8 +82,8 @@ const bluebtn = document.querySelector('#blueColorBtn');
 redbtn?.addEventListener('click', () => {
 
   const newMaterial = new THREE.MeshPhysicalMaterial({})
-newMaterial.reflectivity = .5
-newMaterial.transmission = 1.0
+newMaterial.reflectivity = 1
+newMaterial.transmission = 1.5
 newMaterial.roughness = 0.2
 newMaterial.metalness = 0
 newMaterial.clearcoat = 0.3
@@ -81,15 +98,15 @@ newMaterial.thickness = 10.0
 bluebtn?.addEventListener('click', () => {
 
   const newMaterial = new THREE.MeshPhysicalMaterial({})
-  newMaterial.reflectivity = .5
+  newMaterial.reflectivity = 1
   newMaterial.transmission = 1.0
   newMaterial.roughness = 0.2
   newMaterial.metalness = 0
-  newMaterial.clearcoat = 0.3
+  newMaterial.clearcoat = 0.8
   newMaterial.clearcoatRoughness = 0.25
-  newMaterial.color = new THREE.Color(0x0000ff)
-  newMaterial.ior = 1.2
-  newMaterial.thickness = 10.0
+  newMaterial.color = new THREE.Color(0x00ffff)
+  newMaterial.ior = 1.55
+  newMaterial.thickness = 5.0
   ;;
   glass.material = newMaterial;
 });
