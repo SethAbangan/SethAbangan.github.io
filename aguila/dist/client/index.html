@@ -49,6 +49,10 @@
         }
 
         .button-container {
+            background-color: black;
+            padding: 5px 20px;
+            text-align: center;
+            opacity: 0.7;
             position: absolute;
             bottom: 50px;
             left: 50%;
@@ -57,6 +61,7 @@
             justify-content: center;
             align-items: center;
             z-index: 500;
+            border-radius: 50px;
         }
 
         .rounded-button {
@@ -77,8 +82,24 @@
             background-color: red;
         }
 
+        #redColorBtn.clicked {
+            background-color: pink;
+        }
+
+        #greenColorBtn {
+            background-color: green;
+        }
+
+        #greenColorBtn.clicked {
+            background-color: yellowgreen;
+        }
+
         #blueColorBtn {
             background-color: blue;
+        }
+
+        #blueColorBtn.clicked {
+            background-color: skyblue;
         }
 
         #chngeBtn {
@@ -87,7 +108,7 @@
 
         .changebtn {
             position: absolute;
-            bottom: 150px;
+            bottom: 120px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -123,9 +144,11 @@
 
 <body>
     <div class="button-container">
-        <h2>Choose your Color: </h2>
-        <button id="redColorBtn" class="rounded-button">RED</button>
-        <button id="blueColorBtn" class="rounded-button">BLUE</button>
+        <h2 style="color: white;"><b>Windshield Color:</b></h2>
+        <button id="redColorBtn" class="rounded-button"></button>
+        <button id="greenColorBtn" class="rounded-button"></button>
+        <button id="blueColorBtn" class="rounded-button"></button>
+        
         <script type="module" src="bundle.js"></script>
     </div>
 

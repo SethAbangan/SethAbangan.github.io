@@ -14,10 +14,25 @@ let camera: any, scene: any, renderer: any;
 
 const redbtn = document.querySelector("#redColorBtn");
 const bluebtn = document.querySelector("#blueColorBtn");
+const greenbtn = document.querySelector("#greenColorBtn");
 const trckbtn = document.querySelector("#trckBtn");
 const bsbtn = document.querySelector("#bsBtn");
 
+let isClicked = false;
+
 redbtn?.addEventListener("click", () => {
+
+  if (isClicked === false) {
+    redbtn.classList.add('clicked');
+  } else if (bluebtn && bluebtn.classList.contains('clicked')) {
+    bluebtn.classList.remove('clicked');
+  } else if (greenbtn && greenbtn.classList.contains('clicked')) {
+    greenbtn.classList.remove('clicked');
+  }
+
+
+
+
   const newMaterial = new THREE.MeshPhysicalMaterial({
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
@@ -40,10 +55,46 @@ redbtn?.addEventListener("click", () => {
 });
 
 bluebtn?.addEventListener("click", () => {
+  if (isClicked === false) {
+    bluebtn.classList.add('clicked');
+  } else if (redbtn && redbtn.classList.contains('clicked')) {
+    redbtn.classList.remove('clicked');
+  } else if (greenbtn && greenbtn.classList.contains('clicked')) {
+    greenbtn.classList.remove('clicked');
+  }
   const newMaterial = new THREE.MeshPhysicalMaterial({
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
     color: new THREE.Color(0x0000ff), // Set the tint color
+    reflectivity: 1,
+    transmission: 1,
+    roughness: 0.2,
+    metalness: 0,
+    clearcoat: 0,
+    clearcoatRoughness: 0.25,
+    ior: 1.3,
+    thickness: 5,
+  });
+  if (isSelected === "truck") {
+    glass1.material = newMaterial;
+  }
+  if (isSelected === "bus") {
+    glass2.material = newMaterial;
+  }
+});
+
+greenbtn?.addEventListener("click", () => {
+  if (isClicked === false) {
+    greenbtn.classList.add('clicked');
+  } else if (redbtn && redbtn.classList.contains('clicked')) {
+    redbtn.classList.remove('clicked');
+  } else if (bluebtn && bluebtn.classList.contains('clicked')) {
+    bluebtn.classList.remove('clicked');
+  }
+  const newMaterial = new THREE.MeshPhysicalMaterial({
+    transparent: true, // Enable transparency
+    opacity: 0.5, // Set the opacity level (0.0 - 1.0)
+    color: new THREE.Color(0x00ff00), // Set the tint color
     reflectivity: 1,
     transmission: 1,
     roughness: 0.2,
@@ -155,7 +206,7 @@ function init() {
           gltf.asset; // Object
           bus.receiveShadow = true;
           bus.scale.set(0.4, 0.4, 0.4);
-          bus.position.set(0, -0.2, 0);
+          bus.position.set(0, -0.25, 0);
           // bus.rotation.set(0.3, 15, 0);
 
           glass2 = bus.getObjectByName("glass2");
