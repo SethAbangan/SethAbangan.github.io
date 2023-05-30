@@ -21,7 +21,10 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^20.0.3",
+    "aframe-extras": "^7.0.0",
     "clean-webpack-plugin": "^4.0.0",
-    "html-webpack-plugin": "^5.5.1"
+    "html-webpack-plugin": "^5.5.1",
+    "tween.js": "^16.6.0"
   }
 }

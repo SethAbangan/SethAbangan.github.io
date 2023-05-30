@@ -2,130 +2,137 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
-
+import * as TWEEN from '@tweenjs/tween.js';
 // Create a scene
 const scene = new THREE.Scene();
+
+let truck: THREE.Object3D<THREE.Event>, bus: THREE.Object3D<THREE.Event>;
+let isSelected = 'truck';
+let glass1: any, glass2: any
 
 // Create a renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const pmremGenerator = new THREE.PMREMGenerator(renderer);
-pmremGenerator.compileEquirectangularShader();
-
-// Load the HDRI image
-const hdriLoader = new THREE.TextureLoader();
-
-// Load the HDRI image
-hdriLoader.load(
-  '../../dist/client/assets/sunflowers_puresky_4k.exr',
-  function (texture) {
-    // Set the scene background as the HDRI
-    scene.background = texture;
-
-    // Create a sphere to represent the model
-    const geometry = new THREE.SphereGeometry(1, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0x737373 });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-
-    // Render the scene
-    function render() {
-      requestAnimationFrame(render);
-      sphere.rotation.y += 0.01;
-      renderer.render(scene, camera);
-    }
-    render();
-  },
-  undefined,
-  function (error) {
-    console.error('An error occurred while loading the HDRI image.', error);
-  }
-);
 
 
+    // Instantiate a loader
+    const loader = new GLTFLoader();
 
-// scene.background = new THREE.Color(0xe3e3e3);
-// Instantiate a loader
-const loader = new GLTFLoader();
+    // Optional: Provide a DRACOLoader instance to decode compressed mesh data
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
+    loader.setDRACOLoader(dracoLoader);
 
-// Optional: Provide a DRACOLoader instance to decode compressed mesh data
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
-loader.setDRACOLoader(dracoLoader);
 
-let truck: THREE.Object3D<THREE.Event>;
-let bus: THREE.Object3D<THREE.Event>;
+    // Load a glTF resource
+    loader.load(
+      // resource URL
+      "assets/TRUCK.glb",
 
-let isSelected = 'truck';
+      // called when the resource is loaded
+      function (gltf) {
+        truck = gltf.scene;
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scenes; // Array<THREE.Group>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+        truck.receiveShadow = true;
+        truck.scale.set(0.3, 0.3, 0.3);
+        truck.position.set(-0.07, 0.1, -1);
+        truck.rotation.set(0.3, 0.5, 0);
 
-let glass1: any
-let glass2: any
-// Load a glTF resource
-loader.load(
-  // resource URL
-  "assets/TRUCK.glb",
+        glass1 = truck.getObjectByName('glass');
+        scene.add(truck);
 
-  // called when the resource is loaded
-  function (gltf) {
-    truck = gltf.scene;
-    gltf.animations; // Array<THREE.AnimationClip>
-    gltf.scenes; // Array<THREE.Group>
-    gltf.cameras; // Array<THREE.Camera>
-    gltf.asset; // Object
-    truck.receiveShadow = true;
-    truck.scale.set(0.3, 0.3, 0.3);
-    truck.position.set(-.1, .1, -1);
-    truck.rotation.set(0.3, .5, 0);
+        // Define initial rotation and set up clock
+        var rotationSpeed = 0.1; // Adjust this value to control the rotation speed
+        var clock = new THREE.Clock();
 
-    glass1 = truck.getObjectByName('glass');
-    scene.add(truck);
-  },
+        // Animation loop
+        function animate() {
+          requestAnimationFrame(animate);
 
-  // called when loading has errors
-  function (error) {
-    console.log("An error happened");
-  }
-);
+          // Calculate elapsed time since the last frame
+          var delta = clock.getDelta();
 
-loader.load(
-  // resource URL
-  "assets/BUS.glb",
+          // Update rotation
+          truck.rotation.y += rotationSpeed * delta;
 
-  // called when the resource is loaded
-  function (gltf) {
-    bus = gltf.scene;
-    gltf.animations; // Array<THREE.AnimationClip>
-    gltf.scenes; // Array<THREE.Group>
-    gltf.cameras; // Array<THREE.Camera>
-    gltf.asset; // Object
-    bus.receiveShadow = true;
-    bus.scale.set(0.1, 0.1, 0.1);
-    bus.position.set(.2, .15, -1);
-    bus.rotation.set(0.3, 15, 0);
+          // Render the scene
+          renderer.render(scene, camera);
+        }
 
-    glass2 = bus.getObjectByName('glass2');
-    glass2.material.transparent = true;
-    glass2.material.opacity = 0.7;
-    glass2.material.reflectivity = 1;
-    glass2.material.transmission = 1;
-    glass2.material.roughness = 0.2;
-    glass2.material.metalness = 0;
-    glass2.material.clearcoat = 0;
-    glass2.material.clearcoatRoughness = 0.25;
-    glass2.material.ior = 1.3;
-    glass2.material.thickness = 5;
-    scene.add(bus);
+        // Start the animation loop
+        animate();
+      },
 
-    bus.visible = false;
-  },
+      // called when loading has errors
+      function (error) {
+        console.log("An error happened");
+      }
+    );
+    loader.load(
+      // resource URL
+      "assets/BUS.glb",
 
-  // called when loading has errors
-  function (error) {
-    console.log("An error happened");
-  }
-);
+      // called when the resource is loaded
+      function (gltf) {
+        bus = gltf.scene;
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scenes; // Array<THREE.Group>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+        bus.receiveShadow = true;
+        bus.scale.set(0.1, 0.1, 0.1);
+        bus.position.set(-.02, 0.15, -1);
+        bus.rotation.set(0.3, 15, 0);
+
+        glass2 = bus.getObjectByName('glass2');
+        glass2.material.transparent = true;
+        glass2.material.opacity = 0.7;
+        glass2.material.reflectivity = 1;
+        glass2.material.transmission = 1;
+        glass2.material.roughness = 0.2;
+        glass2.material.metalness = 0;
+        glass2.material.clearcoat = 0;
+        glass2.material.clearcoatRoughness = 0.25;
+        glass2.material.ior = 1.3;
+        glass2.material.thickness = 5;
+        scene.add(bus);
+
+        bus.visible = false;
+
+        // Define initial rotation and set up clock
+        var rotationSpeed = 0.1; // Adjust this value to control the rotation speed
+        var clock = new THREE.Clock();
+
+        // Animation loop
+        function animate() {
+          requestAnimationFrame(animate);
+
+          // Calculate elapsed time since the last frame
+          var delta = clock.getDelta();
+
+          // Update rotation
+          bus.rotation.y += rotationSpeed * delta;
+
+          // Render the scene
+          renderer.render(scene, camera);
+        }
+
+        // Start the animation loop
+        animate();
+      },
+
+      // called when loading has errors
+      function (error) {
+        console.log("An error happened");
+      }
+    );
+
+  // });
 
 const camera = new THREE.PerspectiveCamera(
   60,
