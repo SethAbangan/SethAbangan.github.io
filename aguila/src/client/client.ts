@@ -94,7 +94,7 @@ function init() {
 
   new RGBELoader()
     .setPath("./../assets/")
-    .load("royal_esplanade_1k.hdr", (texture) => {
+    .load("sunflowers_puresky_4k.hdr", (texture) => {
       texture.mapping = THREE.EquirectangularReflectionMapping;
 
       scene.background = texture;
@@ -112,9 +112,9 @@ function init() {
         gltf.cameras; // Array<THREE.Camera>
         gltf.asset; // Object
         truck.receiveShadow = true;
-        truck.scale.set(0.3, 0.3, 0.3);
-        truck.position.set(-0.07, 0.1, -1);
-        truck.rotation.set(0.3, 0.5, 0);
+        truck.scale.set(0.5, 0.5, 0.5);
+        truck.position.set(0, -.3, 0);
+        // truck.rotation.set(0.3, 0.5, 0);
 
         glass1 = truck.getObjectByName("glass");
         scene.add(truck);
@@ -154,21 +154,22 @@ function init() {
           gltf.cameras; // Array<THREE.Camera>
           gltf.asset; // Object
           bus.receiveShadow = true;
-          bus.scale.set(0.1, 0.1, 0.1);
-          bus.position.set(-0.02, 0.15, -1);
-          bus.rotation.set(0.3, 15, 0);
+          bus.scale.set(0.4, 0.4, 0.4);
+          bus.position.set(0, -0.2, 0);
+          // bus.rotation.set(0.3, 15, 0);
 
           glass2 = bus.getObjectByName("glass2");
-          glass2.material.transparent = true;
-          glass2.material.opacity = 0.7;
-          glass2.material.reflectivity = 1;
-          glass2.material.transmission = 1;
-          glass2.material.roughness = 0.2;
-          glass2.material.metalness = 0;
-          glass2.material.clearcoat = 0;
-          glass2.material.clearcoatRoughness = 0.25;
-          glass2.material.ior = 1.3;
-          glass2.material.thickness = 5;
+          // glass2.material.transparent = true;
+          // glass2.material.opacity = 1;
+          // glass2.material.color =  new THREE.Color(0x000000);
+          // glass2.material.reflectivity = 1;
+          // glass2.material.transmission = 1;
+          // glass2.material.roughness = 0.2;
+          // glass2.material.metalness = 0;
+          // glass2.material.clearcoat = 0;
+          // glass2.material.clearcoatRoughness = 0.25;
+          // glass2.material.ior = 1.3;
+          // glass2.material.thickness = 10;
           scene.add(bus);
 
           bus.visible = false;
