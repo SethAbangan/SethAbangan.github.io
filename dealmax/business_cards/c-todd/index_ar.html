@@ -1,10 +1,12 @@
 <html>
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
 </head>
+
 <body>
   <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
@@ -23,7 +25,7 @@
       <img id="email" src="assets/email.png" />
       <img id="linkedin" src="assets/linkedin.png" />
       <img id="add_to_contact" src="assets/add_to_contact.png" />
-      
+
       <a-asset-item id="avatarModel" src="assets/todd_avatar.glb"></a-asset-item>
     </a-assets>
 
@@ -72,4 +74,5 @@
     });
   </script>
 </body>
+
 </html>
