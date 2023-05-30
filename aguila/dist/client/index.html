@@ -46,7 +46,7 @@
 
         .button-container {
             position: absolute;
-            bottom: 100px;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -76,17 +76,59 @@
         #blueColorBtn {
             background-color: blue;
         }
+
+        #chngeBtn {
+            background-color: darkgrey;
+        }
+
+        .changebtn {
+            position: absolute;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: bottom;
+            align-items: center;
+            z-index: 500;
+        }
+
+        .chngeBtn {
+            border-radius: 5px;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            width: 120px;
+            /* Set a fixed width for the buttons */
+            cursor: pointer;
+        }
+
+        #trckBtn {
+            background-color: rgb(51, 51, 51);
+        }
+
+        #bsBtn {
+            background-color: rgb(51, 51, 51);
+        }
     </style>
 </head>
 
 <body>
     <div class="button-container">
-        <h2>Choose your Color:  </h2>
-        <button id="redColorBtn" class="redbutton rounded-button">RED</button>
-        <button id="blueColorBtn" class="bluebutton rounded-button">BLUE</button>
+        <h2>Choose your Color: </h2>
+        <button id="redColorBtn" class="rounded-button">RED</button>
+        <button id="blueColorBtn" class="rounded-button">BLUE</button>
         <script type="module" src="bundle.js"></script>
+    </div>
+
+    <div class="changebtn">
+        <button id="trckBtn" class="chngeBtn rounded-button">TRUCK</button>
+        <button id="bsBtn" class="chngeBtn rounded-button">BUS</button>
     </div>
 </body>
 
 </html>
-

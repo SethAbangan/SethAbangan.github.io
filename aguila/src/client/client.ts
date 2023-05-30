@@ -2,16 +2,51 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
-const rgbeLoader = new RGBELoader();
-const textureLoader = new THREE.TextureLoader();
 
-rgbeLoader.load('./evangelion-1-HDR.hdr', texture => {
-    texture.mapping = THREE.EquirectangularReflectionMapping;
-    scene.environment = texture;
-});
-
+// Create a scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xe3e3e3);
+
+// Create a renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const pmremGenerator = new THREE.PMREMGenerator(renderer);
+pmremGenerator.compileEquirectangularShader();
+
+// Load the HDRI image
+const hdriLoader = new THREE.TextureLoader();
+
+// Load the HDRI image
+hdriLoader.load(
+  '../../dist/client/assets/sunflowers_puresky_4k.exr',
+  function (texture) {
+    // Set the scene background as the HDRI
+    scene.background = texture;
+
+    // Create a sphere to represent the model
+    const geometry = new THREE.SphereGeometry(1, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ color: 0x737373 });
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+
+    // Render the scene
+    function render() {
+      requestAnimationFrame(render);
+      sphere.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+    render();
+  },
+  undefined,
+  function (error) {
+    console.error('An error occurred while loading the HDRI image.', error);
+  }
+);
+
+
+
+// scene.background = new THREE.Color(0xe3e3e3);
 // Instantiate a loader
 const loader = new GLTFLoader();
 
@@ -20,29 +55,70 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
 loader.setDRACOLoader(dracoLoader);
 
-let model: THREE.Object3D<THREE.Event>;
-let glass: any
+let truck: THREE.Object3D<THREE.Event>;
+let bus: THREE.Object3D<THREE.Event>;
+
+let isSelected = 'truck';
+
+let glass1: any
+let glass2: any
 // Load a glTF resource
 loader.load(
   // resource URL
-  "assets/AGUILA.glb",
+  "assets/TRUCK.glb",
 
   // called when the resource is loaded
   function (gltf) {
-    model = gltf.scene;
-
+    truck = gltf.scene;
     gltf.animations; // Array<THREE.AnimationClip>
-    model; // THREE.Group
     gltf.scenes; // Array<THREE.Group>
     gltf.cameras; // Array<THREE.Camera>
     gltf.asset; // Object
-    model.receiveShadow = true;
-    model.scale.set(0.3, 0.3, 0.3);
-    model.position.set(-.1, .1, -1);
-    model.rotation.set(0.3, .5, 0);
+    truck.receiveShadow = true;
+    truck.scale.set(0.3, 0.3, 0.3);
+    truck.position.set(-.1, .1, -1);
+    truck.rotation.set(0.3, .5, 0);
 
-    glass = model.getObjectByName('glass');
-    scene.add(model);
+    glass1 = truck.getObjectByName('glass');
+    scene.add(truck);
+  },
+
+  // called when loading has errors
+  function (error) {
+    console.log("An error happened");
+  }
+);
+
+loader.load(
+  // resource URL
+  "assets/BUS.glb",
+
+  // called when the resource is loaded
+  function (gltf) {
+    bus = gltf.scene;
+    gltf.animations; // Array<THREE.AnimationClip>
+    gltf.scenes; // Array<THREE.Group>
+    gltf.cameras; // Array<THREE.Camera>
+    gltf.asset; // Object
+    bus.receiveShadow = true;
+    bus.scale.set(0.1, 0.1, 0.1);
+    bus.position.set(.2, .15, -1);
+    bus.rotation.set(0.3, 15, 0);
+
+    glass2 = bus.getObjectByName('glass2');
+    glass2.material.transparent = true;
+    glass2.material.opacity = 0.7;
+    glass2.material.reflectivity = 1;
+    glass2.material.transmission = 1;
+    glass2.material.roughness = 0.2;
+    glass2.material.metalness = 0;
+    glass2.material.clearcoat = 0;
+    glass2.material.clearcoatRoughness = 0.25;
+    glass2.material.ior = 1.3;
+    glass2.material.thickness = 5;
+    scene.add(bus);
+
+    bus.visible = false;
   },
 
   // called when loading has errors
@@ -65,51 +141,81 @@ light.castShadow = true; // enable shadow casting
 scene.add(light);
 light.position.set(1, 5, 8);
 
-const pointlight = new THREE.PointLight( 0xffffff, 1, 500);
-pointlight.position.set( 10, 10, 50 );
-scene.add( pointlight ); 
+const pointlight = new THREE.PointLight(0xffffff, 1, 500);
+pointlight.position.set(10, 10, 50);
+scene.add(pointlight);
 
 // const ambientlight = new THREE.AmbientLight( 0x404040, 0 ); // soft white light
 // scene.add( ambientlight );
 
-const renderer = new THREE.WebGLRenderer();
+// const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const redbtn = document.querySelector('#redColorBtn');
 const bluebtn = document.querySelector('#blueColorBtn');
+const trckbtn = document.querySelector('#trckBtn');
+const bsbtn = document.querySelector('#bsBtn');
+
 
 redbtn?.addEventListener('click', () => {
-
-  const newMaterial = new THREE.MeshPhysicalMaterial({})
-newMaterial.reflectivity = 1
-newMaterial.transmission = 1.5
-newMaterial.roughness = 0.2
-newMaterial.metalness = 0
-newMaterial.clearcoat = 0.3
-newMaterial.clearcoatRoughness = 0.25
-newMaterial.color = new THREE.Color(0xff0000)
-newMaterial.ior = 1.2
-newMaterial.thickness = 10.0
-;
-  glass.material = newMaterial;
+  const newMaterial = new THREE.MeshPhysicalMaterial({
+    transparent: true, // Enable transparency
+    opacity: 0.5, // Set the opacity level (0.0 - 1.0)
+    color: new THREE.Color(0xFF0000), // Set the tint color
+    reflectivity: 1,
+    transmission: 1,
+    roughness: 0.2,
+    metalness: 0,
+    clearcoat: 0,
+    clearcoatRoughness: 0.25,
+    ior: 1.3,
+    thickness: 5
+  });
+  if (isSelected === 'truck') {
+    glass1.material = newMaterial;
+  }
+  if (isSelected === 'bus') {
+    glass2.material = newMaterial;
+  }
 });
 
 bluebtn?.addEventListener('click', () => {
+  const newMaterial = new THREE.MeshPhysicalMaterial({
+    transparent: true, // Enable transparency
+    opacity: 0.5, // Set the opacity level (0.0 - 1.0)
+    color: new THREE.Color(0x0000FF), // Set the tint color
+    reflectivity: 1,
+    transmission: 1,
+    roughness: 0.2,
+    metalness: 0,
+    clearcoat: 0,
+    clearcoatRoughness: 0.25,
+    ior: 1.3,
+    thickness: 5
+  });
+  if (isSelected === 'truck') {
+    glass1.material = newMaterial;
+  }
+  if (isSelected === 'bus') {
+    glass2.material = newMaterial;
+  }
 
-  const newMaterial = new THREE.MeshPhysicalMaterial({})
-  newMaterial.reflectivity = 1
-  newMaterial.transmission = 1.0
-  newMaterial.roughness = 0.2
-  newMaterial.metalness = 0
-  newMaterial.clearcoat = 0.8
-  newMaterial.clearcoatRoughness = 0.25
-  newMaterial.color = new THREE.Color(0x00ffff)
-  newMaterial.ior = 1.55
-  newMaterial.thickness = 5.0
-  ;;
-  glass.material = newMaterial;
+
 });
+
+trckbtn?.addEventListener('click', () => {
+  truck.visible = true;
+  bus.visible = false;
+  isSelected = 'truck';
+});
+
+bsbtn?.addEventListener('click', () => {
+  truck.visible = false;
+  bus.visible = true;
+  isSelected = 'bus';
+});
+
 
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
