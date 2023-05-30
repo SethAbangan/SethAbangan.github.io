@@ -10,13 +10,13 @@
             overflow-x: hidden;
             margin: 0px;
             font-family: monospace;
-            color: white;
+            color: rgb(70, 70, 70);
         }
 
         canvas {
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 10;
+            left: 10;
         }
 
         main {
@@ -44,30 +44,49 @@
             font-size: 3vh;
         }
 
-        .redbutton {
-            background-color: rgb(255, 0, 0);
+        .button-container {
             position: absolute;
-            top: 0;
-            left: 0;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             z-index: 500;
         }
-        .bigbutton {
-            font-size: x-large; 
-            color: blueviolet;
+
+        .rounded-button {
+            border-radius: 5px;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 4px 2px;
+            cursor: pointer;
         }
-        .bluebutton {
-            background-color: blue;position: absolute;top: 50px;left: 0;z-index: 500
+
+        #redColorBtn {
+            background-color: red;
+        }
+
+        #blueColorBtn {
+            background-color: blue;
         }
     </style>
 </head>
 
 <body>
-
-    <button id="changeColorBtn">Choose color</button>
-    <button id="redColorBtn" class="redbutton bigbutton">Red color</button>
-    <button id="blueColorBtn" class="bigbutton bluebutton">blue
-        color</button>
-    <script type="module" src="bundle.js"></script>
+    <div class="button-container">
+        <h2>Choose your Color:  </h2>
+        <button id="redColorBtn" class="redbutton rounded-button">RED</button>
+        <button id="blueColorBtn" class="bluebutton rounded-button">BLUE</button>
+        <script type="module" src="bundle.js"></script>
+    </div>
 </body>
 
 </html>
+
