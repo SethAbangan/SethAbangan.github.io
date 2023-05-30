@@ -5,6 +5,8 @@
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-godrays-postprocess-component"></script> -->
+   
   </head>
 
   <body>
@@ -22,6 +24,7 @@
         <a-asset-item id="carModel0" src="assets/Convertable_blue.glb"></a-asset-item>
         <a-asset-item id="carModel1" src="assets/PickUpTruck_Red.glb"></a-asset-item>
         <a-asset-item id="rollerCoaster" src="assets/Rollercoaster.glb"></a-asset-item>
+        <a-asset-item id="spotLight" src="assets/LIGHT.glb"></a-asset-item>
 
         <audio id="car_horn" src="assets/car_horn.wav"></audio>
 
@@ -46,22 +49,27 @@
       <a-entity id="target1" mindar-image-target="targetIndex: 1" >
         <a-gltf-model id="carModel1Mdl" rotation="0 90 90" position="0.15 0 0" scale=".33 .33 .33"   
           src="#carModel1" />
+        <a-gltf-model id="spotLightMdl" rotation="0 0 0" position="0 0 0" scale="1 1 1"   
+          src="#spotLight" />
 
         <a-plane id="hornBtn" src="#horn" position="-2 2 -2" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
           class="clickable"></a-plane>
-        <!-- <a-plane id="lightBtn" src="#light" position="-2 2 -1" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
-          class="clickable"></a-plane> -->
+       
         <a-plane id="doorBtn" src="#door" position="-2 2 0" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
+          class="clickable"></a-plane>
+
+        <a-plane id="lightBtn" src="#light" position="-2 2 2" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
           class="clickable"></a-plane>
       </a-entity>
 
     </a-scene>
 
     <script>
+     
       const target0 = document.querySelector('#target0');
       const target1 = document.querySelector('#target1');
 
-      const carModel0 = document.querySelector('#carModel0');
+      const carModel0 = document.querySelector('#carModel0')
       const carModel1 = document.querySelector('#carModel1');
 
       target0.addEventListener('targetFound', handleTargetFound(1));
@@ -78,12 +86,23 @@
       });
 
       const lightBtnPlane = document.querySelector('#lightBtn');
-      const lights = document.querySelector('#area_light');
-
-      // lightBtnPlane.addEventListener("click", event => {
-      //   event.preventDefault();
-      //   lights();
-      // });
+      const lights = document.querySelector('#spotLightMdl');
+      let isLightOpen = false;
+      lightBtnPlane.addEventListener("click", event => {
+        event.preventDefault();
+        if (!isLightOpen) {
+          lights.setAttribute('visible',true);
+          isLightOpen = true;
+          
+          
+        } else {
+          lights.setAttribute('visible',false);
+          isLightOpen = false;
+        
+        }
+        
+        
+      });
 
       const doorBtnPlane = document.querySelector('#doorBtn');
       const carModel1Mdl = document.querySelector('#carModel1Mdl')
