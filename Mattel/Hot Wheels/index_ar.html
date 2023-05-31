@@ -39,7 +39,7 @@
       <a-light type="point" color="blue" position="-3 5 5" intensity="4"></a-light>
 
       <a-entity id="target0" mindar-image-target="targetIndex: 0">
-        <a-gltf-model rotation="0 90 90" position="0 0 0" scale=".25 .25 .25" src="#carModel0" 
+        <a-gltf-model rotation="0 90 90" position="0 0 0" scale=".25 .25 .25" src="#carModel0 " 
         />
         <a-gltf-model rotation="0 90 0" position="3 0 0" scale=".22 .22 .22" src="#rollerCoaster" animation-mixer="clip: Roll; loop: repeat"/>
       </a-entity>
@@ -49,10 +49,7 @@
       <a-entity id="target1" mindar-image-target="targetIndex: 1" >
         <a-gltf-model id="carModel1Mdl" rotation="0 90 90" position="0.15 0 0" scale=".33 .33 .33"   
           src="#carModel1" />
-        <a-gltf-model id="spotLightMdl" rotation="0 0 0" position="0 0 0" scale="1 1 1"   
-          src="#spotLight" />
-
-        <a-plane id="hornBtn" src="#horn" position="-2 2 -2" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
+      <a-plane id="hornBtn" src="#horn" position="-2 2 -2" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
           class="clickable"></a-plane>
        
         <a-plane id="doorBtn" src="#door" position="-2 2 0" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
@@ -60,6 +57,8 @@
 
         <a-plane id="lightBtn" src="#light" position="-2 2 2" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
           class="clickable"></a-plane>
+          <a-gltf-model id="spotLightMdl" rotation="0 0 0" position="0 0 0" scale="1 1 1"   
+          src="#spotLight" intensity="100" />
       </a-entity>
 
     </a-scene>
@@ -111,10 +110,10 @@
       doorBtnPlane.addEventListener("click", event => {
         event.preventDefault();
         if (!isDoorOpen) {
-          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': true, 'repetitions': 1 });
-          isDoorOpen = true;
+          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'repetitions': 1 ,'timeScale': 1.0,'clampWhenFinished':true,});
+          isDoorOpen = true;         
         } else {
-          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': true, 'repetitions': 1, 'timeScale': -1 });
+          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'CLOSE',  'repetitions': 1, 'timeScale':1.0,'clampWhenFinished':true});
           isDoorOpen = false;
         }
       });
