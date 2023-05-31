@@ -5,6 +5,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import { CAMERA } from "./controls";
+import TextSprite from '@seregpie/three.text-sprite';
+
 // Create a scene
 
 let truck: THREE.Object3D<THREE.Event>, bus: THREE.Object3D<THREE.Event>;
@@ -115,6 +117,20 @@ function init() {
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color('white');
+  // let instance = new THREE.TextSprite({
+  //   alignment: 'left',
+  //   color: '#24ff00',
+  //   fontFamily: '"Times New Roman", Times, serif',
+  //   fontSize: 8,
+  //   fontStyle: 'italic',
+  //   text: [
+  //     'Twinkle, twinkle, little star,',
+  //     'How I wonder what you are!',
+  //     'Up above the world so high,',
+  //     'Like a diamond in the sky.',
+  //   ].join('\n'),
+  // });
+  // scene.add(instance);
 
   new RGBELoader()
     .setPath("./../assets/")
