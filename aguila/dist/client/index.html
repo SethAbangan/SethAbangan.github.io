@@ -1,54 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Aguila</title>
-        <style>
-            body {
-                overflow-x: hidden;
-                margin: 0px;
-                font-family: monospace;
-                color: white;
-            }
 
-            canvas {
-                position: fixed;
-                top: 0;
-                left: 0;
-            }
+<head>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aguila</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-            main {
-                width: 100vw;
-                height: 200vw;
-                z-index: 99;
-                position: absolute;
-                justify-content: center;
-                text-align: center;
-                pointer-events: none;
-                font-size: 5vh;
-            }
-
-            section {
-                min-height: 100vh;
-                padding: 20px;
-                font-size: 4vh;
-            }
-
-            #scrollProgress {
-                position: fixed;
-                bottom: 10px;
-                left: 10px;
-                z-index: 99;
-                font-size: 3vh;
-            }
-        </style>
-    </head>
-
-    <body>
-
-  <button id="changeColorBtn">Choose color</button>
-  <button id="redColorBtn" style="background-color: red;">Red color</button>
+<body>
+    <div class="button-container">
+        <h4 style="color: white;"><b>Windshield Color:</b></h4>
+        <button id="redColorBtn" class="w3-button w3-red w3-xxlarge w3-round-xxlarge"></button>
+        <button id="greenColorBtn" class="w3-button w3-green w3-xxlarge w3-round-xxlarge"></button>
+        <button id="blueColorBtn" class="w3-button w3-blue w3-xxlarge w3-round-xxlarge"></button>
         <script type="module" src="bundle.js"></script>
-    </body>
+    </div>
+
+    <div class="changebtn">
+        <button id="trckBtn" class="3-button w3-khaki w3-large w3-round-xxlarge">TRUCK</button>
+        <button id="bsBtn" class="3-button w3-aqua w3-large w3-round-xxlarge">BUS</button>
+    </div>
+</body>
+
 </html>
