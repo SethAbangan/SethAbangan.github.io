@@ -4,13 +4,13 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
-import * as TWEEN from "@tweenjs/tween.js";
+import { CAMERA } from "./controls";
 // Create a scene
 
 let truck: THREE.Object3D<THREE.Event>, bus: THREE.Object3D<THREE.Event>;
 let isSelected = "truck";
 let glass1: any, glass2: any;
-let camera: any, scene: any, renderer: any;
+let camera: any, scene: any, renderer: any, controls: OrbitControls;
 
 const redbtn = document.querySelector("#redColorBtn");
 const bluebtn = document.querySelector("#blueColorBtn");
@@ -21,18 +21,6 @@ const bsbtn = document.querySelector("#bsBtn");
 let isClicked = false;
 
 redbtn?.addEventListener("click", () => {
-
-  if (isClicked === false) {
-    redbtn.classList.add('clicked');
-  } else if (bluebtn && bluebtn.classList.contains('clicked')) {
-    bluebtn.classList.remove('clicked');
-  } else if (greenbtn && greenbtn.classList.contains('clicked')) {
-    greenbtn.classList.remove('clicked');
-  }
-
-
-
-
   const newMaterial = new THREE.MeshPhysicalMaterial({
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
@@ -55,13 +43,6 @@ redbtn?.addEventListener("click", () => {
 });
 
 bluebtn?.addEventListener("click", () => {
-  if (isClicked === false) {
-    bluebtn.classList.add('clicked');
-  } else if (redbtn && redbtn.classList.contains('clicked')) {
-    redbtn.classList.remove('clicked');
-  } else if (greenbtn && greenbtn.classList.contains('clicked')) {
-    greenbtn.classList.remove('clicked');
-  }
   const newMaterial = new THREE.MeshPhysicalMaterial({
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
@@ -84,13 +65,6 @@ bluebtn?.addEventListener("click", () => {
 });
 
 greenbtn?.addEventListener("click", () => {
-  if (isClicked === false) {
-    greenbtn.classList.add('clicked');
-  } else if (redbtn && redbtn.classList.contains('clicked')) {
-    redbtn.classList.remove('clicked');
-  } else if (bluebtn && bluebtn.classList.contains('clicked')) {
-    bluebtn.classList.remove('clicked');
-  }
   const newMaterial = new THREE.MeshPhysicalMaterial({
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
@@ -134,7 +108,7 @@ function init() {
   camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
-    0.25,
+    0.1,
     20
   );
   // camera.position.set(-1.8, 0.6, 2.7);
@@ -189,7 +163,7 @@ function init() {
         }
 
         // Start the animation loop
-        animateTruck();
+        // animateTruck();
 
         render();
       });
@@ -206,7 +180,7 @@ function init() {
           gltf.asset; // Object
           bus.receiveShadow = true;
           bus.scale.set(0.4, 0.4, 0.4);
-          bus.position.set(0, -0.25, 0);
+          bus.position.set(0, -0.25, -0.2);
           // bus.rotation.set(0.3, 15, 0);
 
           glass2 = bus.getObjectByName("glass2");
@@ -244,7 +218,7 @@ function init() {
           }
 
           // Start the animation loop
-          animateBus();
+          // animateBus();
         },
 
         // called when loading has errors
@@ -261,14 +235,20 @@ function init() {
   renderer.toneMappingExposure = 1;
   container.appendChild(renderer.domElement);
 
-  const controls = new OrbitControls(camera, renderer.domElement);
+  controls = new OrbitControls(camera, renderer.domElement);
   controls.addEventListener("change", render); // use if there is no animation loop
   controls.minDistance = 2;
-  controls.maxDistance = 10;
+  controls.maxDistance = 3;
   controls.target.set(0, 0, -0.2);
+  controls.minZoom = CAMERA.minZoom,
+  controls.maxZoom = CAMERA.maxZoom;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 0.2;
   controls.update();
 
   window.addEventListener("resize", onWindowResize);
+
+  animate();
 }
 
 function onWindowResize() {
@@ -284,4 +264,10 @@ function onWindowResize() {
 
 function render() {
   renderer.render(scene, camera);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  render();
 }
