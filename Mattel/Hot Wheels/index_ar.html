@@ -110,10 +110,10 @@
       doorBtnPlane.addEventListener("click", event => {
         event.preventDefault();
         if (!isDoorOpen) {
-          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'repetitions': 1 ,'timeScale': 1.0,'clampWhenFinished':true,});
+          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'repetitions': 1 ,'clampWhenFinished':true,});
           isDoorOpen = true;         
         } else {
-          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'CLOSE',  'repetitions': 1, 'timeScale':1.0,'clampWhenFinished':true});
+          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'CLOSE',  'repetitions': 1,'clampWhenFinished':true});
           isDoorOpen = false;
         }
       });
