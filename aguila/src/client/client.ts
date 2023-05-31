@@ -10,15 +10,13 @@ import { CAMERA } from "./controls";
 let truck: THREE.Object3D<THREE.Event>, bus: THREE.Object3D<THREE.Event>;
 let isSelected = "truck";
 let glass1: any, glass2: any;
-let camera: any, scene: any, renderer: any, controls: OrbitControls;
+let camera: any, scene: THREE.Scene, renderer: any, controls: OrbitControls;
 
 const redbtn = document.querySelector("#redColorBtn");
 const bluebtn = document.querySelector("#blueColorBtn");
 const greenbtn = document.querySelector("#greenColorBtn");
 const trckbtn = document.querySelector("#trckBtn");
 const bsbtn = document.querySelector("#bsBtn");
-
-let isClicked = false;
 
 redbtn?.addEventListener("click", () => {
   const newMaterial = new THREE.MeshPhysicalMaterial({
@@ -116,13 +114,14 @@ function init() {
   camera.rotation.set(0.3, 0, 0);
 
   scene = new THREE.Scene();
+  scene.background = new THREE.Color('white');
 
   new RGBELoader()
     .setPath("./../assets/")
     .load("sunflowers_puresky_4k.hdr", (texture) => {
       texture.mapping = THREE.EquirectangularReflectionMapping;
 
-      scene.background = texture;
+      // scene.background = texture;
       scene.environment = texture;
 
       render();
