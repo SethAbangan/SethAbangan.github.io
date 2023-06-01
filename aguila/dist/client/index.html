@@ -2,132 +2,26 @@
 <html lang="en">
 
 <head>
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Aguila</title>
-    <style>
-        body {
-            overflow-x: hidden;
-            margin: 0px;
-            font-family: monospace;
-            color: rgb(70, 70, 70);
-        }
-
-        canvas {
-            position: fixed;
-            top: 10;
-            left: 10;
-        }
-
-        main {
-            width: 100vw;
-            height: 200vw;
-            z-index: 99;
-            position: absolute;
-            justify-content: center;
-            text-align: center;
-            pointer-events: none;
-            font-size: 5vh;
-        }
-
-        section {
-            min-height: 100vh;
-            padding: 20px;
-            font-size: 4vh;
-        }
-
-        #scrollProgress {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            z-index: 99;
-            font-size: 3vh;
-        }
-
-        .button-container {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 500;
-        }
-
-        .rounded-button {
-            border-radius: 5px;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-
-        #redColorBtn {
-            background-color: red;
-        }
-
-        #blueColorBtn {
-            background-color: blue;
-        }
-
-        #chngeBtn {
-            background-color: darkgrey;
-        }
-
-        .changebtn {
-            position: absolute;
-            bottom: 150px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: bottom;
-            align-items: center;
-            z-index: 500;
-        }
-
-        .chngeBtn {
-            border-radius: 5px;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            font-weight: bold;
-            width: 120px;
-            /* Set a fixed width for the buttons */
-            cursor: pointer;
-        }
-
-        #trckBtn {
-            background-color: rgb(51, 51, 51);
-        }
-
-        #bsBtn {
-            background-color: rgb(51, 51, 51);
-        }
-    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div class="button-container">
-        <h2>Choose your Color: </h2>
-        <button id="redColorBtn" class="rounded-button">RED</button>
-        <button id="blueColorBtn" class="rounded-button">BLUE</button>
+        <h4 style="color: white;"><b>Windshield Color:</b></h4>
+        <button id="redColorBtn" class="w3-button w3-red w3-xxlarge w3-round-xxlarge"></button>
+        <button id="greenColorBtn" class="w3-button w3-green w3-xxlarge w3-round-xxlarge"></button>
+        <button id="blueColorBtn" class="w3-button w3-blue w3-xxlarge w3-round-xxlarge"></button>
         <script type="module" src="bundle.js"></script>
     </div>
 
     <div class="changebtn">
-        <button id="trckBtn" class="chngeBtn rounded-button">TRUCK</button>
-        <button id="bsBtn" class="chngeBtn rounded-button">BUS</button>
+        <button id="trckBtn" class="3-button w3-khaki w3-large w3-round-xxlarge">TRUCK</button>
+        <button id="bsBtn" class="3-button w3-aqua w3-large w3-round-xxlarge">BUS</button>
     </div>
 </body>
 

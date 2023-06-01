@@ -1,142 +1,155 @@
 <html>
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
-</head>
-
-<body>
-
-  <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
-    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false">
-
-    <a-assets>
-
-      <img id="light" src="assets/light_button.png" />
-      <img id="horn" src="assets/horn_button.png" />
-      <img id="door" src="assets/door_button.png" />
-
-      <a-asset-item id="carModel0" src="assets/Convertable_blue.glb"></a-asset-item>
-      <a-asset-item id="carModel1" src="assets/Convertable_red.glb"></a-asset-item>
-      <a-asset-item id="carModel2" src="assets/PickUpTruck_Red.glb"></a-asset-item>
-      <a-asset-item id="rollerCoaster" src="assets/Rollercoaster.glb"></a-asset-item>
-
-      <audio id="car_horn" src="assets/car_horn.wav"></audio>
-
-    </a-assets>
-
-    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
-      raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
-
-    <a-entity id="area_light" light="type: directional; color:sRGB ; intensity: 4.3" position="30 70 70"></a-entity>
-
-    <a-entity id="target0" mindar-image-target="targetIndex: 0">
-      <a-gltf-model rotation="0 90 90" position="0.15 -0.2 0" scale=".35 .35 .35" src="#carModel0" 
-      />
-      <!-- <a-gltf-model rotation="0 90 90" position="0.15 2 0" scale=".05 .05 .05" src="#rollerCoaster"/> -->
-    </a-entity>
-    
-    <a-entity id="target1" mindar-image-target="targetIndex: 1">
-      <a-gltf-model rotation="0 90 90" position="0.15 -0.2 0" scale=".35 .35 .35" src="#carModel1" 
-     />
-    </a-entity>
-
-    <!-- car light -->
-
-    <a-entity id="target2" mindar-image-target="targetIndex: 2" light="type: spot; color:#ff2483; intensity:1" position=".7 1.2 2.3">
-      <a-gltf-model id="carModel2Mdl" rotation="0 90 90" position="0.15 0 0" scale=".36 .36 .36"   
-        src="#carModel2" />
-      <!-- <a-plane src="#card" position=".7 1.2 2.3" height=".2" width=".2" rotation="-90 0 0"></a-plane> -->
-
-      <a-plane id="lightBtn" src="#light" position="-2 2 -1" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
-        class="clickable"></a-plane>
-      <a-plane id="hornBtn" src="#horn" position="-2 2 -2" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
-        class="clickable"></a-plane>
-      <a-plane id="doorBtn" src="#door" position="-2 2 0" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
-        class="clickable"></a-plane>
-    </a-entity>
-
-  </a-scene>
-
-  <script>
-    const target0 = document.querySelector('#target0');
-    const target1 = document.querySelector('#target1');
-    const target2 = document.querySelector('#target2');
-
-    const carModel0 = document.querySelector('#carModel0');
-    const carModel1 = document.querySelector('#carModel1');
-    const carModel2 = document.querySelector('#carModel2');
-
-    target0.addEventListener('targetFound', handleTargetFound);
-    target0.addEventListener('targetLost', handleTargetLost);
-    target1.addEventListener('targetFound', handleTargetFound);
-    target1.addEventListener('targetLost', handleTargetLost);
-    target2.addEventListener('targetFound', handleTargetFound(2));
-
-    // detect click event
-    const hornBtnPlane = document.querySelector('#hornBtn');
-    const sound = document.querySelector('#car_horn');
-    hornBtnPlane.addEventListener("click", event => {
-      sound.play();
-      event.preventDefault();
-    });
-
-    const lightBtnPlane = document.querySelector('#lightBtn');
-    const lights = document.querySelector('#area_light');
-
-    lightBtnPlane.addEventListener("click", event => {
-      lights();
-      event.preventDefault();
-    });
-
-    const doorBtnPlane = document.querySelector('#doorBtn');
-    const carModel2Mdl = document.querySelector('#carModel2Mdl')
-    doorBtnPlane.addEventListener("click", event => {
-      // console.log('check lang sa func click', event);
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-godrays-postprocess-component"></script> -->
    
-        carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': true, 'repetitions': 1 });
-        // carModel2Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'clampWhenFinished': false, 'repetitions': 1 , 'timeScale':-1 }); 
+  </head>
+
+  <body>
+
+    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false " arjs-camparams-markerAreaThreshold: 2000;>
+
+      <a-assets>
+
+        <img id="light" src="assets/light_button.png" />
+        <img id="horn" src="assets/horn_button.png" />
+        <img id="door" src="assets/door_button.png" />
+
+        <a-asset-item id="carModel0" src="assets/Convertable_blue.glb"></a-asset-item>
+        <a-asset-item id="carModel1" src="assets/PickUpTruck_Red.glb"></a-asset-item>
+        <a-asset-item id="rollerCoaster" src="assets/Rollercoaster.glb"></a-asset-item>
+        <a-asset-item id="spotLight" src="assets/LIGHT.glb"></a-asset-item>
+
+        <audio id="car_horn" src="assets/car_horn.wav"></audio>
+
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+        raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+
+      <a-light type="directional" intensity="6" position="5 10 5" rotation="-30 30 0"></a-light>
+      <a-light type="ambient" color="#222" intensity="3"></a-light>
+
+      <a-light type="point" color="blue" position="-3 5 5" intensity="4"></a-light>
+
+      <a-entity id="target0" mindar-image-target="targetIndex: 0">
+        <a-gltf-model rotation="0 90 90" position="0 0 0" scale=".25 .25 .25" src="#carModel0 " 
+        />
+        <a-gltf-model rotation="0 90 0" position="3 0 0" scale=".22 .22 .22" src="#rollerCoaster" animation-mixer="clip: Roll; loop: repeat"/>
+      </a-entity>
+
+      <!-- car light -->
+
+      <a-entity id="target1" mindar-image-target="targetIndex: 1" >
+        <a-gltf-model id="carModel1Mdl" rotation="0 90 90" position="0.15 0 0" scale=".33 .33 .33"   
+          src="#carModel1" />
+      <a-plane id="hornBtn" src="#horn" position="-2 2 -2" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
+          class="clickable"></a-plane>
+       
+        <a-plane id="doorBtn" src="#door" position="-2 2 0" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
+          class="clickable"></a-plane>
+
+        <a-plane id="lightBtn" src="#light" position="-2 2 2" height=".7" width=".7" rotation="-90 180 90" opacity=".99"
+          class="clickable"></a-plane>
+          <a-gltf-model id="spotLightMdl" rotation="0 0 0" position="0 0 0" scale="1 1 1"   
+          src="#spotLight" intensity="100" />
+      </a-entity>
+
+    </a-scene>
+
+    <script>
      
-      
-      event.preventDefault();
-    });
+      const target0 = document.querySelector('#target0');
+      const target1 = document.querySelector('#target1');
 
-    function handleTargetFound(event, num) {
-      console.log('num target', num);
-      if (num === 2) {
-        carModel2.visible = true;
-        lightBtnPlane.style.display = 'block';
-        hornBtnPlane.style.display = 'block';
-        doorBtnPlane.style.display = 'block';
-      } else {
-        carModel0.visible = true;
-        carModel1.visible = true;
-        carModel2.visible = true;
-      }
-    }
+      const carModel0 = document.querySelector('#carModel0')
+      const carModel1 = document.querySelector('#carModel1');
 
-    function handleTargetLost(event, num) {
-      if (num === 2) {
-        carModel2.visible = false;
-        lightBtnPlane.style.display = 'none';
-        hornBtnPlane.style.display = 'none';
-        doorBtnPlane.style.display = 'none';
-      } else {
-        carModel1.visible = false;
-        carModel0.visible = false;
-      }
-    }
+      target0.addEventListener('targetFound', handleTargetFound(1));
+      target0.addEventListener('targetLost', handleTargetLost(1));
+      target1.addEventListener('targetFound', handleTargetFound(2));
+      target1.addEventListener('targetlost', handleTargetLost(2));
 
-    // function rotation() {
-    //       // statueLib.setAttribute("position", "0 -0.5 -2");
-    //       carModel2Mdl.setAttribute("animation__rotation", "property: rotation; from: 0 0 0; to: 0 360 0; dur: " + 3000 + "; easing: linear; loop: true")
+      // detect click event
+      const hornBtnPlane = document.querySelector('#hornBtn');
+      const sound = document.querySelector('#car_horn');
+      hornBtnPlane.addEventListener("click", event => {
+        event.preventDefault();
+        sound.play();
+      });
+
+      const lightBtnPlane = document.querySelector('#lightBtn');
+      const lights = document.querySelector('#spotLightMdl');
+      let isLightOpen = false;
+      lightBtnPlane.addEventListener("click", event => {
+        event.preventDefault();
+        if (!isLightOpen) {
+          lights.setAttribute('visible',true);
+          isLightOpen = true;
+          
+          
+        } else {
+          lights.setAttribute('visible',false);
+          isLightOpen = false;
         
-    //     }
+        }
+        
+        
+      });
 
-  </script>
-</body>
+      const doorBtnPlane = document.querySelector('#doorBtn');
+      const carModel1Mdl = document.querySelector('#carModel1Mdl')
+      let isDoorOpen = false;
+
+      doorBtnPlane.addEventListener("click", event => {
+        event.preventDefault();
+        if (!isDoorOpen) {
+          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'OPEN', 'repetitions': 1 ,'clampWhenFinished':true,});
+          isDoorOpen = true;         
+        } else {
+          carModel1Mdl.setAttribute("animation-mixer", { 'clip': 'CLOSE',  'repetitions': 1,'clampWhenFinished':true});
+          isDoorOpen = false;
+        }
+      });
+
+      function handleTargetFound(event, num) {
+        console.log('num target', num);
+        if (num === 1) {
+          carModel0.visible = true;
+        }
+        if (num === 2) {
+          carModel1.visible = true;
+          lightBtnPlane.style.display = 'block';
+          hornBtnPlane.style.display = 'block';
+          doorBtnPlane.style.display = 'block';
+        }
+      }
+
+      function handleTargetLost(event, num) {
+        if (num === 1) {
+          carModel0.visible = false;
+        }
+        if (num === 2) {
+          carModel1.visible = false;
+          lightBtnPlane.style.display = 'none';
+          hornBtnPlane.style.display = 'none';
+          doorBtnPlane.style.display = 'none';
+        }
+      }
+
+      // function rotation() {
+      //       // statueLib.setAttribute("position", "0 -0.5 -2");
+      //       carModel1Mdl.setAttribute("animation__rotation", "property: rotation; from: 0 0 0; to: 0 360 0; dur: " + 3000 + "; easing: linear; loop: true")
+          
+      //     }
+
+    </script>
+  </body>
 
 </html>

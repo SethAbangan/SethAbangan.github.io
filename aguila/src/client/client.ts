@@ -1,168 +1,28 @@
 import * as THREE from "three";
+
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
-
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
+import { CAMERA } from "./controls";
 // Create a scene
-const scene = new THREE.Scene();
 
-// Create a renderer
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+let truck: THREE.Object3D<THREE.Event>, bus: THREE.Object3D<THREE.Event>;
+let isSelected = "truck";
+let glass1: any, glass2: any;
+let camera: any, scene: THREE.Scene, renderer: any, controls: OrbitControls;
 
-const pmremGenerator = new THREE.PMREMGenerator(renderer);
-pmremGenerator.compileEquirectangularShader();
+const redbtn = document.querySelector("#redColorBtn");
+const bluebtn = document.querySelector("#blueColorBtn");
+const greenbtn = document.querySelector("#greenColorBtn");
+const trckbtn = document.querySelector("#trckBtn");
+const bsbtn = document.querySelector("#bsBtn");
 
-// Load the HDRI image
-const hdriLoader = new THREE.TextureLoader();
-
-// Load the HDRI image
-hdriLoader.load(
-  '../../dist/client/assets/sunflowers_puresky_4k.exr',
-  function (texture) {
-    // Set the scene background as the HDRI
-    scene.background = texture;
-
-    // Create a sphere to represent the model
-    const geometry = new THREE.SphereGeometry(1, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0x737373 });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-
-    // Render the scene
-    function render() {
-      requestAnimationFrame(render);
-      sphere.rotation.y += 0.01;
-      renderer.render(scene, camera);
-    }
-    render();
-  },
-  undefined,
-  function (error) {
-    console.error('An error occurred while loading the HDRI image.', error);
-  }
-);
-
-
-
-// scene.background = new THREE.Color(0xe3e3e3);
-// Instantiate a loader
-const loader = new GLTFLoader();
-
-// Optional: Provide a DRACOLoader instance to decode compressed mesh data
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
-loader.setDRACOLoader(dracoLoader);
-
-let truck: THREE.Object3D<THREE.Event>;
-let bus: THREE.Object3D<THREE.Event>;
-
-let isSelected = 'truck';
-
-let glass1: any
-let glass2: any
-// Load a glTF resource
-loader.load(
-  // resource URL
-  "assets/TRUCK.glb",
-
-  // called when the resource is loaded
-  function (gltf) {
-    truck = gltf.scene;
-    gltf.animations; // Array<THREE.AnimationClip>
-    gltf.scenes; // Array<THREE.Group>
-    gltf.cameras; // Array<THREE.Camera>
-    gltf.asset; // Object
-    truck.receiveShadow = true;
-    truck.scale.set(0.3, 0.3, 0.3);
-    truck.position.set(-.1, .1, -1);
-    truck.rotation.set(0.3, .5, 0);
-
-    glass1 = truck.getObjectByName('glass');
-    scene.add(truck);
-  },
-
-  // called when loading has errors
-  function (error) {
-    console.log("An error happened");
-  }
-);
-
-loader.load(
-  // resource URL
-  "assets/BUS.glb",
-
-  // called when the resource is loaded
-  function (gltf) {
-    bus = gltf.scene;
-    gltf.animations; // Array<THREE.AnimationClip>
-    gltf.scenes; // Array<THREE.Group>
-    gltf.cameras; // Array<THREE.Camera>
-    gltf.asset; // Object
-    bus.receiveShadow = true;
-    bus.scale.set(0.1, 0.1, 0.1);
-    bus.position.set(.2, .15, -1);
-    bus.rotation.set(0.3, 15, 0);
-
-    glass2 = bus.getObjectByName('glass2');
-    glass2.material.transparent = true;
-    glass2.material.opacity = 0.7;
-    glass2.material.reflectivity = 1;
-    glass2.material.transmission = 1;
-    glass2.material.roughness = 0.2;
-    glass2.material.metalness = 0;
-    glass2.material.clearcoat = 0;
-    glass2.material.clearcoatRoughness = 0.25;
-    glass2.material.ior = 1.3;
-    glass2.material.thickness = 5;
-    scene.add(bus);
-
-    bus.visible = false;
-  },
-
-  // called when loading has errors
-  function (error) {
-    console.log("An error happened");
-  }
-);
-
-const camera = new THREE.PerspectiveCamera(
-  60,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.set(0, 0, 0);
-camera.rotation.set(.3, 0, 0)
-
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.castShadow = true; // enable shadow casting
-scene.add(light);
-light.position.set(1, 5, 8);
-
-const pointlight = new THREE.PointLight(0xffffff, 1, 500);
-pointlight.position.set(10, 10, 50);
-scene.add(pointlight);
-
-// const ambientlight = new THREE.AmbientLight( 0x404040, 0 ); // soft white light
-// scene.add( ambientlight );
-
-// const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-const redbtn = document.querySelector('#redColorBtn');
-const bluebtn = document.querySelector('#blueColorBtn');
-const trckbtn = document.querySelector('#trckBtn');
-const bsbtn = document.querySelector('#bsBtn');
-
-
-redbtn?.addEventListener('click', () => {
+redbtn?.addEventListener("click", () => {
   const newMaterial = new THREE.MeshPhysicalMaterial({
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
-    color: new THREE.Color(0xFF0000), // Set the tint color
+    color: new THREE.Color(0xff0000), // Set the tint color
     reflectivity: 1,
     transmission: 1,
     roughness: 0.2,
@@ -170,21 +30,21 @@ redbtn?.addEventListener('click', () => {
     clearcoat: 0,
     clearcoatRoughness: 0.25,
     ior: 1.3,
-    thickness: 5
+    thickness: 5,
   });
-  if (isSelected === 'truck') {
+  if (isSelected === "truck") {
     glass1.material = newMaterial;
   }
-  if (isSelected === 'bus') {
+  if (isSelected === "bus") {
     glass2.material = newMaterial;
   }
 });
 
-bluebtn?.addEventListener('click', () => {
+bluebtn?.addEventListener("click", () => {
   const newMaterial = new THREE.MeshPhysicalMaterial({
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
-    color: new THREE.Color(0x0000FF), // Set the tint color
+    color: new THREE.Color(0x0000ff), // Set the tint color
     reflectivity: 1,
     transmission: 1,
     roughness: 0.2,
@@ -192,46 +52,221 @@ bluebtn?.addEventListener('click', () => {
     clearcoat: 0,
     clearcoatRoughness: 0.25,
     ior: 1.3,
-    thickness: 5
+    thickness: 5,
   });
-  if (isSelected === 'truck') {
+  if (isSelected === "truck") {
     glass1.material = newMaterial;
   }
-  if (isSelected === 'bus') {
+  if (isSelected === "bus") {
     glass2.material = newMaterial;
   }
-
-
 });
 
-trckbtn?.addEventListener('click', () => {
+greenbtn?.addEventListener("click", () => {
+  const newMaterial = new THREE.MeshPhysicalMaterial({
+    transparent: true, // Enable transparency
+    opacity: 0.5, // Set the opacity level (0.0 - 1.0)
+    color: new THREE.Color(0x00ff00), // Set the tint color
+    reflectivity: 1,
+    transmission: 1,
+    roughness: 0.2,
+    metalness: 0,
+    clearcoat: 0,
+    clearcoatRoughness: 0.25,
+    ior: 1.3,
+    thickness: 5,
+  });
+  if (isSelected === "truck") {
+    glass1.material = newMaterial;
+  }
+  if (isSelected === "bus") {
+    glass2.material = newMaterial;
+  }
+});
+
+trckbtn?.addEventListener("click", () => {
   truck.visible = true;
   bus.visible = false;
-  isSelected = 'truck';
+  isSelected = "truck";
 });
 
-bsbtn?.addEventListener('click', () => {
+bsbtn?.addEventListener("click", () => {
   truck.visible = false;
   bus.visible = true;
-  isSelected = 'bus';
+  isSelected = "bus";
 });
 
+init();
+render();
 
-window.addEventListener("resize", onWindowResize, false);
+function init() {
+  const container = document.createElement("div");
+  document.body.appendChild(container);
+
+  camera = new THREE.PerspectiveCamera(
+    45,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    20
+  );
+  // camera.position.set(-1.8, 0.6, 2.7);
+  camera.position.set(0, 0, 0);
+  camera.rotation.set(0.3, 0, 0);
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color('white');
+
+  new RGBELoader()
+    .setPath("./../assets/")
+    .load("sunflowers_puresky_4k.hdr", (texture) => {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+
+      // scene.background = texture;
+      scene.environment = texture;
+
+      render();
+
+      // models
+
+      const loaderTruck = new GLTFLoader().setPath("assets/");
+      loaderTruck.load("TRUCK.glb", (gltf) => {
+        truck = gltf.scene;
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scenes; // Array<THREE.Group>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+        truck.receiveShadow = true;
+        truck.scale.set(0.5, 0.5, 0.5);
+        truck.position.set(0, -.3, 0);
+        // truck.rotation.set(0.3, 0.5, 0);
+
+        glass1 = truck.getObjectByName("glass");
+        scene.add(truck);
+
+        // Define initial rotation and set up clock
+        var rotationSpeed = 0.1; // Adjust this value to control the rotation speed
+        var clock = new THREE.Clock();
+
+        // Animation loop
+        function animateTruck() {
+          requestAnimationFrame(animateTruck);
+
+          // Calculate elapsed time since the last frame
+          var delta = clock.getDelta();
+
+          // Update rotation
+          truck.rotation.y += rotationSpeed * delta;
+
+          // Render the scene
+          renderer.render(scene, camera);
+        }
+
+        // Start the animation loop
+        // animateTruck();
+
+        render();
+      });
+
+      const loaderBus = new GLTFLoader().setPath("assets/");
+      loaderBus.load(
+        "BUS.glb",
+        (gltf) => {
+          // called when the resource is loaded
+          bus = gltf.scene;
+          gltf.animations; // Array<THREE.AnimationClip>
+          gltf.scenes; // Array<THREE.Group>
+          gltf.cameras; // Array<THREE.Camera>
+          gltf.asset; // Object
+          bus.receiveShadow = true;
+          bus.scale.set(0.4, 0.4, 0.4);
+          bus.position.set(0, -0.25, -0.2);
+          // bus.rotation.set(0.3, 15, 0);
+
+          glass2 = bus.getObjectByName("glass2");
+          // glass2.material.transparent = true;
+          // glass2.material.opacity = 1;
+          // glass2.material.color =  new THREE.Color(0x000000);
+          // glass2.material.reflectivity = 1;
+          // glass2.material.transmission = 1;
+          // glass2.material.roughness = 0.2;
+          // glass2.material.metalness = 0;
+          // glass2.material.clearcoat = 0;
+          // glass2.material.clearcoatRoughness = 0.25;
+          // glass2.material.ior = 1.3;
+          // glass2.material.thickness = 10;
+          scene.add(bus);
+
+          bus.visible = false;
+
+          // Define initial rotation and set up clock
+          var rotationSpeed = 0.1; // Adjust this value to control the rotation speed
+          var clock = new THREE.Clock();
+
+          // Animation loop
+          function animateBus() {
+            requestAnimationFrame(animateBus);
+
+            // Calculate elapsed time since the last frame
+            var delta = clock.getDelta();
+
+            // Update rotation
+            bus.rotation.y += rotationSpeed * delta;
+
+            // Render the scene
+            renderer.render(scene, camera);
+          }
+
+          // Start the animation loop
+          // animateBus();
+        },
+
+        // called when loading has errors
+        function (error) {
+          console.log("An error happened");
+        }
+      );
+    });
+
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1;
+  container.appendChild(renderer.domElement);
+
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.addEventListener("change", render); // use if there is no animation loop
+  controls.minDistance = 2;
+  controls.maxDistance = 3;
+  controls.target.set(0, 0, -0.2);
+  controls.minZoom = CAMERA.minZoom,
+  controls.maxZoom = CAMERA.maxZoom;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 0.2;
+  controls.update();
+
+  window.addEventListener("resize", onWindowResize);
+
+  animate();
+}
+
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
+
   renderer.setSize(window.innerWidth, window.innerHeight);
-  render();
-}
-
-function animate() {
-  requestAnimationFrame(animate);
 
   render();
 }
+
+//
 
 function render() {
   renderer.render(scene, camera);
 }
-animate();
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  render();
+}
