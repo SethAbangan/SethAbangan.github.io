@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "nagarro-tests"
+  },
+  "targets": {
+    "nagarro-tests": {
+      "hosting": {
+        "aguila-glass-tests": [
+          "aguila-glass-tests"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
