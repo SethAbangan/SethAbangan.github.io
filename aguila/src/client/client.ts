@@ -25,13 +25,13 @@ redbtn?.addEventListener("click", () => {
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
     color: new THREE.Color(0xff0000), // Set the tint color
-    reflectivity: 1,
+    reflectivity: 2,
     transmission: 1,
     roughness: 0.2,
     metalness: 0,
     clearcoat: 0,
     clearcoatRoughness: 0.25,
-    ior: 1.3,
+    ior: 1.0,
     thickness: 5,
   });
   if (isSelected === "truck") {
@@ -47,13 +47,13 @@ bluebtn?.addEventListener("click", () => {
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
     color: new THREE.Color(0x0000ff), // Set the tint color
-    reflectivity: 1,
+    reflectivity: 2,
     transmission: 1,
     roughness: 0.2,
     metalness: 0,
     clearcoat: 0,
     clearcoatRoughness: 0.25,
-    ior: 1.3,
+    ior: 1.0,
     thickness: 5,
   });
   if (isSelected === "truck") {
@@ -69,13 +69,13 @@ greenbtn?.addEventListener("click", () => {
     transparent: true, // Enable transparency
     opacity: 0.5, // Set the opacity level (0.0 - 1.0)
     color: new THREE.Color(0x00ff00), // Set the tint color
-    reflectivity: 1,
+    reflectivity: 2,
     transmission: 1,
     roughness: 0.2,
     metalness: 0,
     clearcoat: 0,
     clearcoatRoughness: 0.25,
-    ior: 1.3,
+    ior: 1.0,
     thickness: 5,
   });
   if (isSelected === "truck") {
