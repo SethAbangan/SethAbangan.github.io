@@ -52,6 +52,26 @@
 
   <script>
     // detect click event
+    const phonePlane = document.querySelector('#myPhone');
+    phonePlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'tel:(310) 498-6706';
+    });
+    const emailPlane = document.querySelector('#myEmail');
+    emailPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'mailto:todd.skinner@ripeconcepts.com';
+    });
+    const linkedinPlane = document.querySelector('#myLinkedin');
+    linkedinPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://www.linkedin.com/in/todd-e-skinner/', '_blank');
+    });
+    const contactPlane = document.querySelector('#myAdd_to_contact');
+    contactPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'assets/todd_skinner.vcf';
+    });
     const modelingPlane = document.querySelector('#myModeling');
     modelingPlane.addEventListener("click", event => {
       event.preventDefault();
@@ -81,26 +101,6 @@
     metaversePlane.addEventListener("click", event => {
       event.preventDefault();
       window.open('https://www.ripeconcepts.com/contact-us/', '_blank');
-    });
-    const phonePlane = document.querySelector('#myPhone');
-    phonePlane.addEventListener("click", event => {
-      event.preventDefault();
-      window.location.href = 'tel:(310) 498-6706';
-    });
-    const emailPlane = document.querySelector('#myEmail');
-    emailPlane.addEventListener("click", event => {
-      event.preventDefault();
-      window.location.href = 'mailto:todd.skinner@ripeconcepts.com';
-    });
-    const linkedinPlane = document.querySelector('#myLinkedin');
-    linkedinPlane.addEventListener("click", event => {
-      event.preventDefault();
-      window.open('https://www.linkedin.com/in/todd-e-skinner/', '_blank');
-    });
-    const contactPlane = document.querySelector('#myAdd_to_contact');
-    contactPlane.addEventListener("click", event => {
-      event.preventDefault();
-      window.location.href = 'assets/todd_skinner.vcf';
     });
 
   </script>
