@@ -9,9 +9,13 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+            { test: /\.hdr$/, use: "url-loader" },
         ],
     },
     resolve: {
+        alias: {
+            three: path.resolve('./node_modules/three')
+        },
         extensions: ['.tsx', '.ts', '.js'],
     },
     output: {

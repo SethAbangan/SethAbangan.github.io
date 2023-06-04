@@ -5,7 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import { CAMERA } from "./controls";
-import TextSprite from '@seregpie/three.text-sprite';
+// import TextSprite from "@seregpie/three.text-sprite";
 
 // Create a scene
 
@@ -13,6 +13,9 @@ let truck: THREE.Object3D<THREE.Event>, bus: THREE.Object3D<THREE.Event>;
 let isSelected = "truck";
 let glass1: any, glass2: any;
 let camera: any, scene: THREE.Scene, renderer: any, controls: OrbitControls;
+const params = {
+  exposure: 2.0
+};
 
 const redbtn = document.querySelector("#redColorBtn");
 const bluebtn = document.querySelector("#blueColorBtn");
@@ -102,8 +105,16 @@ init();
 render();
 
 function init() {
-  const container = document.createElement("div");
-  document.body.appendChild(container);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1;
+  document.body.appendChild(renderer.domElement);
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color("white");
 
   camera = new THREE.PerspectiveCamera(
     45,
@@ -115,8 +126,6 @@ function init() {
   camera.position.set(0, 0, 0);
   camera.rotation.set(0.3, 0, 0);
 
-  scene = new THREE.Scene();
-  scene.background = new THREE.Color('white');
   // let instance = new THREE.TextSprite({
   //   alignment: 'left',
   //   color: '#24ff00',
@@ -133,17 +142,12 @@ function init() {
   // scene.add(instance);
 
   new RGBELoader()
-    .setPath("./../assets/")
+  .setPath("./assets/")
     .load("sunflowers_puresky_4k.hdr", (texture) => {
       texture.mapping = THREE.EquirectangularReflectionMapping;
 
-      // scene.background = texture;
       scene.environment = texture;
-
-      render();
-
-      // models
-
+      // render();
       const loaderTruck = new GLTFLoader().setPath("assets/");
       loaderTruck.load("TRUCK.glb", (gltf) => {
         truck = gltf.scene;
@@ -153,34 +157,16 @@ function init() {
         gltf.asset; // Object
         truck.receiveShadow = true;
         truck.scale.set(0.5, 0.5, 0.5);
-        truck.position.set(0, -.3, 0);
-        // truck.rotation.set(0.3, 0.5, 0);
+        truck.position.set(0, -0.3, 0);
 
         glass1 = truck.getObjectByName("glass");
         scene.add(truck);
 
-        // Define initial rotation and set up clock
-        var rotationSpeed = 0.1; // Adjust this value to control the rotation speed
-        var clock = new THREE.Clock();
-
-        // Animation loop
-        function animateTruck() {
-          requestAnimationFrame(animateTruck);
-
-          // Calculate elapsed time since the last frame
-          var delta = clock.getDelta();
-
-          // Update rotation
-          truck.rotation.y += rotationSpeed * delta;
-
-          // Render the scene
-          renderer.render(scene, camera);
-        }
-
-        // Start the animation loop
-        // animateTruck();
-
         render();
+      },
+      // called when loading has errors
+      function (error) {
+        console.log("An error happened", error);
       });
 
       const loaderBus = new GLTFLoader().setPath("assets/");
@@ -199,64 +185,27 @@ function init() {
           // bus.rotation.set(0.3, 15, 0);
 
           glass2 = bus.getObjectByName("glass2");
-          // glass2.material.transparent = true;
-          // glass2.material.opacity = 1;
-          // glass2.material.color =  new THREE.Color(0x000000);
-          // glass2.material.reflectivity = 1;
-          // glass2.material.transmission = 1;
-          // glass2.material.roughness = 0.2;
-          // glass2.material.metalness = 0;
-          // glass2.material.clearcoat = 0;
-          // glass2.material.clearcoatRoughness = 0.25;
-          // glass2.material.ior = 1.3;
-          // glass2.material.thickness = 10;
           scene.add(bus);
 
           bus.visible = false;
-
-          // Define initial rotation and set up clock
-          var rotationSpeed = 0.1; // Adjust this value to control the rotation speed
-          var clock = new THREE.Clock();
-
-          // Animation loop
-          function animateBus() {
-            requestAnimationFrame(animateBus);
-
-            // Calculate elapsed time since the last frame
-            var delta = clock.getDelta();
-
-            // Update rotation
-            bus.rotation.y += rotationSpeed * delta;
-
-            // Render the scene
-            renderer.render(scene, camera);
-          }
-
-          // Start the animation loop
-          // animateBus();
         },
 
         // called when loading has errors
         function (error) {
-          console.log("An error happened");
+          console.log("An error happened", error);
         }
       );
     });
 
-  renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1;
-  container.appendChild(renderer.domElement);
+      // models
+
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.addEventListener("change", render); // use if there is no animation loop
   controls.minDistance = 2;
   controls.maxDistance = 3;
   controls.target.set(0, 0, -0.2);
-  controls.minZoom = CAMERA.minZoom,
-  controls.maxZoom = CAMERA.maxZoom;
+  (controls.minZoom = CAMERA.minZoom), (controls.maxZoom = CAMERA.maxZoom);
   controls.autoRotate = true;
   controls.autoRotateSpeed = 0.2;
   controls.update();
@@ -278,6 +227,7 @@ function onWindowResize() {
 //
 
 function render() {
+  renderer.toneMappingExposure = params.exposure;
   renderer.render(scene, camera);
 }
 
