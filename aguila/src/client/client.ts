@@ -14,7 +14,7 @@ let isSelected = "truck";
 let glass1: any, glass2: any;
 let camera: any, scene: THREE.Scene, renderer: any, controls: OrbitControls;
 const params = {
-  exposure: 2.0
+  exposure: 2.0,
 };
 
 const redbtn = document.querySelector("#redColorBtn");
@@ -105,7 +105,6 @@ init();
 render();
 
 function init() {
-
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -142,32 +141,35 @@ function init() {
   // scene.add(instance);
 
   new RGBELoader()
-  .setPath("./assets/")
+    .setPath("./assets/")
     .load("sunflowers_puresky_4k.hdr", (texture) => {
       texture.mapping = THREE.EquirectangularReflectionMapping;
 
       scene.environment = texture;
       // render();
       const loaderTruck = new GLTFLoader().setPath("assets/");
-      loaderTruck.load("TRUCK.glb", (gltf) => {
-        truck = gltf.scene;
-        gltf.animations; // Array<THREE.AnimationClip>
-        gltf.scenes; // Array<THREE.Group>
-        gltf.cameras; // Array<THREE.Camera>
-        gltf.asset; // Object
-        truck.receiveShadow = true;
-        truck.scale.set(0.5, 0.5, 0.5);
-        truck.position.set(0, -0.3, 0);
+      loaderTruck.load(
+        "TRUCK.glb",
+        (gltf) => {
+          truck = gltf.scene;
+          gltf.animations; // Array<THREE.AnimationClip>
+          gltf.scenes; // Array<THREE.Group>
+          gltf.cameras; // Array<THREE.Camera>
+          gltf.asset; // Object
+          truck.receiveShadow = true;
+          truck.scale.set(0.5, 0.5, 0.5);
+          truck.position.set(0, -0.3, 0);
 
-        glass1 = truck.getObjectByName("glass");
-        scene.add(truck);
+          glass1 = truck.getObjectByName("glass");
+          scene.add(truck);
 
-        render();
-      },
-      // called when loading has errors
-      function (error) {
-        console.log("An error happened", error);
-      });
+          render();
+        },
+        // called when loading has errors
+        function (error) {
+          console.log("An error happened", error);
+        }
+      );
 
       const loaderBus = new GLTFLoader().setPath("assets/");
       loaderBus.load(
@@ -197,8 +199,7 @@ function init() {
       );
     });
 
-      // models
-
+  // models
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.addEventListener("change", render); // use if there is no animation loop
@@ -211,7 +212,9 @@ function init() {
   controls.update();
 
   window.addEventListener("resize", onWindowResize);
-
+  window.addEventListener("wheel", (event) => {
+    camera.position.z += event.deltaY / 500;
+  });
   animate();
 }
 
