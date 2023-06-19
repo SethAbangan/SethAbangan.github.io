@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "nagarro-tests"
+  },
+  "targets": {
+    "nagarro-tests": {
+      "hosting": {
+        "mattel-ripeconcepts": [
+          "mattel-ripeconcepts"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
