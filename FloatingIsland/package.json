@@ -1,0 +1,30 @@
+{
+  "name": "schneider_poc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config ./src/client/webpack.prod.js",
+    "dev": "webpack serve --host 0.0.0.0 --config ./src/client/webpack.dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/three": "^0.152.0",
+    "three": "^0.152.2",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@tweenjs/tween.js": "^20.0.3",
+    "aframe-extras": "^7.0.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.1",
+    "tween.js": "^16.6.0"
+  }
+}

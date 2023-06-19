@@ -1,0 +1,81 @@
+
+body {
+    overflow-x: hidden;
+    margin: 0px;
+    font-family: monospace;
+    color: rgb(70, 70, 70);
+}
+
+canvas {
+    position: fixed;
+    top: 10;
+    left: 10;
+}
+
+main {
+    width: 100vw;
+    height: 200vw;
+    z-index: 99;
+    position: absolute;
+    justify-content: center;
+    text-align: center;
+    pointer-events: none;
+    font-size: 5vh;
+}
+
+section {
+    min-height: 100vh;
+    padding: 20px;
+    font-size: 4vh;
+}
+
+#scrollProgress {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 99;
+    font-size: 3vh;
+}
+
+.button-container {
+    background-color: black;
+    padding: 5px 20px;
+    text-align: center;
+    opacity: 0.7;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 500;
+    border-radius: 50px;
+}
+
+
+.changebtn {
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: bottom;
+    align-items: center;
+    z-index: 500;
+}
+
+.chngeBtn {
+    border-radius: 5px;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    width: 120px;
+    /* Set a fixed width for the buttons */
+    cursor: pointer;
+}
