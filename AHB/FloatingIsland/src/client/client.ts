@@ -27,7 +27,7 @@ function init() {
     20
   );
   // camera.position.set(-1.8, 0.6, 2.7);
-  camera.position.set(0, 0, 0);
+  camera.position.set(0, 1, 0);
   camera.rotation.set(0.3, 0, 0);
 
   scene = new THREE.Scene();
@@ -93,13 +93,15 @@ function init() {
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.addEventListener("change", render); // use if there is no animation loop
-  controls.minDistance = 0.5;
-  controls.maxDistance = 3;
-  controls.target.set(0, 0, -0.2);
+  controls.minDistance = 3;
+  controls.maxDistance = 4;
+  controls.target.set(0, 1, -0.2);
   controls.minZoom = CAMERA.minZoom,
   controls.maxZoom = CAMERA.maxZoom;
   controls.autoRotate = true;
   controls.autoRotateSpeed = 0.2;
+  camera.lookAt(controls.target);
+  controls.enabled = true;
   controls.update();
 
   window.addEventListener("resize", onWindowResize);
