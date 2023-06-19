@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component"></script>
+  </head>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+     
+     
+      
+      <a-asset-item id="Model0" src="assets/Action_Drivers.glb"></a-asset-item>
+      
+      
+      </a-assets>
+
+
+      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+      raycaster="far: ${customFields.libVersion}; objects: .clickable, .hoverable ">
+      
+      </a-camera>
+      <a-entity id="target0" mindar-image-target="targetIndex: 0">
+     
+        <!-- <a-plane src="#card" position="0 0 0" height="0" width="0" rotation="0 0 0"></a-plane> -->
+        <a-gltf-model id="Panda" rotation="0 0 0" position="0 0 0" scale="1.5 1.5 1.5" src="#Model0" 
+        animation-mixer="clip: track; loop: repeat"></a-gltf-model>
+      </a-entity>
+    </a-scene>
+    <script>
+     
+    
+      // detect click event
+    
+      const boxMdl = document.querySelector('#Panda')
+   
+      let isPose = false;
+      boxMdl.addEventListener("click", event => {
+        event.preventDefault();
+        
+        if (!isPose) {
+       
+          isPose = true;
+          } 
+          else {
+        
+        }
+        
+      });
+   
+      const target0 = document.querySelector('#target0');
+
+      target0.addEventListener('targetFound', handleTargetFound(1));
+      target0.addEventListener('targetLost', handleTargetLost(1));
+
+      function handleTargetFound(event, num) {
+        console.log('num target', num);
+        if (num === 1) {
+          avatarMdl.visible = true;
+        }
+      
+      }
+
+      function handleTargetLost(event, num) {
+        if (num === 1) {
+          avatarMdl.visible = false;
+        }
+    
+      }
+
+    </script>
+  </body>
+</html>
