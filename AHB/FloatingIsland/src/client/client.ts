@@ -93,7 +93,7 @@ function init() {
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.addEventListener("change", render); // use if there is no animation loop
-  controls.minDistance = 2;
+  controls.minDistance = 0.4;
   controls.maxDistance = 3;
   controls.target.set(0, 0, -0.2);
   controls.minZoom = CAMERA.minZoom,
