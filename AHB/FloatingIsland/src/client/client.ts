@@ -34,7 +34,7 @@ function init() {
   scene.background = new THREE.Color('white');
 
   new RGBELoader()
-    .setPath("./../assets/")
+    .setPath("../assets")
     .load("sunflowers_puresky_4k.hdr", (texture) => {
       texture.mapping = THREE.EquirectangularReflectionMapping;
 
