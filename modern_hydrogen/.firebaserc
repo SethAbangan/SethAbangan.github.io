@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "nagarro-tests"
+  },
+  "targets": {
+    "nagarro-tests": {
+      "hosting": {
+        "modern-hydrogen-tests": [
+          "modern-hydrogen-tests"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
