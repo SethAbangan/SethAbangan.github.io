@@ -53,8 +53,8 @@ function init() {
         gltf.cameras; // Array<THREE.Camera>
         gltf.asset; // Object
         floatingIsland.receiveShadow = true;
-        floatingIsland.scale.set(0.03, 0.03, 0.03);
-        floatingIsland.position.set(0, -.6, 0);
+        floatingIsland.scale.set(0.005, 0.005, 0.005);
+        floatingIsland.position.set(0, -.3, 0);
         // truck.rotation.set(0.3, 0.5, 0);
 
         scene.add(floatingIsland);
