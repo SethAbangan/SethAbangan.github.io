@@ -7,10 +7,21 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import { CAMERA } from "./controls";
 // Create a scene
 
-let floatingIsland: THREE.Object3D<THREE.Event>, bus: THREE.Object3D<THREE.Event>;
-let isSelected = "floating";
-let glass1: any, glass2: any;
+let floatingIsland1: THREE.Object3D<THREE.Event>, floatingIsland2: THREE.Object3D<THREE.Event>;
 let camera: any, scene: THREE.Scene, renderer: any, controls: OrbitControls;
+
+const btn1 = document.querySelector("#btn1");
+const btn2 = document.querySelector("#btn2");
+
+btn1?.addEventListener("click", () => {
+  floatingIsland1.visible = true;
+  floatingIsland2.visible = false;
+});
+
+btn2?.addEventListener("click", () => {
+  floatingIsland1.visible = false;
+  floatingIsland2.visible = true;
+});
 
 
 init();
@@ -27,14 +38,14 @@ function init() {
     20
   );
   // camera.position.set(-1.8, 0.6, 2.7);
-  camera.position.set(0, 1, 0);
+  camera.position.set(0, 4.55, 0);
   camera.rotation.set(0.3, 0, 0);
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color('white');
 
   new RGBELoader()
-    .setPath("../assets")
+    .setPath("../assets/")
     .load("sunflowers_puresky_4k.hdr", (texture) => {
       texture.mapping = THREE.EquirectangularReflectionMapping;
 
@@ -45,40 +56,35 @@ function init() {
 
       // models
 
-      const loaderTruck = new GLTFLoader().setPath("assets/");
-      loaderTruck.load("FloatingIsland.glb", (gltf) => {
-        floatingIsland = gltf.scene;
+      const loaderIsland = new GLTFLoader().setPath("assets/");
+      loaderIsland.load("FloatingIsland.glb", (gltf) => {
+        floatingIsland1 = gltf.scene;
         gltf.animations; // Array<THREE.AnimationClip>
         gltf.scenes; // Array<THREE.Group>
         gltf.cameras; // Array<THREE.Camera>
         gltf.asset; // Object
-        floatingIsland.receiveShadow = true;
-        floatingIsland.scale.set(0.03, 0.03, 0.03);
-        floatingIsland.position.set(0, -.6, 0);
-        // truck.rotation.set(0.3, 0.5, 0);
+        floatingIsland1.receiveShadow = true;
+        floatingIsland1.scale.set(0.03, 0.03, 0.03);
+        floatingIsland1.position.set(0.6, -0.5, 0);
 
-        scene.add(floatingIsland);
+        scene.add(floatingIsland1);
+        // floatingIsland1.visible = false;
 
-        // Define initial rotation and set up clock
-        var rotationSpeed = 0.1; // Adjust this value to control the rotation speed
-        var clock = new THREE.Clock();
+        render();
+      });
 
-        // Animation loop
-        function animateTruck() {
-          requestAnimationFrame(animateTruck);
+      loaderIsland.load("desert_diorama.glb", (gltf) => {
+        floatingIsland2 = gltf.scene;
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scenes; // Array<THREE.Group>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+        floatingIsland2.receiveShadow = true;
+        floatingIsland2.scale.set(0.7, 0.7, 0.7);
+        floatingIsland2.position.set(0, 2.5, 0);
 
-          // Calculate elapsed time since the last frame
-          var delta = clock.getDelta();
-
-          // Update rotation
-          floatingIsland.rotation.y += rotationSpeed * delta;
-
-          // Render the scene
-          renderer.render(scene, camera);
-        }
-
-        // Start the animation loop
-        // animateTruck();
+        scene.add(floatingIsland2);
+        floatingIsland2.visible = false;
 
         render();
       });
@@ -93,9 +99,9 @@ function init() {
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.addEventListener("change", render); // use if there is no animation loop
-  controls.minDistance = -1;
-  controls.maxDistance = 4;
-  controls.target.set(0, 1, -0.2);
+  controls.minDistance = 7;
+  controls.maxDistance = 10;
+  controls.target.set(0, 4.5, -0.2);
   controls.minZoom = CAMERA.minZoom,
   controls.maxZoom = CAMERA.maxZoom;
   controls.autoRotate = true;
@@ -103,6 +109,7 @@ function init() {
   camera.lookAt(controls.target);
   controls.enabled = true;
   controls.update();
+
 
   window.addEventListener("resize", onWindowResize);
 
