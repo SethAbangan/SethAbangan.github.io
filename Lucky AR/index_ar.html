@@ -1,0 +1,110 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+</head>
+
+<body>
+  <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-assets>
+      <img id="name" src="assets/name.png" />
+      <img id="job" src="assets/job.png" />
+      <img id="3D" src="assets/3D.png" />
+      <img id="digital" src="assets/digital.png" />
+      <img id="web" src="assets/web.png" />
+      <img id="design" src="assets/design.png" />
+      <img id="animation" src="assets/animation.png" />
+      <img id="metaverse" src="assets/metaverse.png" />
+      <img id="phone" src="assets/phone.png" />
+      <img id="email" src="assets/email.png" />
+      <img id="linkedin" src="assets/linkedin.png" />
+      <img id="add_to_contact" src="assets/add_to_contact.png" />
+
+      <a-asset-item id="avatarModel" src="assets/me.glb"></a-asset-item>
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+      raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-plane src="#name" position="-1 1.15 0" height="0.15" width="1" rotation="0 0 0"></a-plane>
+      <a-plane src="#job" position="-1 0.85 0" height="0..20" width="1" rotation="0 0 0"></a-plane>
+      <a-plane id="my3D" src="#3D" position="1 0.58 0" height="0.18" width="1" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myDigital"src="#digital" position="1 0.38 0" height="0.18" width="1" rotation="0 0 0"opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myWeb"src="#web" position="1 0.18 0" height="0.18" width="1" rotation="0 0 0"opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myDesign"src="#design" position="1 -0.02 0" height="0.18" width="1" rotation="0 0 0"opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myAnimation"src="#animation" position="1 -0.22 0" height="0.18" width="1" rotation="0 0 0"opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myMetaverse"src="#metaverse" position="1 -0.42 0" height="0.18" width="1" rotation="0 0 0"opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myPhone" src="#phone" position="-0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myEmail" src="#email" position="-0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myLinkedin" src="#linkedin" position="0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myAdd_to_contact" src="#add_to_contact" position="0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
+
+      <a-entity gltf-model="#avatarModel" animation-mixer position="0 -0.5 0.1"></a-entity>
+    </a-entity>
+  </a-scene>
+
+  <script>
+    // detect click event
+    const my3dPlane = document.querySelector('#my3D');
+    my3dPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/3d-modeling/', '_blank');
+    });
+    const digiMarPlane = document.querySelector('#myDigital');
+    digiMarPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/digital-marketing/', '_blank');
+    });
+    const webDevPlane = document.querySelector('#myWeb');
+    webDevPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/software-web-app-development/', '_blank');
+    });
+    const designPlane = document.querySelector('#myDesign');
+    designPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/design-and-illustration/', '_blank');
+    });
+    const animPlane = document.querySelector('#myAnimation');
+    animPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/animation/', '_blank');
+    });
+    const metaPlane = document.querySelector('#myMetaverse');
+    metaPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/contact-us/', '_blank');
+    });
+    const phonePlane = document.querySelector('#myPhone');
+    phonePlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'tel:(310) 498-6706';
+    });
+    const emailPlane = document.querySelector('#myEmail');
+    emailPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'kwok.chan@nagaroo.com@nagarro.com';
+    });
+    const linkedinPlane = document.querySelector('#myLinkedin');
+    linkedinPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://www.linkedin.com/in/owen-chan/', '_blank');
+    });
+    const contactPlane = document.querySelector('#myAdd_to_contact');
+    contactPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'assets/Owen.vcf';
+    });
+
+
+  </script>
+</body>
+
+</html>
