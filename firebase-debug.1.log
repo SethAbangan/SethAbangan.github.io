@@ -1,0 +1,82 @@
+[debug] [2023-06-22T05:48:01.825Z] ----------------------------------------------------------------------
+[debug] [2023-06-22T05:48:01.826Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-06-22T05:48:01.827Z] CLI Version:   12.4.0
+[debug] [2023-06-22T05:48:01.827Z] Platform:      win32
+[debug] [2023-06-22T05:48:01.827Z] Node Version:  v18.16.0
+[debug] [2023-06-22T05:48:01.827Z] Time:          Thu Jun 22 2023 13:48:01 GMT+0800 (Philippine Standard Time)
+[debug] [2023-06-22T05:48:01.827Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-06-22T05:48:01.863Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-06-22T05:48:01.863Z] > authorizing via signed-in user (luckynelsonmundo@gmail.com)
+[debug] [2023-06-22T05:48:01.863Z] [iam] checking project luckybizcard for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-06-22T05:48:01.864Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions [none]
+[debug] [2023-06-22T05:48:01.865Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions x-goog-quota-user=projects/luckybizcard
+[debug] [2023-06-22T05:48:01.865Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-06-22T05:48:02.258Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions 200
+[debug] [2023-06-22T05:48:02.258Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-06-22T05:48:02.259Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/luckybizcard [none]
+[debug] [2023-06-22T05:48:02.634Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/luckybizcard 200
+[debug] [2023-06-22T05:48:02.634Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/luckybizcard {"projectId":"luckybizcard","projectNumber":"31690051296","displayName":"luckybizcard","name":"projects/luckybizcard","resources":{"hostingSite":"luckybizcard"},"state":"ACTIVE","etag":"1_0afb3115-92f2-4bd8-83de-4ea4ce9d0b31"}
+[info] 
+[info] === Deploying to 'luckybizcard'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2023-06-22T05:48:02.638Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/luckybizcard/versions [none]
+[debug] [2023-06-22T05:48:02.638Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/luckybizcard/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2023-06-22T05:48:04.155Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/luckybizcard/versions 200
+[debug] [2023-06-22T05:48:04.155Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/luckybizcard/versions {"name":"projects/31690051296/sites/luckybizcard/versions/88cf55c0cd7748c8","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[luckybizcard]: beginning deploy... 
+[debug] [2023-06-22T05:48:04.397Z] Error: EPERM: operation not permitted, scandir 'D:/code/SethAbangan.github.io/firebase-debug.log'
+    at Object.readdirSync (node:fs:1452:3)
+    at GlobSync._readdir (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:288:46)
+    at GlobSync._readdirInGlobStar (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:245:17)
+    at GlobSync._readdir (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:276:17)
+    at GlobSync._processReaddir (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:137:22)
+    at GlobSync._process (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:132:10)
+    at GlobSync._processGlobStar (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:380:10)
+    at GlobSync._process (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:130:10)
+    at new GlobSync (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:45:10)
+    at globSync (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:23:10)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-06-22T05:48:25.172Z] ----------------------------------------------------------------------
+[debug] [2023-06-22T05:48:25.173Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-06-22T05:48:25.173Z] CLI Version:   12.4.0
+[debug] [2023-06-22T05:48:25.173Z] Platform:      win32
+[debug] [2023-06-22T05:48:25.173Z] Node Version:  v18.16.0
+[debug] [2023-06-22T05:48:25.173Z] Time:          Thu Jun 22 2023 13:48:25 GMT+0800 (Philippine Standard Time)
+[debug] [2023-06-22T05:48:25.174Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-06-22T05:48:25.210Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-06-22T05:48:25.210Z] > authorizing via signed-in user (luckynelsonmundo@gmail.com)
+[debug] [2023-06-22T05:48:25.210Z] [iam] checking project luckybizcard for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-06-22T05:48:25.211Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions [none]
+[debug] [2023-06-22T05:48:25.211Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions x-goog-quota-user=projects/luckybizcard
+[debug] [2023-06-22T05:48:25.212Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-06-22T05:48:26.127Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions 200
+[debug] [2023-06-22T05:48:26.127Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/luckybizcard:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-06-22T05:48:26.128Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/luckybizcard [none]
+[debug] [2023-06-22T05:48:26.497Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/luckybizcard 200
+[debug] [2023-06-22T05:48:26.497Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/luckybizcard {"projectId":"luckybizcard","projectNumber":"31690051296","displayName":"luckybizcard","name":"projects/luckybizcard","resources":{"hostingSite":"luckybizcard"},"state":"ACTIVE","etag":"1_0afb3115-92f2-4bd8-83de-4ea4ce9d0b31"}
+[info] 
+[info] === Deploying to 'luckybizcard'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2023-06-22T05:48:26.506Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/luckybizcard/versions [none]
+[debug] [2023-06-22T05:48:26.506Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/luckybizcard/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2023-06-22T05:48:27.497Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/luckybizcard/versions 200
+[debug] [2023-06-22T05:48:27.498Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/luckybizcard/versions {"name":"projects/31690051296/sites/luckybizcard/versions/fa6aae184c2bcce5","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[luckybizcard]: beginning deploy... 
+[debug] [2023-06-22T05:48:27.726Z] Error: EPERM: operation not permitted, scandir 'D:/code/SethAbangan.github.io/firebase-debug.log'
+    at Object.readdirSync (node:fs:1452:3)
+    at GlobSync._readdir (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:288:46)
+    at GlobSync._readdirInGlobStar (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:245:17)
+    at GlobSync._readdir (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:276:17)
+    at GlobSync._processReaddir (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:137:22)
+    at GlobSync._process (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:132:10)
+    at GlobSync._processGlobStar (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:380:10)
+    at GlobSync._process (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:130:10)
+    at new GlobSync (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:45:10)
+    at globSync (C:\Users\luckymundo\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\glob\sync.js:23:10)
+[error] 
+[error] Error: An unexpected error has occurred.
