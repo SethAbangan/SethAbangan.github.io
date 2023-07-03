@@ -1,0 +1,9 @@
+{
+    "liveServer.settings.port": 5502,
+    "liveServer.settings.https": {
+        "enable": true, //set it true to enable the feature.  
+        "cert": "D:/CARMEN/HIJACK/.vscode/carmen-ar+3.pem", //full path of the certificate  
+        "key": "D:/CARMEN/HIJACK/.vscode/carmen-ar+3-key.pem", //full path of the private key  
+        "passphrase": "12345"
+    }
+}
