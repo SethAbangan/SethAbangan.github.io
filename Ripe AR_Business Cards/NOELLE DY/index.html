@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+      <img id="card" src="assets/noelle_business_card.png" />
+      <img id="name" src="assets/noelle_name.png" />
+      <img id="job" src="assets/job.png" />
+      <img id="3danim" src="assets/3danim.png" />
+      <img id="design" src="assets/design.png" />
+      <img id="digimar" src="assets/digimar.png" />
+      <img id="webdev" src="assets/webdev.png" />
+      <img id="metaverse" src="assets/metaverse.png" />
+      <img id="phone" src="assets/phone.png" />
+      <img id="email" src="assets/email.png" />
+      <img id="linkedin" src="assets/linkedin.png" />
+      <img id="contact" src="assets/add_to_contact.png" />
+      <img id="logo" src="assets/logo.png" />
+
+
+
+      <a-asset-item id="avatarModel" src="assets/ND_ANIMATION_WAVE.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <!-- <a-plane src="#card" position="0 0 0" height="0" width="0" rotation="0 0 0"></a-plane> -->
+        <a-plane src="#name" position="-1.2 0.8 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
+        <a-plane src="#job" position="-1.2 0.55 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
+        
+
+
+        
+        <a-plane src="#design" position="1.2 0.55 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
+        <a-plane src="#3danim" position="1.2 0.3 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
+        <a-plane src="#digimar" position="1.2 0.05 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
+        <a-plane src="#webdev" position="1.2 -0.2 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
+        <a-plane src="#metaverse" position="1.2 -0.45 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
+
+        <a-plane src="#phone" position="-0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity="0.99"></a-plane>
+        <a-plane src="#email" position="-0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity="0.99"></a-plane>
+        <a-plane src="#linkedin" position="0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity="0.99"></a-plane>
+        <a-plane src="#contact" position="0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity="0.99"></a-plane>
+        
+
+      
+    
+       
+
+
+        <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1 1 1" src="#avatarModel" animation-mixer="clip: Wave; loop: repeat"
+        >
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
