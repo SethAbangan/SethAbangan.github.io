@@ -23,7 +23,6 @@
       <img id="metaverse" src="assets/metaverse.png" />
       <img id="phone" src="assets/phone.png" />
       <img id="email" src="assets/email.png" />
-      <img id="linkedin" src="assets/linkedin.png" />
       <img id="contact" src="assets/add_to_contact.png" />
       <img id="logo" src="assets/logo.png" />
       <a-asset-item id="avatarModel" src="assets/adelyn_elli.glb"></a-asset-item>
@@ -41,13 +40,32 @@
       <a-plane src="#metaverse" position="1.2 -0.45 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
       <a-plane src="#phone" position="-0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity="0.99"></a-plane>
       <a-plane src="#email" position="-0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity="0.99"></a-plane>
-      <a-plane src="#linkedin" position="0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0"
-        opacity="0.99"></a-plane>
       <a-plane src="#contact" position="0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0"
         opacity="0.99"></a-plane>
 
       <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1 1 1" src="#avatarModel"
         animation-mixer="clip: adelyn_salute1; loop: repeat">
+
+      <script>
+          // detect click event
+          const phonePlane = document.querySelector('#myPhone');
+          phonePlane.addEventListener("click", event => {
+            event.preventDefault();
+            window.location.href = 'tel: +639173179744';
+          });
+      
+          const emailPlane = document.querySelector('#myEmail');
+          emailPlane.addEventListener("click", event => {
+            event.preventDefault();
+            window.location.href = 'mailto:adelyn.elli@nagarro.com';
+          });
+      
+          const contactPlane = document.querySelector('#myContact');
+          contactPlane.addEventListener("click", event => {
+            event.preventDefault();
+            window.location.href = 'assets/Adelyn_Elli.vcf';
+          });
+      </script> 
     </a-entity>
   </a-scene>
 </body>
