@@ -48,6 +48,62 @@
       <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1 1 1" src="#avatarModel"
         animation-mixer="clip: Wave; loop: repeat">
     </a-entity>
+
+      <script>
+    // detect click event
+    const my3dPlane = document.querySelector('#my3D');
+    my3dPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/3d-modeling/', '_blank');
+    });
+    const digiMarPlane = document.querySelector('#myDigital');
+    digiMarPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/digital-marketing/', '_blank');
+    });
+    const webDevPlane = document.querySelector('#myWeb');
+    webDevPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/software-web-app-development/', '_blank');
+    });
+    const designPlane = document.querySelector('#myDesign');
+    designPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/design-and-illustration/', '_blank');
+    });
+    const animPlane = document.querySelector('#myAnimation');
+    animPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/animation/', '_blank');
+    });
+    const metaPlane = document.querySelector('#myMetaverse');
+    metaPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/contact-us/', '_blank');
+    });
+    const phonePlane = document.querySelector('#myPhone');
+    phonePlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'tel:(310) 498-6706';
+    });
+    const emailPlane = document.querySelector('#myEmail');
+    emailPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'charlene.dabon@nagarro.com';
+    });
+    const linkedinPlane = document.querySelector('#myLinkedin');
+    linkedinPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://www.linkedin.com/in/charlene-dabon', '_blank');
+    });
+    const contactPlane = document.querySelector('#myAdd_to_contact');
+    contactPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'assets/Charlene_Dabon.vcf';
+    });
+
+
+  </script>
   </a-scene>
 </body>
 
