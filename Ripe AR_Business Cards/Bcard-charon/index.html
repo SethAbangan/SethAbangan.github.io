@@ -1,0 +1,117 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+</head>
+
+<body> 
+  <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false" cursor="rayOrigin: mouse">
+    <a-assets>
+      <img id="name" src="assets/charon_name.png" />
+      <img id="job" src="assets/job.png" />
+      <img id="3danim" src="assets/3danim.png" />
+      <img id="design" src="assets/design.png" />
+      <img id="digimar" src="assets/digimar.png" />
+      <img id="webdev" src="assets/webdev.png" />
+      <img id="metaverse" src="assets/metaverse.png" />
+      <img id="phone" src="assets/phone.png" />
+      <img id="email" src="assets/email.png" />
+      <img id="linkedin" src="assets/linkedin.png" />
+      <img id="contact" src="assets/add_to_contact.png" />
+
+      <a-asset-item id="avatarModel" src="assets/CHARON_DIMPAS.glb"></a-asset-item>
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;"
+      raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
+
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-plane src="#name" position="-1 0.8 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
+      <a-plane src="#job" position="-1 0.55 0" height="0.2" width="1" rotation="0 0 0"></a-plane>
+
+      <a-plane id="myDesign" src="#design" position="1 0.55 0" height="0.2" width="1" rotation="0 0 0"  class="clickable"></a-plane>
+      <a-plane id="myAnimation" src="#3danim" position="1 0.3 0" height="0.2" width="1" rotation="0 0 0" class="clickable"></a-plane>
+      <a-plane id="myDigital" src="#digimar" position="1 0.05 0" height="0.2" width="1" rotation="0 0 0" class="clickable"></a-plane>
+      <a-plane id="myWeb" src="#webdev" position="1 -0.2 0" height="0.2" width="1" rotation="0 0 0" class="clickable"></a-plane>
+      <a-plane id="myMetaverse" src="#metaverse" position="1 -0.45 0" height="0.2" width="1" rotation="0 0 0" class="clickable"></a-plane>
+
+      <a-plane id="myPhone" src="#phone" position="-0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myEmail" src="#email" position="-0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0"
+        opacity=".99" class="clickable">
+      </a-plane>
+      <a-plane id="myLinkedin" src="#linkedin" position="0.15 -0.8 0" height="0.25" width=".25" rotation="0 0 0"
+        opacity=".99" class="clickable"></a-plane>
+      <a-plane id="myContact" src="#contact" position="0.45 -0.8 0" height="0.25" width=".25" rotation="0 0 0" opacity=".99" class="clickable"></a-plane>
+
+      <a-gltf-model rotation="0 0 0" position="0 -0.5 0" scale="1.1 1.1 1.1" src="#avatarModel"
+        animation-mixer="clip: Idle; loop: repeat">
+    </a-entity>
+  </a-scene>
+
+  <script>
+    // detect click event
+    const phonePlane = document.querySelector('#myPhone');
+    phonePlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'tel:(310) 498-6706';
+    });
+
+    const emailPlane = document.querySelector('#myEmail');
+    emailPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'mailto: charon.dimpas@nagarro.com';
+    });
+
+    const linkedinPlane = document.querySelector('#myLinkedin');
+    linkedinPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ph.linkedin.com/in/charon-d-baa87021', '_blank');
+    });
+
+    const contactPlane = document.querySelector('#myContact');
+    contactPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.location.href = 'assets/charon_dimpas.vcf';
+    });
+
+    const designPlane = document.querySelector('#myDesign');
+    designPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/design-and-illustration/', '_blank');
+    });
+
+    const animPlane = document.querySelector('#myAnimation');
+    animPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/animation/', '_blank');
+    });
+
+    const digiMarPlane = document.querySelector('#myDigital');
+    digiMarPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/digital-marketing/', '_blank');
+    });
+
+    const webDevPlane = document.querySelector('#myWeb');
+    webDevPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/software-web-app-development/', '_blank');
+    });
+    
+    const metaPlane = document.querySelector('#myMetaverse');
+    metaPlane.addEventListener("click", event => {
+      event.preventDefault();
+      window.open('https://ripeconcepts.com/contact-us/', '_blank');
+    });
+
+
+    
+  </script>
+</body>
+
+</html>
